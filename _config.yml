@@ -1,0 +1,15 @@
+title: R Workshop
+description: An introductory workshop to R programming
+theme: just-the-docs
+
+url: https://YOUR-USERNAME.github.io/YOUR-REPO-NAME
+
+aux_links:
+  "Workshop GitHub Repository":
+    - "//github.com/YOUR-USERNAME/YOUR-REPO-NAME"
+
+# Color scheme
+color_scheme: light
+
+# Enable or disable heading anchors
+heading_anchors: true 
