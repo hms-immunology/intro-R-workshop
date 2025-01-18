@@ -1,12 +1,13 @@
 title: R Workshop
 description: An introductory workshop to R programming
-theme: just-the-docs
+remote_theme: just-the-docs/just-the-docs
 
+# Set your actual GitHub Pages URL here
 url: https://hms-immunology.github.io/intro-R-workshop
 
 aux_links:
   "Workshop GitHub Repository":
-    - "https://hms-immunology.github.io/intro-R-workshop"
+    - "//github.com/hms-immunology/intro-R-workshop"
 
 # Color scheme
 color_scheme: light
