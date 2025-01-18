@@ -2,11 +2,11 @@ title: R Workshop
 description: An introductory workshop to R programming
 theme: just-the-docs
 
-url: https://YOUR-USERNAME.github.io/YOUR-REPO-NAME
+url: https://hms-immunology.github.io/intro-R-workshop
 
 aux_links:
   "Workshop GitHub Repository":
-    - "//github.com/YOUR-USERNAME/YOUR-REPO-NAME"
+    - "https://hms-immunology.github.io/intro-R-workshop"
 
 # Color scheme
 color_scheme: light
