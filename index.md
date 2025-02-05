@@ -51,10 +51,13 @@ Boston, MA 02115
 2. R Markdown Basics
    - [View Online](class-materials/r-markdown-basics.md)
    - [Download R Markdown](class-materials/r-markdown-basics.Rmd)
-3. Objects and Variables
+3. Installing and Using Packages
+   - [View Online](class-materials/installing-packages.md)
+   - [Download R Markdown](class-materials/installing-packages.Rmd)
+4. Objects and Variables
    - [View Online](class-materials/objects-variables.md)
    - [Download R Markdown](class-materials/objects-variables.Rmd)
-4. Vectors and Matrices
+5. Vectors and Matrices
    - [View Online](class-materials/vectors-matrices.md)
    - [Download R Markdown](class-materials/vectors-matrices.Rmd)
 
@@ -89,11 +92,12 @@ Boston, MA 02115
 ### Day 1: R Basics and Data Structures (February 11, 10:00 AM - 12:00 PM)
 | Time | Topic | Materials |
 |------|-------|-----------|
-| 10:00 - 10:20 | Introduction to R and RStudio | [R Basics](class-materials/r_basics.md) |
-| 10:20 - 10:40 | R Markdown Basics | [R Markdown Basics](class-materials/r-markdown-basics.md) |
-| 10:40 - 11:10 | Objects and Variables | [Objects & Variables](class-materials/objects-variables.md) |
-| 11:10 - 11:40 | Vectors and Matrices | [Vectors & Matrices](class-materials/vectors-matrices.md) |
-| 11:40 - 12:00 | Practice and Q&A | Practice Exercises |
+| 10:00 - 10:15 | Introduction to R and RStudio | [R Basics](class-materials/r_basics.md) |
+| 10:15 - 10:30 | R Markdown Basics | [R Markdown Basics](class-materials/r-markdown-basics.md) |
+| 10:30 - 10:50 | Installing and Using Packages | [Packages](class-materials/installing-packages.md) |
+| 10:50 - 11:20 | Objects and Variables | [Objects & Variables](class-materials/objects-variables.md) |
+| 11:20 - 11:50 | Vectors and Matrices | [Vectors & Matrices](class-materials/vectors-matrices.md) |
+| 11:50 - 12:00 | Practice and Q&A | Practice Exercises |
 
 ### Day 2: Working with Data (February 13, 10:00 AM - 12:00 PM)
 | Time | Topic | Materials |

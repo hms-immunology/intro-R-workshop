@@ -1,7 +1,7 @@
 ---
-title: Objects and Variables
+title: Objects and Variables in R
 layout: default
-nav_order: 5
+nav_order: 6
 ---
 
 # Objects and Variables in R

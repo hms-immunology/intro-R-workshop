@@ -1,7 +1,7 @@
 ---
-title: R Markdown Basics
+title: Getting Started with R Markdown
 layout: default
-nav_order: 4
+nav_order: 5
 ---
 
 # Getting Started with R Markdown

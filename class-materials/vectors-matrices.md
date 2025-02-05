@@ -1,5 +1,5 @@
 ---
-title: Vectors and Matrices
+title: Vectors and Matrices in R
 layout: default
 nav_order: 7
 ---
