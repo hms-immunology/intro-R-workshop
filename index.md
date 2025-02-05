@@ -46,7 +46,7 @@ Boston, MA 02115
 
 ### Day 1: R Basics and Data Structures (February 11)
 1. R Programming Basics 
-   - [View Online](r_basics)
+   - [View Online](r-basics)
    - [Download R Markdown](class-materials/r_basics.Rmd)
 2. Objects and Variables
    - [View Online](objects-variables)
