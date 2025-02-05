@@ -537,7 +537,4 @@ gene_data_na %>%
 ## Next Steps
 
 After mastering these advanced concepts, you can explore:
-- Machine learning with tidymodels
-- Creating custom packages
-- Advanced data visualization
-- Statistical modeling with dplyr 
+- Data visualization with ggplot2
