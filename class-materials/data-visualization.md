@@ -1,7 +1,7 @@
 ---
 title: Data Visualization
 layout: default
-nav_order: 7
+nav_order: 8
 parent: Class Materials
 ---
 

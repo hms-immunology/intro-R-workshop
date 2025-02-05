@@ -1,7 +1,7 @@
 ---
 title: Vectors and Matrices
 layout: default
-nav_order: 4
+nav_order: 5
 parent: Class Materials
 ---
 

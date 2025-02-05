@@ -1,7 +1,7 @@
 ---
 title: Working with Data Frames
 layout: default
-nav_order: 5
+nav_order: 6
 parent: Class Materials
 ---
 
@@ -270,85 +270,3 @@ gene_expression_df$significant[gene_expression_df$p_value > 0.05] <- FALSE
 
 # Results will show updated values in the data frame
 ```
-
-## Practice Exercises
-
-### Exercise 1: Creating and Filtering
-Create a data frame containing clinical trial data and filter for responding patients over 50:
-
-```r
-# Create the data frame
-clinical_data <- data.frame(
-  patient_id = paste0("P", 1:10),
-  treatment = rep(c("A", "B"), each = 5),
-  age = c(45, 62, 55, 48, 71, 52, 67, 43, 58, 49),
-  response = c(TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE)
-)
-
-# Filter for responding patients over 50
-responders_over_50 <- clinical_data[
-  clinical_data$response == TRUE & clinical_data$age > 50,
-]
-
-# Results:
-#   patient_id treatment age response
-# 2        P2        A  62    TRUE
-# 5        P5        A  71    TRUE
-# 7        P7        B  67    TRUE
-# 9        P9        B  58    TRUE
-```
-
-### Exercise 2: Data Frame Manipulation
-Using the gene expression data frame:
-
-```r
-# Calculate z-scores
-mean_expr <- mean(gene_expression_df$expression)
-sd_expr <- sd(gene_expression_df$expression)
-gene_expression_df$z_score <- (gene_expression_df$expression - mean_expr) / sd_expr
-
-# Add expression categories
-gene_expression_df$expr_category <- cut(
-  gene_expression_df$z_score,
-  breaks = c(-Inf, -1, 1, Inf),
-  labels = c("Low", "Medium", "High")
-)
-
-# Filter for interesting genes
-interesting_genes <- gene_expression_df[
-  gene_expression_df$significant == TRUE & 
-  gene_expression_df$expr_category == "High",
-]
-
-# Results will show genes that are both significant and highly expressed
-```
-
-## Common Mistakes and How to Avoid Them
-
-1. **Forgetting that data frames are 1-indexed**
-```r
-# This gets the first row, not the zeroth
-first_row <- gene_expression_df[1, ]
-```
-
-2. **Dropping dimensions unintentionally**
-```r
-# Keep data frame structure with drop=FALSE
-single_col_df <- gene_expression_df[, "expression", drop=FALSE]
-# Results: Maintains data frame structure instead of converting to vector
-```
-
-3. **Not checking for missing values**
-```r
-# Check for missing values
-colSums(is.na(gene_expression_df))
-# Results: Shows count of NA values in each column
-```
-
-## Next Steps
-
-After mastering data frames, you can move on to:
-- Data manipulation with dplyr
-- Data visualization with ggplot2
-- Statistical analysis of data frames
-- Advanced filtering and aggregation techniques 
