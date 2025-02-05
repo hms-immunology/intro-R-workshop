@@ -65,7 +65,7 @@ This introductory workshop will help you get started with R programming, with a 
 
 ## Additional Resources
 
-- [R Documentation](https://www.r-project.org/documentation.html)
+- [R Documentation](https://cran.r-project.org/doc/manuals/r-release/R-intro.html)
 - [RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
 - [R for Data Science Book](https://r4ds.had.co.nz/)
 
