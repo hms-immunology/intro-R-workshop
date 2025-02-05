@@ -1,10 +1,3 @@
----
-title: Vectors and Matrices
-layout: default
-nav_order: 4
-parent: Course Materials
----
-
 # Vectors and Matrices in R
 
 [<img src="https://img.shields.io/badge/Download-HTML-blue?style=for-the-badge&logo=html5" alt="Download HTML" />](../rendered-html/vectors-matrices.html)

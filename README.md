@@ -31,24 +31,24 @@ All workshop materials are available on our course website:
 
 ## Course Structure
 
-### Day 1: R Basics and Data Structures (February 11)
+### Day 1: R Basics and Data Structures (2 hours)
 - Introduction to R and RStudio
 - Objects and Variables
 - Vectors and Matrices
 - Practice Exercises
 
-### Day 2: Working with Data (February 13)
+### Day 2: Working with Data (2 hours)
 - Working with Data Frames
 - Data Manipulation with dplyr and tidyr
 - Practice with Real-world Examples
 
-### Day 3: Data Visualization (February 18)
+### Day 3: Data Visualization (2 hours)
 - Introduction to ggplot2
 - Advanced Plotting Techniques
 - Creating Publication-Ready Figures
 - Extended Practice Sessions
 
-### Day 4: Statistical Analysis (February 20)
+### Day 4: Statistical Analysis (2 hours)
 - Basic Statistical Concepts
 - Hypothesis Testing
 - Advanced Topics (Optional)
@@ -57,8 +57,9 @@ All workshop materials are available on our course website:
 ## Materials Format
 
 Each lesson is provided in multiple formats:
-- **HTML** files for viewing in web browser
+- **Markdown (.md)** files for direct viewing on the website
 - **R Markdown (.Rmd)** files for downloading and running interactively in RStudio
+- **HTML** rendered versions for local viewing
 
 ## Prerequisites
 
@@ -71,15 +72,15 @@ Before attending the workshop, please ensure you have:
 
 ```
 intro-R-workshop/
-├── *.html                   # Rendered HTML versions for web viewing
-├── class-materials/         # Main course content
-│   ├── r_basics.Rmd        # Day 1: R basics
-│   ├── objects-variables.Rmd# Day 1: Objects
-│   ├── vectors-matrices.Rmd # Day 1: Data structures
-│   ├── data-frames.Rmd     # Day 2: Data frames
-│   ├── data-manipulation.Rmd# Day 2: Data manipulation
+├── class-materials/          # Main course content
+│   ├── r_basics.Rmd         # Day 1: R basics
+│   ├── objects-variables.Rmd # Day 1: Objects
+│   ├── vectors-matrices.Rmd  # Day 1: Data structures
+│   ├── data-frames.Rmd      # Day 2: Data frames
+│   ├── data-manipulation.Rmd # Day 2: Data manipulation
 │   ├── data-visualization.Rmd# Day 3: Visualization
-│   └── basic-statistics.Rmd # Day 4: Statistics
+│   └── basic-statistics.Rmd  # Day 4: Statistics
+├── rendered-html/           # Rendered HTML versions
 └── setup.md                # Setup instructions
 ```
 
