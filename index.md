@@ -40,7 +40,9 @@ This introductory workshop will help you get started with R programming, with a 
    - [Download R Markdown](class-materials/data-frames.Rmd)
 
 ### Day 2: Data Manipulation
-1. Data Manipulation with dplyr (Coming Soon)
+1. Data Manipulation with dplyr and tidyr
+   - [View Online](class-materials/data-manipulation.md)
+   - [Download R Markdown](class-materials/data-manipulation.Rmd)
 2. Advanced Filtering and Aggregation (Coming Soon)
 3. Joining and Merging Data (Coming Soon)
 
@@ -60,7 +62,7 @@ This introductory workshop will help you get started with R programming, with a 
 |------|-------|-----------|
 | 9:00 - 10:30 | R Basics | [R Basics](class-materials/r_basics.md), [Objects & Variables](class-materials/objects-variables.md) |
 | 10:45 - 12:00 | Data Structures | [Vectors & Matrices](class-materials/vectors-matrices.md), [Data Frames](class-materials/data-frames.md) |
-| 13:00 - 14:30 | Data Manipulation | TBA |
+| 13:00 - 14:30 | Data Manipulation | [Data Manipulation](class-materials/data-manipulation.md) |
 | 14:45 - 16:00 | Visualization & Analysis | TBA |
 
 ## Additional Resources

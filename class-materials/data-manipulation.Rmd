@@ -1,0 +1,442 @@
+---
+title: "Data Manipulation with dplyr and tidyr"
+author: "R Workshop"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: united
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction to the Tidyverse
+
+The tidyverse is a collection of R packages designed for data science that share a common philosophy and design. In this lesson, we'll focus on two core packages:
+
+- **dplyr**: For data manipulation
+- **tidyr**: For data tidying and reshaping
+
+Let's start by loading the required packages:
+
+```{r load-packages}
+# Install packages if not already installed
+if (!require("tidyverse")) install.packages("tidyverse")
+
+# Load the tidyverse (includes dplyr and tidyr)
+library(tidyverse)
+```
+
+## Sample Dataset
+
+We'll use a gene expression dataset to demonstrate these concepts:
+
+```{r create-data}
+# Create a sample gene expression dataset
+gene_data <- tibble(
+  gene_id = c("BRCA1", "TP53", "EGFR", "KRAS", "HER2"),
+  control_1 = c(100, 150, 80, 200, 120),
+  control_2 = c(110, 140, 85, 190, 125),
+  treated_1 = c(200, 300, 90, 180, 240),
+  treated_2 = c(190, 280, 95, 185, 230),
+  chromosome = c("17", "17", "7", "12", "17"),
+  pathway = c("DNA repair", "Cell cycle", "Growth", "Signaling", "Growth")
+)
+
+# View the data
+print(gene_data)
+```
+
+## Data Manipulation with dplyr
+
+### 1. Selecting Columns (select)
+
+The `select()` function helps you choose which columns to keep or remove:
+
+```{r selecting}
+# Select specific columns
+gene_data %>%
+  select(gene_id, control_1, treated_1)
+
+# Select columns by pattern
+gene_data %>%
+  select(starts_with("control"))
+
+# Remove columns
+gene_data %>%
+  select(-ends_with("2"))
+```
+
+### 2. Filtering Rows (filter)
+
+Use `filter()` to subset rows based on conditions:
+
+```{r filtering}
+# Filter genes on chromosome 17
+gene_data %>%
+  filter(chromosome == "17")
+
+# Multiple conditions
+gene_data %>%
+  filter(chromosome == "17", 
+         control_1 > 100)
+
+# Complex conditions
+gene_data %>%
+  filter(pathway %in% c("Growth", "Signaling"))
+```
+
+### 3. Creating New Columns (mutate)
+
+`mutate()` adds new columns based on calculations:
+
+```{r mutating}
+# Calculate mean expression for controls and treated
+gene_data %>%
+  mutate(
+    mean_control = (control_1 + control_2) / 2,
+    mean_treated = (treated_1 + treated_2) / 2,
+    fold_change = mean_treated / mean_control
+  )
+
+# Log transform expression values
+gene_data %>%
+  mutate(across(
+    .cols = c(control_1, control_2, treated_1, treated_2),
+    .fns = log2,
+    .names = "log2_{.col}"
+  ))
+```
+
+### 4. Summarizing Data (summarize/summarise)
+
+`summarize()` creates summary statistics:
+
+```{r summarizing}
+# Calculate mean expression per condition
+gene_data %>%
+  summarise(
+    mean_control_1 = mean(control_1),
+    mean_treated_1 = mean(treated_1),
+    n_genes = n()
+  )
+
+# Group by pathway and summarize
+gene_data %>%
+  group_by(pathway) %>%
+  summarise(
+    n_genes = n(),
+    mean_control = mean(control_1),
+    mean_treated = mean(treated_1)
+  )
+```
+
+## Data Tidying with tidyr
+
+### 1. Reshaping Data (pivot_longer and pivot_wider)
+
+Often we need to convert between wide and long formats:
+
+```{r reshaping}
+# Convert to long format
+gene_data_long <- gene_data %>%
+  pivot_longer(
+    cols = c(control_1, control_2, treated_1, treated_2),
+    names_to = "sample",
+    values_to = "expression"
+  )
+
+print(gene_data_long)
+
+# Convert back to wide format
+gene_data_long %>%
+  pivot_wider(
+    names_from = sample,
+    values_from = expression
+  )
+```
+
+### 2. Separating and Uniting Columns
+
+Sometimes we need to split or combine columns:
+
+```{r separate-unite}
+# Add a column with gene info to split
+gene_data_info <- gene_data %>%
+  mutate(gene_info = paste(gene_id, chromosome, sep = "_chr"))
+
+# Separate the gene_info column
+gene_data_info %>%
+  separate(gene_info, 
+          into = c("gene", "chromosome"),
+          sep = "_chr")
+
+# Unite columns back together
+gene_data_info %>%
+  separate(gene_info, 
+          into = c("gene", "chromosome"),
+          sep = "_chr") %>%
+  unite("gene_chr", gene, chromosome, sep = "_chr")
+```
+
+## Advanced dplyr Operations
+
+### Joining Data Frames
+
+Often we need to combine information from multiple data frames. Let's create a second dataset with additional gene information:
+
+```{r joining}
+# Create a second dataset with gene annotations
+gene_annotations <- tibble(
+  gene_id = c("BRCA1", "TP53", "EGFR", "KRAS", "HER2", "PTEN"),
+  full_name = c("Breast Cancer 1", "Tumor Protein 53", "Epidermal Growth Factor Receptor",
+                "KRAS Proto-Oncogene", "Human Epidermal Growth Factor Receptor 2", 
+                "Phosphatase and Tensin Homolog"),
+  is_oncogene = c(FALSE, FALSE, TRUE, TRUE, TRUE, FALSE)
+)
+
+# Inner join - only keep genes present in both datasets
+gene_data %>%
+  inner_join(gene_annotations, by = "gene_id")
+
+# Left join - keep all genes from gene_data
+gene_data %>%
+  left_join(gene_annotations, by = "gene_id")
+
+# Full join - keep all genes from both datasets
+gene_data %>%
+  full_join(gene_annotations, by = "gene_id")
+```
+
+### Set Operations
+
+dplyr provides functions for set operations between data frames:
+
+```{r set-operations}
+# Create two datasets with some overlapping genes
+set1 <- gene_data %>% filter(chromosome == "17")
+set2 <- gene_data %>% filter(pathway == "Growth")
+
+# Union - combine unique rows
+bind_rows(set1, set2) %>% distinct()
+
+# Intersect - find common rows
+inner_join(set1, set2, by = names(set1))
+
+# Setdiff - find rows in set1 not in set2
+anti_join(set1, set2, by = names(set1))
+```
+
+### Advanced Grouping Operations
+
+```{r advanced-grouping}
+# Group by multiple columns
+gene_data %>%
+  group_by(chromosome, pathway) %>%
+  summarise(
+    n_genes = n(),
+    mean_expression = mean(control_1),
+    .groups = "drop"
+  )
+
+# Grouped mutations
+gene_data %>%
+  group_by(chromosome) %>%
+  mutate(
+    rel_expression = control_1 / mean(control_1),
+    rank = min_rank(desc(control_1))
+  ) %>%
+  ungroup()
+```
+
+## Creating Custom Functions
+
+### Basic Function Creation
+
+```{r custom-functions}
+# Create a function to calculate fold change
+calculate_fold_change <- function(treated, control) {
+  if (any(control <= 0)) {
+    warning("Control values should be positive")
+    return(NA)
+  }
+  return(treated / control)
+}
+
+# Use the function with mutate
+gene_data %>%
+  mutate(
+    fc_1 = calculate_fold_change(treated_1, control_1),
+    fc_2 = calculate_fold_change(treated_2, control_2)
+  )
+```
+
+### Functions with Multiple Arguments
+
+```{r complex-functions}
+# Function to filter and summarize expression data
+analyze_expression <- function(data, chr = NULL, min_expression = 0) {
+  # Start with the data
+  result <- data
+  
+  # Filter by chromosome if specified
+  if (!is.null(chr)) {
+    result <- result %>% filter(chromosome == chr)
+  }
+  
+  # Apply expression threshold
+  result <- result %>%
+    filter(control_1 > min_expression) %>%
+    mutate(
+      mean_control = (control_1 + control_2) / 2,
+      mean_treated = (treated_1 + treated_2) / 2,
+      fold_change = mean_treated / mean_control
+    ) %>%
+    select(gene_id, chromosome, pathway, mean_control, mean_treated, fold_change)
+  
+  return(result)
+}
+
+# Use the custom function
+gene_data %>%
+  analyze_expression(chr = "17", min_expression = 100)
+```
+
+### Creating Pipeline Functions
+
+```{r pipeline-functions}
+# Function to perform standard analysis pipeline
+standard_analysis <- function(data, group_col) {
+  group_col <- enquo(group_col)  # Quote the grouping column
+  
+  data %>%
+    group_by(!!group_col) %>%
+    summarise(
+      n_genes = n(),
+      mean_expression = mean(control_1),
+      up_regulated = sum(treated_1 > control_1),
+      down_regulated = sum(treated_1 < control_1),
+      .groups = "drop"
+    ) %>%
+    mutate(
+      pct_up = up_regulated / n_genes * 100,
+      pct_down = down_regulated / n_genes * 100
+    )
+}
+
+# Use the pipeline function
+gene_data %>%
+  standard_analysis(pathway)
+```
+
+## Practice Exercises
+
+### Exercise 1: Basic Data Manipulation
+Using the gene_data dataset:
+1. Filter for genes on chromosome 17
+2. Calculate the fold change between treated and control conditions
+3. Select only gene_id and fold change columns
+
+```{r exercise1}
+gene_data %>%
+  filter(chromosome == "17") %>%
+  mutate(
+    mean_control = (control_1 + control_2) / 2,
+    mean_treated = (treated_1 + treated_2) / 2,
+    fold_change = mean_treated / mean_control
+  ) %>%
+  select(gene_id, fold_change)
+```
+
+### Exercise 2: Data Reshaping
+1. Convert the expression data to long format
+2. Calculate mean expression per condition
+3. Create a summary of fold changes per pathway
+
+```{r exercise2}
+# Convert to long format and summarize
+gene_data %>%
+  pivot_longer(
+    cols = c(control_1, control_2, treated_1, treated_2),
+    names_to = "sample",
+    values_to = "expression"
+  ) %>%
+  group_by(gene_id, pathway) %>%
+  summarise(
+    mean_expression = mean(expression),
+    .groups = "drop"
+  )
+```
+
+### Exercise 3: Custom Functions
+1. Create a function to normalize expression values
+2. Apply the function to both control and treated samples
+3. Calculate statistics on the normalized values
+
+```{r exercise3}
+# Create normalization function
+normalize_expression <- function(x) {
+  (x - mean(x)) / sd(x)
+}
+
+# Apply to data
+gene_data %>%
+  mutate(across(
+    .cols = c(control_1, control_2, treated_1, treated_2),
+    .fns = normalize_expression,
+    .names = "norm_{.col}"
+  )) %>%
+  select(gene_id, starts_with("norm_"))
+```
+
+## Common Mistakes and Tips
+
+1. **Chain Order Matters**
+```{r chain-order}
+# This works (filter then summarize)
+gene_data %>%
+  filter(chromosome == "17") %>%
+  summarise(mean_exp = mean(control_1))
+
+# This fails (summarize then filter)
+# gene_data %>%
+#   summarise(mean_exp = mean(control_1)) %>%
+#   filter(chromosome == "17")  # Error: object 'chromosome' not found
+```
+
+2. **Grouping Persistence**
+```{r grouping}
+# Grouping remains until explicitly removed
+grouped_data <- gene_data %>%
+  group_by(pathway) %>%
+  summarise(
+    mean_control = mean(control_1),
+    .groups = "drop"  # Explicitly remove grouping
+  )
+```
+
+3. **Missing Values**
+```{r missing-values}
+# Create data with NA
+gene_data_na <- gene_data %>%
+  mutate(control_1 = ifelse(gene_id == "BRCA1", NA, control_1))
+
+# Handle NA values
+gene_data_na %>%
+  summarise(
+    mean_with_na = mean(control_1),
+    mean_without_na = mean(control_1, na.rm = TRUE)
+  )
+```
+
+## Next Steps
+
+After mastering these advanced concepts, you can explore:
+- Machine learning with tidymodels
+- Creating custom packages
+- Advanced data visualization
+- Statistical modeling with dplyr 
