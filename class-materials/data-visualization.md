@@ -1,3 +1,10 @@
+---
+title: Data Visualization
+layout: default
+nav_order: 7
+parent: Class Materials
+---
+
 # Data Visualization with ggplot2
 
 [<img src="https://img.shields.io/badge/Download-HTML-blue?style=for-the-badge&logo=html5" alt="Download HTML" />](../rendered-html/data-visualization.html)

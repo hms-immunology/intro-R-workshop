@@ -1,3 +1,10 @@
+---
+title: Objects and Variables
+layout: default
+nav_order: 3
+parent: Class Materials
+---
+
 # Objects and Variables in R
 
 [<img src="https://img.shields.io/badge/Download-HTML-blue?style=for-the-badge&logo=html5" alt="Download HTML" />](../rendered-html/objects-variables.html)

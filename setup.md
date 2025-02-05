@@ -1,6 +1,6 @@
 ---
-title: Setup
-layout: page
+title: Setup Instructions
+layout: default
 nav_order: 2
 ---
 

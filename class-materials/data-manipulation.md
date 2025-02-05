@@ -1,4 +1,11 @@
- # Data Manipulation with dplyr and tidyr
+---
+title: Data Manipulation
+layout: default
+nav_order: 6
+parent: Class Materials
+---
+
+# Data Manipulation with dplyr and tidyr
 
 [<img src="https://img.shields.io/badge/Download-HTML-blue?style=for-the-badge&logo=html5" alt="Download HTML" />](../rendered-html/data-manipulation.html)
 [<img src="https://img.shields.io/badge/Download-R_Markdown-green?style=for-the-badge&logo=r" alt="Download R Markdown" />](data-manipulation.Rmd)

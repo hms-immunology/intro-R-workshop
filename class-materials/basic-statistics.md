@@ -1,3 +1,10 @@
+---
+title: Basic Statistical Analysis
+layout: default
+nav_order: 8
+parent: Class Materials
+---
+
 # Introduction to Statistics with R
 
 [<img src="https://img.shields.io/badge/Download-HTML-blue?style=for-the-badge&logo=html5" alt="Download HTML" />](../rendered-html/basic-statistics.html)
