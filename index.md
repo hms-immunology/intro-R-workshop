@@ -26,10 +26,18 @@ This introductory workshop will help you get started with R programming, with a 
 ## Course Materials
 
 ### Day 1: R Basics
-1. [R Programming Basics](class-materials/r_basics.html)
-2. [Objects and Variables](class-materials/objects-variables.html)
-3. [Vectors and Matrices](class-materials/vectors-matrices.html)
-4. [Working with Data Frames](class-materials/data-frames.html)
+1. R Programming Basics 
+   - [View Online](class-materials/r_basics.md)
+   - [Download R Markdown](class-materials/r_basics.Rmd)
+2. Objects and Variables
+   - [View Online](class-materials/objects-variables.md)
+   - [Download R Markdown](class-materials/objects-variables.Rmd)
+3. Vectors and Matrices
+   - [View Online](class-materials/vectors-matrices.md)
+   - [Download R Markdown](class-materials/vectors-matrices.Rmd)
+4. Working with Data Frames
+   - [View Online](class-materials/data-frames.md)
+   - [Download R Markdown](class-materials/data-frames.Rmd)
 
 ### Day 2: Data Manipulation
 1. Data Manipulation with dplyr (Coming Soon)
@@ -50,8 +58,8 @@ This introductory workshop will help you get started with R programming, with a 
 
 | Time | Topic | Materials |
 |------|-------|-----------|
-| 9:00 - 10:30 | R Basics | [R Basics](class-materials/r_basics.html), [Objects & Variables](class-materials/objects-variables.html) |
-| 10:45 - 12:00 | Data Structures | [Vectors & Matrices](class-materials/vectors-matrices.html), [Data Frames](class-materials/data-frames.html) |
+| 9:00 - 10:30 | R Basics | [R Basics](class-materials/r_basics.md), [Objects & Variables](class-materials/objects-variables.md) |
+| 10:45 - 12:00 | Data Structures | [Vectors & Matrices](class-materials/vectors-matrices.md), [Data Frames](class-materials/data-frames.md) |
 | 13:00 - 14:30 | Data Manipulation | TBA |
 | 14:45 - 16:00 | Visualization & Analysis | TBA |
 
@@ -66,4 +74,10 @@ This introductory workshop will help you get started with R programming, with a 
 - Use RStudio's built-in help system (? or help() function)
 - Check the error messages carefully
 - Google the error message or problem
-- Ask on [Stack Overflow](https://stackoverflow.com/questions/tagged/r) with the [r] tag 
+- Ask on [Stack Overflow](https://stackoverflow.com/questions/tagged/r) with the [r] tag
+
+## File Formats
+
+For each lesson, we provide two formats:
+- **Markdown (.md)**: For viewing directly on the website
+- **R Markdown (.Rmd)**: For downloading and running interactively in RStudio 
