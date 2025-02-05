@@ -31,6 +31,21 @@ if (!require("tidyverse")) install.packages("tidyverse")
 library(tidyverse)
 ```
 
+## Helpful Resources
+
+Before we begin, here are some valuable resources to keep handy:
+
+1. **RStudio Cheat Sheets**: 
+   - [Data Transformation with dplyr](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf)
+   - [Data Tidying with tidyr](https://github.com/rstudio/cheatsheets/blob/main/tidyr.pdf)
+   These cheat sheets provide quick references for the functions we'll be using.
+
+2. **Keyboard Shortcuts**:
+   - Pipe operator (`%>%`): Ctrl/Cmd + Shift + M
+   - Assignment operator (`<-`): Alt + - (Windows/Linux) or Option + - (Mac)
+
+Keep these resources open in another tab while working through the examples - they're incredibly helpful for remembering function names and arguments!
+
 ## Sample Dataset
 
 We'll use a gene expression dataset to demonstrate these concepts:
@@ -49,6 +64,65 @@ gene_data <- tibble(
 
 # View the data
 print(gene_data)
+```
+
+## Understanding the Pipe Operator (`%>%`)
+
+Before diving into data manipulation, let's understand the pipe operator (`%>%`), which is fundamental to writing clear and readable code in R.
+
+### What is Piping?
+
+The pipe operator (`%>%`) takes the output from one function and passes it as the first argument to the next function. It helps write code that can be read from left to right, making it more intuitive and easier to understand.
+
+### Traditional vs. Piped Syntax
+
+```{r piping-example}
+# Traditional nested syntax
+mean(sqrt(abs(log(c(1:10)))))
+
+# Same operation with pipes
+c(1:10) %>%
+  log() %>%
+  abs() %>%
+  sqrt() %>%
+  mean()
+
+# Example with our gene data
+# Traditional syntax
+head(arrange(filter(gene_data, chromosome == "17"), desc(control_1)))
+
+# Same operation with pipes
+gene_data %>%
+  filter(chromosome == "17") %>%
+  arrange(desc(control_1)) %>%
+  head()
+```
+
+### Why Use Pipes?
+
+1. **Readability**: Pipes make code easier to read by showing the sequence of operations from left to right
+2. **Maintainability**: Each step in the analysis is clearly separated, making it easier to modify or debug
+3. **Reduced Nesting**: Eliminates the need for nested function calls or multiple intermediate objects
+4. **Code Organization**: Makes it clear how data flows through a series of transformations
+
+### Pro Tips for Using Pipes
+
+1. Start with the data object
+2. Add one operation per line
+3. Indent lines after the first pipe
+4. Use pipes for 2 or more operations
+5. In RStudio, type `Ctrl/Cmd + Shift + M` to insert the pipe operator
+
+```{r pipe-tips}
+# Example of well-formatted piped operations
+result <- gene_data %>%
+  filter(chromosome == "17") %>%
+  select(gene_id, control_1, treated_1) %>%
+  mutate(fold_change = treated_1 / control_1) %>%
+  arrange(desc(fold_change))
+
+print("Well-formatted pipe example result:")
+print(result)
 ```
 
 ## Data Manipulation with dplyr
@@ -139,7 +213,23 @@ gene_data %>%
 
 ### 1. Reshaping Data (pivot_longer and pivot_wider)
 
-Often we need to convert between wide and long formats:
+Data often comes in different formats, and we frequently need to convert between them for different types of analysis:
+
+- **Wide format**: Each sample/condition is in a separate column (e.g., control_1, control_2, treated_1, treated_2)
+  - Good for: Viewing data in spreadsheets, manual data entry
+  - Example use: When you want to see all measurements for a gene in one row
+
+- **Long format**: Each observation is in a separate row
+  - Good for: Statistical analysis, plotting with ggplot2, most modeling functions
+  - Example use: When you need to compare conditions or create box plots
+
+Common reasons for converting formats:
+1. **Visualization**: Many plotting functions (especially ggplot2) prefer long format
+2. **Statistical Analysis**: Functions like t.test() and ANOVA expect data in long format
+3. **Data Manipulation**: Some calculations are easier in one format vs. another
+4. **Data Export**: Different tools might require specific formats
+
+Let's see this in practice:
 
 ```{r reshaping}
 # Convert to long format
@@ -150,14 +240,25 @@ gene_data_long <- gene_data %>%
     values_to = "expression"
   )
 
+print("Long format (good for plotting and statistics):")
 print(gene_data_long)
 
+# Example of why long format is useful for plotting
+library(ggplot2)
+ggplot(gene_data_long, aes(x = gene_id, y = expression, fill = sample)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  theme_minimal() +
+  labs(title = "Gene Expression by Sample")
+
 # Convert back to wide format
-gene_data_long %>%
+gene_data_wide <- gene_data_long %>%
   pivot_wider(
     names_from = sample,
     values_from = expression
   )
+
+print("\nWide format (good for viewing all conditions at once):")
+print(gene_data_wide)
 ```
 
 ### 2. Separating and Uniting Columns
