@@ -22,7 +22,26 @@ jobs:
       
       - name: Install dependencies
         run: |
-          Rscript -e 'install.packages(c("rmarkdown", "knitr"))'
+          Rscript -e 'install.packages(c(
+            "rmarkdown",
+            "knitr",
+            "tidyverse",
+            "viridis",
+            "ggplot2",
+            "dplyr",
+            "tidyr",
+            "purrr",
+            "readr",
+            "forcats",
+            "stringr",
+            "lubridate",
+            "tibble",
+            "stats",
+            "graphics",
+            "grDevices",
+            "scales",
+            "RColorBrewer"
+          ))'
       
       - name: Render R Markdown files
         run: |

@@ -6,16 +6,35 @@ nav_order: 1
 
 # Welcome to the R Workshop
 
-This introductory workshop will help you get started with R programming, with a focus on data analysis in bioinformatics and health sciences.
+This introductory workshop will help you get started with R programming, with a focus on data analysis in bioinformatics and health sciences. The workshop is structured over 4 days, with 2-hour sessions each day.
+
+## Instructor
+
+**Eren Ada, PhD**  
+Research Associate in Immunology  
+Harvard Medical School  
+Email: eren_ada@hms.harvard.edu
+
+## Location & Schedule
+
+**TMEC 333 Conference Room**  
+Tosteson Medical Education Center  
+260 Longwood Ave  
+Boston, MA 02115
+
+**Workshop Dates:**
+- Day 1: February 11, 10:00 AM - 12:00 PM
+- Day 2: February 13, 10:00 AM - 12:00 PM
+- Day 3: February 18, 10:00 AM - 12:00 PM
+- Day 4: February 20, 10:00 AM - 12:00 PM
 
 ## Workshop Overview
 
 - Introduction to R and RStudio
-- Basic R programming concepts
-- Working with data structures
-- Data manipulation and analysis
+- Data structures and manipulation
 - Data visualization with ggplot2
-- Basic statistical analysis
+- Statistical analysis and visualization
+- Best practices for scientific computing
 
 ## Prerequisites
 
@@ -25,7 +44,7 @@ This introductory workshop will help you get started with R programming, with a 
 
 ## Course Materials
 
-### Day 1: R Basics
+### Day 1: R Basics and Data Structures (2 hours)
 1. R Programming Basics 
    - [View Online](class-materials/r_basics.md)
    - [Download R Markdown](class-materials/r_basics.Rmd)
@@ -35,35 +54,71 @@ This introductory workshop will help you get started with R programming, with a 
 3. Vectors and Matrices
    - [View Online](class-materials/vectors-matrices.md)
    - [Download R Markdown](class-materials/vectors-matrices.Rmd)
-4. Working with Data Frames
+
+### Day 2: Working with Data (2 hours)
+1. Working with Data Frames
    - [View Online](class-materials/data-frames.md)
    - [Download R Markdown](class-materials/data-frames.Rmd)
-
-### Day 2: Data Manipulation
-1. Data Manipulation with dplyr and tidyr
+2. Data Manipulation with dplyr and tidyr
    - [View Online](class-materials/data-manipulation.md)
    - [Download R Markdown](class-materials/data-manipulation.Rmd)
-2. Advanced Filtering and Aggregation (Coming Soon)
-3. Joining and Merging Data (Coming Soon)
 
-### Day 3: Data Visualization
-1. Introduction to ggplot2 (Coming Soon)
-2. Advanced Plotting Techniques (Coming Soon)
-3. Creating Publication-Ready Figures (Coming Soon)
+### Day 3: Data Visualization (2 hours)
+1. Data Visualization with ggplot2
+   - [View Online](class-materials/data-visualization.md)
+   - [Download R Markdown](class-materials/data-visualization.Rmd)
+2. Advanced Plotting and Practice
+   - Creating Publication-Ready Figures
+   - Interactive Visualization Examples
+   - Extended Practice Sessions
 
-### Day 4: Statistical Analysis
-1. Basic Statistical Tests (Coming Soon)
-2. Linear Models (Coming Soon)
-3. Practical Data Analysis (Coming Soon)
+### Day 4: Statistical Analysis (2 hours)
+1. Basic Statistical Analysis
+   - [View Online](class-materials/basic-statistics.md)
+   - [Download R Markdown](class-materials/basic-statistics.Rmd)
+2. Advanced Topics and Workshop Wrap-up
+   - Advanced Statistical Concepts
+   - Q&A Session
+   - Final Practice and Review
 
-## Schedule
+## Detailed Schedule
 
+### Day 1: R Basics and Data Structures (February 11, 10:00 AM - 12:00 PM)
 | Time | Topic | Materials |
 |------|-------|-----------|
-| 9:00 - 10:30 | R Basics | [R Basics](class-materials/r_basics.md), [Objects & Variables](class-materials/objects-variables.md) |
-| 10:45 - 12:00 | Data Structures | [Vectors & Matrices](class-materials/vectors-matrices.md), [Data Frames](class-materials/data-frames.md) |
-| 13:00 - 14:30 | Data Manipulation | [Data Manipulation](class-materials/data-manipulation.md) |
-| 14:45 - 16:00 | Visualization & Analysis | TBA |
+| 10:00 - 10:30 | Introduction to R and RStudio | [R Basics](class-materials/r_basics.md) |
+| 10:30 - 11:00 | Objects and Variables | [Objects & Variables](class-materials/objects-variables.md) |
+| 11:00 - 11:30 | Vectors and Matrices | [Vectors & Matrices](class-materials/vectors-matrices.md) |
+| 11:30 - 12:00 | Practice and Q&A | Practice Exercises |
+
+### Day 2: Working with Data (February 13, 10:00 AM - 12:00 PM)
+| Time | Topic | Materials |
+|------|-------|-----------|
+| 10:00 - 10:45 | Working with Data Frames | [Data Frames](class-materials/data-frames.md) |
+| 10:45 - 11:30 | Data Manipulation (dplyr/tidyr) | [Data Manipulation](class-materials/data-manipulation.md) |
+| 11:30 - 12:00 | Practice and Q&A | Practice Exercises |
+
+### Day 3: Data Visualization (February 18, 10:00 AM - 12:00 PM)
+| Time | Topic | Materials |
+|------|-------|-----------|
+| 10:00 - 10:45 | Introduction to ggplot2 | [Data Visualization](class-materials/data-visualization.md) |
+| 10:45 - 11:30 | Advanced Plotting Techniques | Extended Examples |
+| 11:30 - 12:00 | Visualization Practice | Practice Exercises |
+
+### Day 4: Statistical Analysis (February 20, 10:00 AM - 12:00 PM)
+| Time | Topic | Materials |
+|------|-------|-----------|
+| 10:00 - 10:45 | Basic Statistics | [Basic Statistics](class-materials/basic-statistics.md) |
+| 10:45 - 11:30 | Advanced Topics | [Basic Statistics](class-materials/basic-statistics.md#advanced-topics) |
+| 11:30 - 12:00 | Workshop Wrap-up and Q&A | Final Review |
+
+## Getting Help
+
+- Use RStudio's built-in help system (? or help() function)
+- Check the error messages carefully
+- Google the error message or problem
+- Ask questions during the workshop sessions
+- Contact the instructor: eren_ada@hms.harvard.edu
 
 ## Additional Resources
 
@@ -71,12 +126,19 @@ This introductory workshop will help you get started with R programming, with a 
 - [RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
 - [R for Data Science Book](https://r4ds.had.co.nz/)
 
-## Getting Help
+## Copyright and License
 
-- Use RStudio's built-in help system (? or help() function)
-- Check the error messages carefully
-- Google the error message or problem
-- Ask on [Stack Overflow](https://stackoverflow.com/questions/tagged/r) with the [r] tag
+© 2024 Eren Ada, Harvard Medical School. All rights reserved.
+
+This material is licensed under [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/). You are free to:
+- Share — copy and redistribute the material in any medium or format
+- Adapt — remix, transform, and build upon the material for any purpose, even commercially
+
+Under the following terms:
+- Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made.
+- ShareAlike — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+
+For questions about usage or permissions, please contact eren_ada@hms.harvard.edu
 
 ## File Formats
 
