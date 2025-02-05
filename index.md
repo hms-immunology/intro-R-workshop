@@ -44,73 +44,42 @@ Boston, MA 02115
 
 ## Course Materials
 
-### Day 1: R Basics and Data Structures (2 hours)
+### Day 1: R Basics and Data Structures (February 11)
 1. R Programming Basics 
-   - [View Online](class-materials/r_basics.md)
+   - [View Online](r_basics.html)
    - [Download R Markdown](class-materials/r_basics.Rmd)
 2. Objects and Variables
-   - [View Online](class-materials/objects-variables.md)
+   - [View Online](objects-variables.html)
    - [Download R Markdown](class-materials/objects-variables.Rmd)
 3. Vectors and Matrices
-   - [View Online](class-materials/vectors-matrices.md)
+   - [View Online](vectors-matrices.html)
    - [Download R Markdown](class-materials/vectors-matrices.Rmd)
 
-### Day 2: Working with Data (2 hours)
+### Day 2: Working with Data (February 13)
 1. Working with Data Frames
-   - [View Online](class-materials/data-frames.md)
+   - [View Online](data-frames.html)
    - [Download R Markdown](class-materials/data-frames.Rmd)
 2. Data Manipulation with dplyr and tidyr
-   - [View Online](class-materials/data-manipulation.md)
+   - [View Online](data-manipulation.html)
    - [Download R Markdown](class-materials/data-manipulation.Rmd)
 
-### Day 3: Data Visualization (2 hours)
+### Day 3: Data Visualization (February 18)
 1. Data Visualization with ggplot2
-   - [View Online](class-materials/data-visualization.md)
+   - [View Online](data-visualization.html)
    - [Download R Markdown](class-materials/data-visualization.Rmd)
 2. Advanced Plotting and Practice
    - Creating Publication-Ready Figures
    - Interactive Visualization Examples
    - Extended Practice Sessions
 
-### Day 4: Statistical Analysis (2 hours)
+### Day 4: Statistical Analysis (February 20)
 1. Basic Statistical Analysis
-   - [View Online](class-materials/basic-statistics.md)
+   - [View Online](basic-statistics.html)
    - [Download R Markdown](class-materials/basic-statistics.Rmd)
 2. Advanced Topics and Workshop Wrap-up
    - Advanced Statistical Concepts
    - Q&A Session
    - Final Practice and Review
-
-## Detailed Schedule
-
-### Day 1: R Basics and Data Structures (February 11, 10:00 AM - 12:00 PM)
-| Time | Topic | Materials |
-|------|-------|-----------|
-| 10:00 - 10:30 | Introduction to R and RStudio | [R Basics](class-materials/r_basics.md) |
-| 10:30 - 11:00 | Objects and Variables | [Objects & Variables](class-materials/objects-variables.md) |
-| 11:00 - 11:30 | Vectors and Matrices | [Vectors & Matrices](class-materials/vectors-matrices.md) |
-| 11:30 - 12:00 | Practice and Q&A | Practice Exercises |
-
-### Day 2: Working with Data (February 13, 10:00 AM - 12:00 PM)
-| Time | Topic | Materials |
-|------|-------|-----------|
-| 10:00 - 10:45 | Working with Data Frames | [Data Frames](class-materials/data-frames.md) |
-| 10:45 - 11:30 | Data Manipulation (dplyr/tidyr) | [Data Manipulation](class-materials/data-manipulation.md) |
-| 11:30 - 12:00 | Practice and Q&A | Practice Exercises |
-
-### Day 3: Data Visualization (February 18, 10:00 AM - 12:00 PM)
-| Time | Topic | Materials |
-|------|-------|-----------|
-| 10:00 - 10:45 | Introduction to ggplot2 | [Data Visualization](class-materials/data-visualization.md) |
-| 10:45 - 11:30 | Advanced Plotting Techniques | Extended Examples |
-| 11:30 - 12:00 | Visualization Practice | Practice Exercises |
-
-### Day 4: Statistical Analysis (February 20, 10:00 AM - 12:00 PM)
-| Time | Topic | Materials |
-|------|-------|-----------|
-| 10:00 - 10:45 | Basic Statistics | [Basic Statistics](class-materials/basic-statistics.md) |
-| 10:45 - 11:30 | Advanced Topics | [Basic Statistics](class-materials/basic-statistics.md#advanced-topics) |
-| 11:30 - 12:00 | Workshop Wrap-up and Q&A | Final Review |
 
 ## Getting Help
 
