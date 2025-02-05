@@ -9,11 +9,19 @@ R is a powerful programming language designed for statistical computing and data
 R can be used as a simple calculator. Type expressions directly in the console:
 
 ```r
+# Basic arithmetic operations
 2 + 2       # Addition
 10 - 5      # Subtraction
 4 * 3       # Multiplication
 15 / 3      # Division
 2^3         # Exponentiation
+
+# Results:
+# Addition: 2 + 2 = 4
+# Subtraction: 10 - 5 = 5
+# Multiplication: 4 * 3 = 12
+# Division: 15 / 3 = 5
+# Exponentiation: 2^3 = 8
 ```
 
 ### Objects and Variables
@@ -26,9 +34,10 @@ x <- 10
 my_number = 42
 text <- "Hello, R!"
 
-# Print objects
-print(x)
-my_number    # Just typing the object name will print it
+# Results:
+# Value of x: 10
+# Value of my_number: 42
+# Value of text: "Hello, R!"
 ```
 
 ### Data Types in R
@@ -45,10 +54,10 @@ name <- "John"
 # Logical (boolean)
 is_student <- TRUE
 
-# Check the type of an object
-class(age)      # "numeric"
-class(name)     # "character"
-class(is_student)   # "logical"
+# Results:
+# Type of 'age': "numeric"
+# Type of 'name': "character"
+# Type of 'is_student': "logical"
 ```
 
 ### Vectors
@@ -61,12 +70,12 @@ numbers <- c(1, 2, 3, 4, 5)
 fruits <- c("apple", "banana", "orange")
 
 # Vector operations
-numbers + 2     # Adds 2 to each element
-numbers * 3     # Multiplies each element by 3
+numbers_plus_2 <- numbers + 2     # Adds 2 to each element: 3, 4, 5, 6, 7
+numbers_times_3 <- numbers * 3     # Multiplies each element by 3: 3, 6, 9, 12, 15
 
 # Vector indexing (starts at 1, not 0)
-numbers[1]      # First element
-fruits[2]       # Second element
+first_number <- numbers[1]      # First element: 1
+second_fruit <- fruits[2]       # Second element: "banana"
 ```
 
 ### Saving Objects
@@ -74,6 +83,10 @@ fruits[2]       # Second element
 There are several ways to save R objects for later use:
 
 ```r
+# Create some objects to save
+numbers <- c(1, 2, 3, 4, 5)
+fruits <- c("apple", "banana", "orange")
+
 # Save a single object to a .RData file
 save(numbers, file = "my_numbers.RData")
 
@@ -92,11 +105,17 @@ load("my_numbers.RData")
 You can write data to and read data from files:
 
 ```r
-# Write a CSV file
-write.csv(numbers, file = "numbers.csv")
+# Create a data frame to write
+df <- data.frame(
+  numbers = 1:5,
+  letters = LETTERS[1:5]
+)
 
-# Read a CSV file
-data <- read.csv("numbers.csv")
+# Write a CSV file
+write.csv(df, file = "example.csv", row.names = FALSE)
+
+# Read the CSV file back
+data <- read.csv("example.csv")
 ```
 
 ### Getting Help
@@ -114,11 +133,28 @@ example(mean)
 
 ## Practice Exercises
 
-1. Create a numeric vector with the numbers 1 through 10
-2. Calculate the mean of your vector
-3. Save your vector to a file
-4. Create a new character vector with three of your favorite colors
-5. Combine both vectors into a list and print it
+Try these exercises to test your understanding:
+
+### Exercise 1: Create and Manipulate a Vector
+```r
+# Create a numeric vector with numbers 1 through 10
+my_vector <- 1:10
+
+# Calculate the mean
+vector_mean <- mean(my_vector)  # Result: 5.5
+```
+
+### Exercise 2: Working with Different Data Types
+```r
+# Create a character vector with three colors
+colors <- c("red", "blue", "green")
+
+# Create a list combining numeric and character vectors
+my_list <- list(
+  numbers = my_vector,
+  colors = colors
+)
+```
 
 ## Next Steps
 

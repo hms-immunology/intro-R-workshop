@@ -9,12 +9,6 @@ In R, we work with objects to store and manipulate data. Understanding how to cr
 In R, we create objects using the assignment operator `<-` (or `=`). The basic syntax is:
 
 ```r
-object_name <- value
-```
-
-Let's start with some simple examples:
-
-```r
 # Creating a numeric object (gene expression value)
 expression_level <- 1543.7
 
@@ -23,6 +17,11 @@ gene_name <- "BRCA1"
 
 # Creating a logical object
 is_differentially_expressed <- TRUE
+
+# Results:
+# Expression level: 1543.7
+# Gene name: "BRCA1"
+# Is differentially expressed? TRUE
 ```
 
 ### Pro Tip
@@ -52,13 +51,17 @@ Once you create an object, you can use it in calculations or operations:
 control_expression <- 100
 treated_expression <- 200
 fold_change <- treated_expression / control_expression
-fold_change  # This will print: 2
+
+# Results:
+# Fold change: 2
 
 # Medical example: BMI calculation
 weight_kg <- 70.5
 height_m <- 1.75
 bmi <- weight_kg / (height_m^2)
-bmi  # This will print: 23.02
+
+# Results:
+# BMI: 23.02
 ```
 
 ## Practice Challenges
@@ -71,23 +74,37 @@ read_count <- 1000       # What is read_count?
 scaling_factor <- 1.5    # What is scaling_factor?
 read_count <- read_count * scaling_factor  # Now what is read_count?
 normalized_count <- read_count / 10     # What is normalized_count?
+
+# Results:
+# Final read count: 1500
+# Normalized count: 150
 ```
 
 ### Challenge 2: Temperature Conversion
 Convert a patient's temperature from Celsius to Fahrenheit using the formula: °F = (°C × 9/5) + 32
 
 ```r
-# Your code here:
+# Convert temperature
 temp_celsius <- 37.5  # Normal body temperature
-# Convert to Fahrenheit
+temp_fahrenheit <- (temp_celsius * 9/5) + 32
+
+# Results:
+# 37.5°C = 99.5°F
 ```
 
 ### Challenge 3: Sample Information
-Create three variables:
-1. Sample ID
-2. Gene name
-3. Expression value
-Then combine them into a single sentence: "Sample [ID] shows [expression] counts for gene [gene_name]."
+Create three variables and combine them into a single sentence:
+
+```r
+sample_id <- "RNA_01"
+gene_name <- "TP53"
+expression_value <- 2456
+
+message <- paste("Sample", sample_id, "shows", expression_value, "counts for gene", gene_name)
+
+# Results:
+# "Sample RNA_01 shows 2456 counts for gene TP53"
+```
 
 ## Common Mistakes and How to Avoid Them
 
@@ -97,12 +114,20 @@ Then combine them into a single sentence: "Sample [ID] shows [expression] counts
 expression <- 5000
 Expression <- 6000
 EXPRESSION <- 7000
+
+# Results:
+# expression: 5000
+# Expression: 6000
+# EXPRESSION: 7000
 ```
 
 2. **Overwriting Objects**
 ```r
 read_depth <- 1000000
+# Results: read_depth is 1000000
+
 read_depth <- 1500000  # The original value (1000000) is now gone
+# Results: read_depth is now 1500000
 ```
 
 3. **Invalid Names**
@@ -119,6 +144,16 @@ sample name <- "Control"  # Invalid: contains space
 3. Check your objects exist by typing their name
 4. Use the `ls()` function to see all objects in your environment
 5. Use `rm(object_name)` to remove objects you no longer need
+
+```r
+# List all objects in environment
+ls()
+# Results: Shows all object names in current environment
+
+# Remove an object
+rm(expression)
+# Results: 'expression' is removed from environment
+```
 
 ## Next Steps
 
