@@ -1,3 +1,10 @@
+---
+title: Working with Data Frames
+layout: default
+nav_order: 5
+parent: Course Materials
+---
+
 # Working with Data Frames in R
 
 [<img src="https://img.shields.io/badge/Download-HTML-blue?style=for-the-badge&logo=html5" alt="Download HTML" />](../rendered-html/data-frames.html)

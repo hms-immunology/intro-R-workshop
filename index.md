@@ -46,26 +46,26 @@ Boston, MA 02115
 
 ### Day 1: R Basics and Data Structures (February 11)
 1. R Programming Basics 
-   - [View Online](r_basics.html)
+   - [View Online](r_basics)
    - [Download R Markdown](class-materials/r_basics.Rmd)
 2. Objects and Variables
-   - [View Online](objects-variables.html)
+   - [View Online](objects-variables)
    - [Download R Markdown](class-materials/objects-variables.Rmd)
 3. Vectors and Matrices
-   - [View Online](vectors-matrices.html)
+   - [View Online](vectors-matrices)
    - [Download R Markdown](class-materials/vectors-matrices.Rmd)
 
 ### Day 2: Working with Data (February 13)
 1. Working with Data Frames
-   - [View Online](data-frames.html)
+   - [View Online](data-frames)
    - [Download R Markdown](class-materials/data-frames.Rmd)
 2. Data Manipulation with dplyr and tidyr
-   - [View Online](data-manipulation.html)
+   - [View Online](data-manipulation)
    - [Download R Markdown](class-materials/data-manipulation.Rmd)
 
 ### Day 3: Data Visualization (February 18)
 1. Data Visualization with ggplot2
-   - [View Online](data-visualization.html)
+   - [View Online](data-visualization)
    - [Download R Markdown](class-materials/data-visualization.Rmd)
 2. Advanced Plotting and Practice
    - Creating Publication-Ready Figures
@@ -74,7 +74,7 @@ Boston, MA 02115
 
 ### Day 4: Statistical Analysis (February 20)
 1. Basic Statistical Analysis
-   - [View Online](basic-statistics.html)
+   - [View Online](basic-statistics)
    - [Download R Markdown](class-materials/basic-statistics.Rmd)
 2. Advanced Topics and Workshop Wrap-up
    - Advanced Statistical Concepts
