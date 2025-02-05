@@ -78,6 +78,14 @@ This introductory workshop will help you get started with R programming, with a 
 
 ## File Formats
 
-For each lesson, we provide two formats:
+For each lesson, we provide three formats:
 - **Markdown (.md)**: For viewing directly on the website
-- **R Markdown (.Rmd)**: For downloading and running interactively in RStudio 
+- **R Markdown (.Rmd)**: For downloading and running interactively in RStudio
+- **HTML**: Rendered versions are available but are meant for local viewing after downloading
+
+## Getting Help
+
+- Use RStudio's built-in help system (? or help() function)
+- Check the error messages carefully
+- Google the error message or problem
+- Ask on [Stack Overflow](https://stackoverflow.com/questions/tagged/r) with the [r] tag 

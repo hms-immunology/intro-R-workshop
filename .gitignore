@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+class-materials/*.html
+!rendered-html/*.html
