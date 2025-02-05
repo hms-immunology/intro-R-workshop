@@ -1,8 +1,7 @@
 ---
 title: Objects and Variables
 layout: default
-nav_order: 4
-parent: Class Materials
+nav_order: 5
 ---
 
 # Objects and Variables in R

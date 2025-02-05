@@ -1,8 +1,7 @@
 ---
 title: Data Manipulation
 layout: default
-nav_order: 7
-parent: Class Materials
+nav_order: 6
 ---
 
 # Data Manipulation with dplyr and tidyr

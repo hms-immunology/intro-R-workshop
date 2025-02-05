@@ -1,8 +1,7 @@
 ---
 title: R Markdown Basics
 layout: default
-nav_order: 3
-parent: Class Materials
+nav_order: 4
 ---
 
 # Getting Started with R Markdown

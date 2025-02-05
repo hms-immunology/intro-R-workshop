@@ -1,8 +1,7 @@
 ---
 title: Working with Data Frames
 layout: default
-nav_order: 6
-parent: Class Materials
+nav_order: 8
 ---
 
 # Working with Data Frames in R

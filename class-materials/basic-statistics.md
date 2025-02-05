@@ -1,8 +1,7 @@
 ---
 title: Basic Statistical Analysis
 layout: default
-nav_order: 9
-parent: Class Materials
+nav_order: 10
 ---
 
 # Introduction to Statistics with R

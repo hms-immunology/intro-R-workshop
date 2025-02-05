@@ -1,8 +1,7 @@
 ---
 title: Vectors and Matrices
 layout: default
-nav_order: 5
-parent: Class Materials
+nav_order: 7
 ---
 
 # Vectors and Matrices in R

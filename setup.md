@@ -1,8 +1,7 @@
 ---
 title: Setup Instructions
 layout: default
-nav_order: 1
-parent: Class Materials
+nav_order: 2
 ---
 
 # Setup Instructions

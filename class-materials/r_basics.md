@@ -1,8 +1,7 @@
 ---
 title: R Programming Basics
 layout: default
-nav_order: 2
-parent: Class Materials
+nav_order: 3
 ---
 
 # R Programming Basics

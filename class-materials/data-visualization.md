@@ -1,8 +1,7 @@
 ---
 title: Data Visualization
 layout: default
-nav_order: 8
-parent: Class Materials
+nav_order: 9
 ---
 
 # Data Visualization with ggplot2
