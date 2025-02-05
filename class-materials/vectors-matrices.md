@@ -1,5 +1,8 @@
 # Vectors and Matrices in R
 
+[<img src="https://img.shields.io/badge/Download-HTML-blue?style=for-the-badge&logo=html5" alt="Download HTML" />](../rendered-html/vectors-matrices.html)
+[<img src="https://img.shields.io/badge/Download-R_Markdown-green?style=for-the-badge&logo=r" alt="Download R Markdown" />](vectors-matrices.Rmd)
+
 ## Introduction
 
 In R, vectors and matrices are fundamental data structures that allow us to work with collections of data. They are especially important in bioinformatics and RNA-seq analysis, where we often need to handle large sets of gene expression values or sample measurements.

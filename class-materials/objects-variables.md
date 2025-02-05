@@ -1,5 +1,8 @@
 # Objects and Variables in R
 
+[<img src="https://img.shields.io/badge/Download-HTML-blue?style=for-the-badge&logo=html5" alt="Download HTML" />](../rendered-html/objects-variables.html)
+[<img src="https://img.shields.io/badge/Download-R_Markdown-green?style=for-the-badge&logo=r" alt="Download R Markdown" />](objects-variables.Rmd)
+
 ## Introduction
 
 In R, we work with objects to store and manipulate data. Understanding how to create and work with objects is fundamental to using R effectively. This lesson will cover the basics of working with objects and variables in R, using examples relevant to medical and health sciences, including RNA sequencing analysis.

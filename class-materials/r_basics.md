@@ -1,5 +1,8 @@
 # R Programming Basics
 
+[<img src="https://img.shields.io/badge/Download-HTML-blue?style=for-the-badge&logo=html5" alt="Download HTML" />](../rendered-html/r_basics.html)
+[<img src="https://img.shields.io/badge/Download-R_Markdown-green?style=for-the-badge&logo=r" alt="Download R Markdown" />](r_basics.Rmd)
+
 ## Getting Started with R
 
 R is a powerful programming language designed for statistical computing and data analysis. This tutorial will cover the fundamental concepts you need to get started with R programming.

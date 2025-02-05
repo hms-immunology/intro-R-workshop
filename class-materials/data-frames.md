@@ -1,5 +1,8 @@
 # Working with Data Frames in R
 
+[<img src="https://img.shields.io/badge/Download-HTML-blue?style=for-the-badge&logo=html5" alt="Download HTML" />](../rendered-html/data-frames.html)
+[<img src="https://img.shields.io/badge/Download-R_Markdown-green?style=for-the-badge&logo=r" alt="Download R Markdown" />](data-frames.Rmd)
+
 ## Introduction
 
 Data frames are one of the most commonly used data structures in R. They are particularly useful for working with tabular data, such as gene expression datasets, clinical data, or experimental results. A data frame is a 2-dimensional structure where:
