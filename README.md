@@ -11,12 +11,18 @@ Research Associate in Immunology
 Harvard Medical School  
 Email: eren_ada@hms.harvard.edu
 
-## Location
+## Location & Schedule
 
 **TMEC 333 Conference Room**  
 Tosteson Medical Education Center  
 260 Longwood Ave  
 Boston, MA 02115
+
+**Workshop Dates:**
+- Day 1: February 11, 10:00 AM - 12:00 PM
+- Day 2: February 13, 10:00 AM - 12:00 PM
+- Day 3: February 18, 10:00 AM - 12:00 PM
+- Day 4: February 20, 10:00 AM - 12:00 PM
 
 ## Website
 
@@ -82,26 +88,26 @@ intro-R-workshop/
 
 Each day consists of a 2-hour session structured as follows:
 
-### Day 1: R Basics and Data Structures (2 hours)
-- 0:00 - 0:30: Introduction to R and RStudio
-- 0:30 - 1:00: Objects and Variables
-- 1:00 - 1:30: Vectors and Matrices
-- 1:30 - 2:00: Practice and Q&A
+### Day 1: R Basics and Data Structures (February 11, 10:00 AM - 12:00 PM)
+- 10:00 - 10:30: Introduction to R and RStudio
+- 10:30 - 11:00: Objects and Variables
+- 11:00 - 11:30: Vectors and Matrices
+- 11:30 - 12:00: Practice and Q&A
 
-### Day 2: Working with Data (2 hours)
-- 0:00 - 0:45: Working with Data Frames
-- 0:45 - 1:30: Data Manipulation (dplyr/tidyr)
-- 1:30 - 2:00: Practice and Q&A
+### Day 2: Working with Data (February 13, 10:00 AM - 12:00 PM)
+- 10:00 - 10:45: Working with Data Frames
+- 10:45 - 11:30: Data Manipulation (dplyr/tidyr)
+- 11:30 - 12:00: Practice and Q&A
 
-### Day 3: Data Visualization (2 hours)
-- 0:00 - 0:45: Introduction to ggplot2
-- 0:45 - 1:30: Advanced Plotting Techniques
-- 1:30 - 2:00: Visualization Practice
+### Day 3: Data Visualization (February 18, 10:00 AM - 12:00 PM)
+- 10:00 - 10:45: Introduction to ggplot2
+- 10:45 - 11:30: Advanced Plotting Techniques
+- 11:30 - 12:00: Visualization Practice
 
-### Day 4: Statistical Analysis (2 hours)
-- 0:00 - 0:45: Basic Statistics
-- 0:45 - 1:30: Advanced Topics
-- 1:30 - 2:00: Workshop Wrap-up and Q&A
+### Day 4: Statistical Analysis (February 20, 10:00 AM - 12:00 PM)
+- 10:00 - 10:45: Basic Statistics
+- 10:45 - 11:30: Advanced Topics
+- 11:30 - 12:00: Workshop Wrap-up and Q&A
 
 ## Getting Started
 
