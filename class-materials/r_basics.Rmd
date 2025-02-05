@@ -1,0 +1,219 @@
+---
+title: "R Programming Basics"
+author: "R Workshop"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: united
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Getting Started with R
+
+R is a powerful programming language designed for statistical computing and data analysis. This tutorial will cover the fundamental concepts you need to get started with R programming.
+
+### Using R as a Calculator
+
+R can be used as a simple calculator. Type expressions directly in the console:
+
+```{r calculator}
+# Basic arithmetic operations
+2 + 2       # Addition
+10 - 5      # Subtraction
+4 * 3       # Multiplication
+15 / 3      # Division
+2^3         # Exponentiation
+
+# Let's print the results with labels
+print("Addition: 2 + 2 =")
+print(2 + 2)
+print("Exponentiation: 2^3 =")
+print(2^3)
+```
+
+### Objects and Variables
+
+In R, you can store values in objects using the assignment operator `<-` (or `=`):
+
+```{r objects}
+# Creating objects
+x <- 10
+my_number = 42
+text <- "Hello, R!"
+
+# Print objects
+print("Value of x:")
+print(x)
+print("Value of my_number:")
+print(my_number)    # Just typing the object name will print it
+print("Value of text:")
+print(text)
+```
+
+### Data Types in R
+
+R has several basic data types:
+
+```{r data-types}
+# Numeric
+age <- 25
+
+# Character (string)
+name <- "John"
+
+# Logical (boolean)
+is_student <- TRUE
+
+# Check the type of an object
+print("Type of 'age':")
+print(class(age))      # "numeric"
+print("Type of 'name':")
+print(class(name))     # "character"
+print("Type of 'is_student':")
+print(class(is_student))   # "logical"
+```
+
+### Vectors
+
+Vectors are one-dimensional arrays that can hold data of the same type:
+
+```{r vectors}
+# Create a vector using c()
+numbers <- c(1, 2, 3, 4, 5)
+fruits <- c("apple", "banana", "orange")
+
+# Vector operations
+numbers_plus_2 <- numbers + 2     # Adds 2 to each element
+numbers_times_3 <- numbers * 3     # Multiplies each element by 3
+
+# Vector indexing (starts at 1, not 0)
+first_number <- numbers[1]      # First element
+second_fruit <- fruits[2]       # Second element
+
+# Print results
+print("Original numbers vector:")
+print(numbers)
+print("Numbers + 2:")
+print(numbers_plus_2)
+print("Numbers * 3:")
+print(numbers_times_3)
+print("First number:")
+print(first_number)
+print("Second fruit:")
+print(second_fruit)
+```
+
+### Saving Objects
+
+There are several ways to save R objects for later use:
+
+```{r saving-objects}
+# Create some objects to save
+numbers <- c(1, 2, 3, 4, 5)
+fruits <- c("apple", "banana", "orange")
+
+# Save a single object to a .RData file
+save(numbers, file = "my_numbers.RData")
+
+# Save multiple objects
+save(numbers, fruits, file = "my_objects.RData")
+
+# Save entire workspace
+save.image(file = "workspace.RData")
+
+# Load saved objects
+load("my_numbers.RData")
+print("Loaded numbers:")
+print(numbers)
+```
+
+### Working with Files
+
+You can write data to and read data from files:
+
+```{r files}
+# Create a data frame to write
+df <- data.frame(
+  numbers = 1:5,
+  letters = LETTERS[1:5]
+)
+
+# Write a CSV file
+write.csv(df, file = "example.csv", row.names = FALSE)
+
+# Read the CSV file back
+data <- read.csv("example.csv")
+print("Data read from CSV:")
+print(data)
+```
+
+### Getting Help
+
+R has excellent built-in documentation. Here are some examples of how to access help:
+
+```{r help, eval=FALSE}
+# Get help on a function
+?mean
+help(sum)
+
+# See examples
+example(mean)
+```
+
+## Practice Exercises
+
+Try these exercises to test your understanding:
+
+### Exercise 1: Create and Manipulate a Vector
+```{r exercise1}
+# Create a numeric vector with numbers 1 through 10
+my_vector <- 1:10
+
+# Calculate the mean
+vector_mean <- mean(my_vector)
+
+# Print results
+print("My vector:")
+print(my_vector)
+print("Mean of my vector:")
+print(vector_mean)
+```
+
+### Exercise 2: Working with Different Data Types
+```{r exercise2}
+# Create a character vector with three colors
+colors <- c("red", "blue", "green")
+
+# Create a list combining numeric and character vectors
+my_list <- list(
+  numbers = my_vector,
+  colors = colors
+)
+
+# Print the list
+print("My list:")
+print(my_list)
+```
+
+## Next Steps
+
+After mastering these basics, you can move on to:
+- Data frames and tibbles
+- Basic plotting with base R
+- Installing and using packages
+- Basic statistical functions
+- Control structures (if/else, loops)
+
+```{r cleanup, include=FALSE}
+# Clean up files created during the tutorial
+file.remove("my_numbers.RData")
+file.remove("my_objects.RData")
+file.remove("workspace.RData")
+file.remove("example.csv")
+``` 

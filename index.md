@@ -6,13 +6,14 @@ nav_order: 1
 
 # Welcome to the R Workshop
 
-This introductory workshop will help you get started with R programming.
+This introductory workshop will help you get started with R programming, with a focus on data analysis in bioinformatics and health sciences.
 
 ## Workshop Overview
 
 - Introduction to R and RStudio
-- Basic R syntax and data types
-- Data manipulation with R
+- Basic R programming concepts
+- Working with data structures
+- Data manipulation and analysis
 - Data visualization with ggplot2
 - Basic statistical analysis
 
@@ -20,16 +21,49 @@ This introductory workshop will help you get started with R programming.
 
 - A laptop with R and RStudio installed
 - Basic understanding of programming concepts (helpful but not required)
+- Please follow our [setup instructions](setup.md) before the workshop
+
+## Course Materials
+
+### Day 1: R Basics
+1. [R Programming Basics](class-materials/r_basics.html)
+2. [Objects and Variables](class-materials/objects-variables.html)
+3. [Vectors and Matrices](class-materials/vectors-matrices.html)
+4. [Working with Data Frames](class-materials/data-frames.html)
+
+### Day 2: Data Manipulation
+1. Data Manipulation with dplyr (Coming Soon)
+2. Advanced Filtering and Aggregation (Coming Soon)
+3. Joining and Merging Data (Coming Soon)
+
+### Day 3: Data Visualization
+1. Introduction to ggplot2 (Coming Soon)
+2. Advanced Plotting Techniques (Coming Soon)
+3. Creating Publication-Ready Figures (Coming Soon)
+
+### Day 4: Statistical Analysis
+1. Basic Statistical Tests (Coming Soon)
+2. Linear Models (Coming Soon)
+3. Practical Data Analysis (Coming Soon)
 
 ## Schedule
 
-| Time | Topic |
-|------|-------|
-| 9:00 - 10:30 | Introduction to R |
-| 10:45 - 12:00 | Data Types and Manipulation |
-| 13:00 - 14:30 | Data Visualization |
-| 14:45 - 16:00 | Statistical Analysis |
+| Time | Topic | Materials |
+|------|-------|-----------|
+| 9:00 - 10:30 | R Basics | [R Basics](class-materials/r_basics.html), [Objects & Variables](class-materials/objects-variables.html) |
+| 10:45 - 12:00 | Data Structures | [Vectors & Matrices](class-materials/vectors-matrices.html), [Data Frames](class-materials/data-frames.html) |
+| 13:00 - 14:30 | Data Manipulation | TBA |
+| 14:45 - 16:00 | Visualization & Analysis | TBA |
 
-## Getting Started
+## Additional Resources
 
-Please follow our [setup instructions](setup.md) before the workshop. 
+- [R Documentation](https://www.r-project.org/documentation.html)
+- [RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
+- [R for Data Science Book](https://r4ds.had.co.nz/)
+
+## Getting Help
+
+- Use RStudio's built-in help system (? or help() function)
+- Check the error messages carefully
+- Google the error message or problem
+- Ask on [Stack Overflow](https://stackoverflow.com/questions/tagged/r) with the [r] tag 

@@ -1,0 +1,37 @@
+name: Render R Markdown Files
+
+on:
+  push:
+    paths:
+      - 'class-materials/*.Rmd'
+  pull_request:
+    paths:
+      - 'class-materials/*.Rmd'
+  workflow_dispatch:
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    container: rocker/verse:latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install dependencies
+        run: |
+          Rscript -e 'install.packages(c("rmarkdown", "knitr"))'
+      
+      - name: Render R Markdown files
+        run: |
+          for file in class-materials/*.Rmd
+          do
+            Rscript -e "rmarkdown::render('$file', output_format = 'html_document')"
+          done
+      
+      - name: Commit results
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add class-materials/*.html
+          git commit -m "Re-render R Markdown files" || echo "No changes to commit"
+          git push origin || echo "No changes to push" 

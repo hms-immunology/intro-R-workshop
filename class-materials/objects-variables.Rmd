@@ -1,4 +1,18 @@
-# Objects and Variables in R
+---
+title: "Objects and Variables in R"
+author: "R Workshop"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: united
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 ## Introduction
 
@@ -8,13 +22,7 @@ In R, we work with objects to store and manipulate data. Understanding how to cr
 
 In R, we create objects using the assignment operator `<-` (or `=`). The basic syntax is:
 
-```r
-object_name <- value
-```
-
-Let's start with some simple examples:
-
-```r
+```{r basic-objects}
 # Creating a numeric object (gene expression value)
 expression_level <- 1543.7
 
@@ -23,6 +31,14 @@ gene_name <- "BRCA1"
 
 # Creating a logical object
 is_differentially_expressed <- TRUE
+
+# Let's print our objects
+print("Expression level:")
+print(expression_level)
+print("Gene name:")
+print(gene_name)
+print("Is differentially expressed?")
+print(is_differentially_expressed)
 ```
 
 ### Pro Tip
@@ -47,18 +63,20 @@ When naming objects in R, follow these guidelines:
 
 Once you create an object, you can use it in calculations or operations:
 
-```r
+```{r calculations}
 # RNA-seq example: calculating fold change
 control_expression <- 100
 treated_expression <- 200
 fold_change <- treated_expression / control_expression
-fold_change  # This will print: 2
+print("Fold change:")
+print(fold_change)  # This will print: 2
 
 # Medical example: BMI calculation
 weight_kg <- 70.5
 height_m <- 1.75
 bmi <- weight_kg / (height_m^2)
-bmi  # This will print: 23.02
+print("BMI calculation:")
+print(bmi)  # This will print: 23.02
 ```
 
 ## Practice Challenges
@@ -66,47 +84,72 @@ bmi  # This will print: 23.02
 ### Challenge 1: Basic Calculations
 Try to predict the values after each operation:
 
-```r
+```{r challenge1}
 read_count <- 1000       # What is read_count?
 scaling_factor <- 1.5    # What is scaling_factor?
 read_count <- read_count * scaling_factor  # Now what is read_count?
 normalized_count <- read_count / 10     # What is normalized_count?
+
+# Let's print the results
+print("Final read count:")
+print(read_count)
+print("Normalized count:")
+print(normalized_count)
 ```
 
 ### Challenge 2: Temperature Conversion
 Convert a patient's temperature from Celsius to Fahrenheit using the formula: °F = (°C × 9/5) + 32
 
-```r
-# Your code here:
+```{r challenge2}
+# Convert temperature
 temp_celsius <- 37.5  # Normal body temperature
-# Convert to Fahrenheit
+temp_fahrenheit <- (temp_celsius * 9/5) + 32
+
+print("Temperature conversion:")
+print(paste(temp_celsius, "°C =", temp_fahrenheit, "°F"))
 ```
 
 ### Challenge 3: Sample Information
-Create three variables:
-1. Sample ID
-2. Gene name
-3. Expression value
-Then combine them into a single sentence: "Sample [ID] shows [expression] counts for gene [gene_name]."
+Create three variables and combine them into a single sentence:
+
+```{r challenge3}
+sample_id <- "RNA_01"
+gene_name <- "TP53"
+expression_value <- 2456
+
+message <- paste("Sample", sample_id, "shows", expression_value, "counts for gene", gene_name)
+print("Combined message:")
+print(message)
+```
 
 ## Common Mistakes and How to Avoid Them
 
 1. **Case Sensitivity**
-```r
+```{r case-sensitivity}
 # These are three different objects!
 expression <- 5000
 Expression <- 6000
 EXPRESSION <- 7000
+
+print("Three different variables:")
+print(expression)
+print(Expression)
+print(EXPRESSION)
 ```
 
 2. **Overwriting Objects**
-```r
+```{r overwriting}
 read_depth <- 1000000
+print("Original read depth:")
+print(read_depth)
+
 read_depth <- 1500000  # The original value (1000000) is now gone
+print("New read depth:")
+print(read_depth)
 ```
 
 3. **Invalid Names**
-```r
+```{r invalid-names, eval=FALSE}
 # This won't work:
 1st_sample <- 5  # Invalid: starts with number
 sample name <- "Control"  # Invalid: contains space
@@ -120,35 +163,21 @@ sample name <- "Control"  # Invalid: contains space
 4. Use the `ls()` function to see all objects in your environment
 5. Use `rm(object_name)` to remove objects you no longer need
 
+```{r tips}
+# List all objects in environment
+print("Objects in environment:")
+ls()
+
+# Remove an object
+rm(expression)
+print("Objects after removing 'expression':")
+ls()
+```
+
 ## Next Steps
 
 After mastering basic objects and variables, you can move on to:
 - Working with data vectors and matrices
 - Understanding data types and structures
 - Learning how to create and use functions
-- Working with data frames
-
-## Exercise Solutions
-
-### Challenge 1 Solution:
-```r
-read_count <- 1000              # read_count is 1000
-scaling_factor <- 1.5           # scaling_factor is 1.5
-read_count <- read_count * scaling_factor  # read_count is now 1500
-normalized_count <- read_count / 10        # normalized_count is now 150
-```
-
-### Challenge 2 Solution:
-```r
-temp_celsius <- 37.5
-temp_fahrenheit <- (temp_celsius * 9/5) + 32  # Result: 99.5°F
-```
-
-### Challenge 3 Solution:
-```r
-sample_id <- "RNA_01"
-gene_name <- "TP53"
-expression_value <- 2456
-message <- paste("Sample", sample_id, "shows", expression_value, "counts for gene", gene_name)
-# Result: "Sample RNA_01 shows 2456 counts for gene TP53"
-``` 
+- Working with data frames 
