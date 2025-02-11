@@ -133,6 +133,7 @@ EXPRESSION <- 7000
 ```
 
 2. **Overwriting Objects**
+
 ```r
 read_depth <- 1000000
 # Results: read_depth is 1000000
