@@ -14,3 +14,7 @@ color_scheme: light
 
 # Enable or disable heading anchors
 heading_anchors: true 
+
+# Google Analytics Tracking
+ga_tracking: G-XXXXXXXXXX  # Replace G-XXXXXXXXXX with your actual Measurement ID
+ga_tracking_anonymize_ip: true  # Use anonymized IP addresses

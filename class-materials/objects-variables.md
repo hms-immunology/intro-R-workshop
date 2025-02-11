@@ -123,7 +123,9 @@ message <- paste("Sample", sample_id, "shows", expression_value, "counts for gen
 expression <- 5000
 Expression <- 6000
 EXPRESSION <- 7000
+```
 
+```r
 # Results:
 # expression: 5000
 # Expression: 6000
