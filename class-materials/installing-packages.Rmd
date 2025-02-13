@@ -11,6 +11,9 @@ output:
     highlight: tango
 ---
 
+[![](https://img.shields.io/badge/download%20html-blue)](../rendered-html/installing-packages.html)
+[![](https://img.shields.io/badge/download%20Rmd-blue)](installing-packages.Rmd)
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```

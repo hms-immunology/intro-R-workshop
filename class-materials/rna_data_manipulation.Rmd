@@ -9,6 +9,9 @@ output:
     theme: united
 ---
 
+[![](https://img.shields.io/badge/download%20html-blue)](../rendered-html/rna_data_manipulation.html)
+[![](https://img.shields.io/badge/download%20Rmd-blue)](rna_data_manipulation.Rmd)
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```

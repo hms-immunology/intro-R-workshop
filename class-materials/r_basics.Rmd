@@ -10,6 +10,9 @@ output:
     highlight: tango
 ---
 
+[![](https://img.shields.io/badge/download%20html-blue)](../rendered-html/r_basics.html)
+[![](https://img.shields.io/badge/download%20Rmd-blue)](r_basics.Rmd)
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
