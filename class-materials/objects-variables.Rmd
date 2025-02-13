@@ -1,6 +1,6 @@
 ---
 title: "Objects and Variables in R"
-author: "R Workshop"
+author: "Eren Ada"
 date: "`r Sys.Date()`"
 output:
   html_document:

@@ -1,6 +1,6 @@
 ---
-title: "R Programming Basics"
-author: "R Workshop"
+title: "Introduction to R"
+author: "Eren Ada"
 date: "`r Sys.Date()`"
 output:
   html_document:

@@ -1,6 +1,6 @@
 ---
-title: "Installing and Using R Packages"
-author: "R Workshop"
+title: "Installing and Managing R Packages"
+author: "Eren Ada"
 date: "`r Sys.Date()`"
 nav_order: 3
 output:

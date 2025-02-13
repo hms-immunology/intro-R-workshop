@@ -1,6 +1,6 @@
 ---
-title: "Introduction to Statistics with R"
-author: "R Workshop"
+title: "Basic Statistical Analysis"
+author: "Eren Ada"
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -308,79 +308,3 @@ demonstrate_pvalue <- function(n_trials = 1000) {
 # Run the demonstration
 demonstrate_pvalue()
 ```
-
-### Statistical Power and Sample Size
-
-Statistical power is your ability to detect a real effect when it exists. It's like the strength of your microscope - the stronger it is, the better you can see small details.
-
-```{r power-advanced}
-# Demonstrate how sample size affects our ability to detect differences
-demonstrate_power <- function(sample_sizes = c(10, 30, 100, 300)) {
-  # Store results
-  power_results <- numeric(length(sample_sizes))
-  
-  # Test each sample size
-  for(i in seq_along(sample_sizes)) {
-    n <- sample_sizes[i]
-    # Run 1000 trials for each sample size
-    significant_results <- replicate(1000, {
-      group1 <- rnorm(n, mean = 100, sd = 15)
-      group2 <- rnorm(n, mean = 110, sd = 15)  # 10 unit difference
-      t.test(group1, group2)$p.value < 0.05
-    })
-    power_results[i] <- mean(significant_results)
-  }
-  
-  # Create a bar plot
-  barplot(power_results,
-          names.arg = sample_sizes,
-          main = "How Sample Size Affects Power",
-          xlab = "Sample Size",
-          ylab = "Power (Probability of Detecting Effect)",
-          col = "lightblue")
-  
-  # Add reference line for 80% power
-  abline(h = 0.8, col = "red", lty = 2)
-  text(length(sample_sizes), 0.85, "Desired Power (80%)", col = "red")
-}
-
-# Run the demonstration
-demonstrate_power()
-```
-
-### Multiple Testing: The Multiple Comparisons Problem
-
-When you perform many tests at once, you increase the chance of finding "significant" results just by chance. It's like buying more lottery tickets - your chance of winning increases even if the odds for each ticket stay the same.
-
-```{r multiple-testing}
-# Demonstrate the multiple testing problem
-set.seed(123)
-
-# Perform 100 tests where we KNOW there is no real effect
-results <- replicate(100, {
-  group1 <- rnorm(30, mean = 100, sd = 15)
-  group2 <- rnorm(30, mean = 100, sd = 15)  # Same mean = no real effect
-  t.test(group1, group2)$p.value
-})
-
-# How many are "significant" by chance?
-cat("Number of 'significant' results (p < 0.05):", sum(results < 0.05))
-cat("\nExpected number by chance:", 100 * 0.05)
-
-# Plot the p-values
-hist(results,
-     main = "Distribution of P-values\nWhen There Is No Real Effect",
-     xlab = "P-value",
-     col = "lightblue",
-     breaks = 20)
-abline(v = 0.05, col = "red", lwd = 2)
-text(0.1, 10, "Significance\nThreshold", col = "red")
-```
-
-### When to Use These Advanced Concepts
-
-1. **Power Analysis**: Use when planning a study to determine how many samples you need
-2. **Multiple Testing Corrections**: Use when performing many tests at once (like in genomics)
-3. **Detailed Hypothesis Testing**: Use when you need to be very precise about your conclusions
-
-Remember: These advanced topics are tools in your statistical toolbox. You don't need them for every analysis, but they're good to understand for more complex situations. 

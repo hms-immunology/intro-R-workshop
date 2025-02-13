@@ -1,0 +1,660 @@
+---
+title: "RNA-seq Data Manipulation with tidyverse"
+author: "Eren Ada"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: united
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction to Data Manipulation for RNA-seq Analysis
+
+In this workshop, we'll learn how to manipulate RNA-seq data using the powerful tidyverse packages, specifically dplyr and tidyr. These tools will help you organize, filter, and summarize your RNA-seq data effectively.
+
+### Required Packages
+
+```{r load-packages, message=FALSE}
+library(tidyverse)
+```
+
+### Loading Our RNA-seq Dataset
+
+Let's start by loading our RNA-seq dataset. This dataset contains gene expression data along with various metadata about samples and experimental conditions.
+
+```{r load-data}
+# Read the RNA-seq data
+rna_data <- read_csv("data/rnaseq.csv")
+
+# Take a look at the first few rows
+head(rna_data)
+
+# Get a summary of the data structure
+glimpse(rna_data)
+```
+
+## Basic Data Manipulation with dplyr
+
+### 1. Understanding the Pipe Operator (`%>%`)
+
+Before we dive into specific data manipulation functions, let's understand the pipe operator `%>%`. This is a fundamental concept in tidyverse that makes your code more readable and intuitive. The pipe takes the output from one function and passes it as the first argument to the next function. Think of it as saying "and then" between operations.
+
+Let's look at some simple examples:
+
+```{r pipe-basics}
+# Without pipe
+head(rna_data)
+
+# With pipe
+rna_data %>% head()
+
+# These are equivalent:
+mean(rna_data$expression)
+rna_data$expression %>% mean()
+
+# Multiple operations without pipe (hard to read)
+head(arrange(select(rna_data, gene, expression), desc(expression)))
+
+# Same operations with pipe (more readable)
+rna_data %>%
+  select(gene, expression) %>%
+  arrange(desc(expression)) %>%
+  head()
+```
+
+🔍 **Practice 1: Basic Piping**
+Try these simple piping exercises:
+1. Show the first 3 rows of the data
+2. Calculate the mean expression value
+3. Count how many unique tissues are in the dataset
+
+<details>
+<summary>Click for solution</summary>
+```{r practice-pipe-1}
+# Exercise 1
+rna_data %>% head(3)
+
+# Exercise 2
+rna_data %>%
+  pull(expression) %>%
+  mean()
+
+# Exercise 3
+rna_data %>%
+  pull(tissue) %>%
+  unique() %>%
+  length()
+```
+</details>
+
+### Building Complexity Gradually with Pipes
+
+Let's practice combining operations with pipes, starting simple and getting more complex:
+
+```{r pipe-progression}
+# Start simple: just viewing data
+rna_data %>% head()
+
+# Add one operation
+rna_data %>%
+  select(gene, expression) %>%
+  head()
+
+# Add another operation
+rna_data %>%
+  select(gene, expression) %>%
+  arrange(desc(expression)) %>%
+  head()
+
+# Combine three operations
+rna_data %>%
+  select(gene, expression) %>%
+  filter(expression > 10000) %>%
+  arrange(desc(expression)) %>%
+  head()
+```
+
+🔍 **Practice 2: Building Pipelines**
+Build a pipeline step by step:
+1. Start by showing just the first 5 rows of the data
+2. Then, show only the gene and tissue columns
+3. Finally, sort the data by tissue name
+
+<details>
+<summary>Click for solution</summary>
+```{r practice-pipe-2}
+# Step 1
+rna_data %>%
+  head(5)
+
+# Step 2
+rna_data %>%
+  select(gene, tissue) %>%
+  head(5)
+
+# Step 3
+rna_data %>%
+  select(gene, tissue) %>%
+  arrange(tissue) %>%
+  head(5)
+```
+</details>
+
+Now that we understand how to use pipes, let's learn about specific dplyr functions for data manipulation.
+
+### 2. Selecting Columns (select())
+
+In RNA-seq analysis, we often want to focus on specific columns of interest. The `select()` function helps us choose which columns to keep or remove.
+
+```{r selecting-basics}
+# Basic selection examples
+# Select a single column
+rna_data %>%
+  select(gene) %>%
+  head()
+
+# Select multiple columns
+rna_data %>%
+  select(gene, expression) %>%
+  head()
+
+# Select columns by position
+rna_data %>%
+  select(1:3) %>%  # First three columns
+  head()
+
+# Select columns that contain certain text
+rna_data %>%
+  select(contains("expression")) %>%
+  head()
+
+# Select columns that start with certain text
+rna_data %>%
+  select(starts_with("h")) %>%  # Columns starting with 'h'
+  head()
+
+# More complex selection examples
+# Select key columns for expression analysis
+rna_data %>%
+  select(gene, sample, tissue, expression, sex, infection) %>%
+  head()
+
+# Remove columns using minus sign
+rna_data %>%
+  select(-chromosome_name, -phenotype_description) %>%
+  head()
+```
+
+🔍 **Practice: Selecting Columns**
+Try these exercises:
+1. Select only the sample and tissue columns
+2. Select all columns except expression
+3. Select columns that end with "name"
+4. Select columns between sample and tissue (inclusive)
+
+<details>
+<summary>Click for solution</summary>
+```{r practice-selecting}
+# Exercise 1
+rna_data %>%
+  select(sample, tissue) %>%
+  head()
+
+# Exercise 2
+rna_data %>%
+  select(-expression) %>%
+  head()
+
+# Exercise 3
+rna_data %>%
+  select(ends_with("name")) %>%
+  head()
+
+# Exercise 4
+rna_data %>%
+  select(sample:tissue) %>%
+  head()
+```
+</details>
+
+### Simple Data Summaries with Pipes
+
+Before we dive into complex operations, let's practice some simple summaries:
+
+```{r simple-summaries}
+# Count number of genes per tissue
+rna_data %>%
+  group_by(tissue) %>%
+  summarise(n_genes = n())
+
+# Find average expression by sex
+rna_data %>%
+  group_by(sex) %>%
+  summarise(mean_expr = mean(expression))
+
+# Combine grouping variables
+rna_data %>%
+  group_by(tissue, sex) %>%
+  summarise(
+    n_genes = n(),
+    mean_expr = mean(expression),
+    .groups = 'drop'
+  )
+```
+
+🔍 **Practice 3:**
+Create simple summaries:
+1. Count how many samples are in each infection status
+2. Calculate the minimum and maximum expression for each tissue
+3. Find the number of genes and mean expression for each combination of sex and infection status
+
+<details>
+<summary>Click for solution</summary>
+```{r practice-3}
+# Exercise 1
+rna_data %>%
+  group_by(infection) %>%
+  summarise(n_samples = n_distinct(sample))
+
+# Exercise 2
+rna_data %>%
+  group_by(tissue) %>%
+  summarise(
+    min_expr = min(expression),
+    max_expr = max(expression)
+  )
+
+# Exercise 3
+rna_data %>%
+  group_by(sex, infection) %>%
+  summarise(
+    n_genes = n(),
+    mean_expr = mean(expression),
+    .groups = 'drop'
+  )
+```
+</details>
+
+Now that we understand the basics of piping and simple data manipulations, let's move on to more complex operations.
+
+### 3. Filtering Data (filter())
+
+Filtering is crucial in RNA-seq analysis to focus on specific conditions or expression levels.
+
+```{r filtering-basics}
+# Basic filtering examples
+# Filter for a single condition
+rna_data %>%
+  filter(sex == "Female") %>%
+  head()
+
+# Filter for numeric values
+rna_data %>%
+  filter(expression > 1000) %>%
+  head()
+
+# Filter for multiple conditions using AND (&)
+rna_data %>%
+  filter(sex == "Female" & expression > 1000) %>%
+  head()
+
+# Filter for multiple conditions using OR (|)
+rna_data %>%
+  filter(tissue == "Brain" | tissue == "Heart") %>%
+  head()
+
+# Filter using %in% operator
+rna_data %>%
+  filter(tissue %in% c("Brain", "Heart", "Liver")) %>%
+  head()
+
+# Filter for non-missing values
+rna_data %>%
+  filter(!is.na(hsapiens_homolog_associated_gene_name)) %>%
+  head()
+
+# More complex filtering
+# Combining multiple conditions
+rna_data %>%
+  filter(sex == "Female",  # Using comma is same as &
+         expression > 5000,
+         tissue == "Brain",
+         !is.na(hsapiens_homolog_associated_gene_name)) %>%
+  head()
+```
+
+🔍 **Practice: Filtering Data**
+Try these exercises:
+1. Filter for male samples with expression < 500
+2. Filter for either Brain or Liver tissue with expression > 2000
+3. Filter for samples that have human homologs and are from female mice
+4. Filter for genes with expression between 1000 and 5000
+
+<details>
+<summary>Click for solution</summary>
+```{r practice-filtering}
+# Exercise 1
+rna_data %>%
+  filter(sex == "Male", expression < 500) %>%
+  head()
+
+# Exercise 2
+rna_data %>%
+  filter(tissue %in% c("Brain", "Liver"), expression > 2000) %>%
+  head()
+
+# Exercise 3
+rna_data %>%
+  filter(!is.na(hsapiens_homolog_associated_gene_name), sex == "Female") %>%
+  head()
+
+# Exercise 4
+rna_data %>%
+  filter(expression >= 1000, expression <= 5000) %>%
+  head()
+```
+</details>
+
+### 4. Creating New Columns (mutate())
+
+Often in RNA-seq analysis, we need to create new columns based on calculations or transformations.
+
+```{r mutating-basics}
+# Basic mutations
+# Create a simple numeric column
+rna_data %>%
+  mutate(expression_times_10 = expression * 10) %>%
+  select(gene, expression, expression_times_10) %>%
+  head()
+
+# Create a log transformation
+rna_data %>%
+  mutate(log2_expression = log2(expression)) %>%
+  select(gene, expression, log2_expression) %>%
+  head()
+
+# Create a character/factor column
+rna_data %>%
+  mutate(expression_level = if_else(expression > 5000, "high", "low")) %>%
+  select(gene, expression, expression_level) %>%
+  head()
+
+# Multiple mutations at once
+rna_data %>%
+  mutate(
+    log2_expression = log2(expression),
+    expression_centered = expression - mean(expression),
+    is_high_expressed = expression > mean(expression)
+  ) %>%
+  select(gene, expression, log2_expression, expression_centered, is_high_expressed) %>%
+  head()
+
+# Using case_when for multiple conditions
+rna_data %>%
+  mutate(
+    expression_category = case_when(
+      expression < 100 ~ "very_low",
+      expression < 1000 ~ "low",
+      expression < 10000 ~ "medium",
+      expression < 50000 ~ "high",
+      TRUE ~ "very_high"
+    )
+  ) %>%
+  select(gene, expression, expression_category) %>%
+  head()
+```
+
+🔍 **Practice: Creating New Columns**
+Try these exercises:
+1. Create a column that shows expression per 1000 units
+2. Create a logical column showing if the gene has a human homolog
+3. Create a column categorizing samples as "control" (NonInfected) or "treatment" (Infected)
+4. Create multiple columns: log10 of expression, z-score of expression, and expression rank
+
+<details>
+<summary>Click for solution</summary>
+```{r practice-mutating}
+# Exercise 1
+rna_data %>%
+  mutate(expression_per_1000 = expression / 1000) %>%
+  select(gene, expression, expression_per_1000) %>%
+  head()
+
+# Exercise 2
+rna_data %>%
+  mutate(has_human_homolog = !is.na(hsapiens_homolog_associated_gene_name)) %>%
+  select(gene, hsapiens_homolog_associated_gene_name, has_human_homolog) %>%
+  head()
+
+# Exercise 3
+rna_data %>%
+  mutate(group = if_else(infection == "NonInfected", "control", "treatment")) %>%
+  select(gene, infection, group) %>%
+  head()
+
+# Exercise 4
+rna_data %>%
+  mutate(
+    log10_expression = log10(expression),
+    zscore = (expression - mean(expression)) / sd(expression),
+    rank = rank(expression)
+  ) %>%
+  select(gene, expression, log10_expression, zscore, rank) %>%
+  head()
+```
+</details>
+
+### 5. Summarizing Data (group_by() and summarise())
+
+Summarizing expression data by different groups is a common task in RNA-seq analysis.
+
+```{r summarizing}
+# Calculate mean expression by tissue
+tissue_summary <- rna_data %>%
+  group_by(tissue) %>%
+  summarise(
+    mean_expression = mean(expression),
+    median_expression = median(expression),
+    n_genes = n()
+  )
+
+# Calculate expression statistics by infection status and sex
+condition_summary <- rna_data %>%
+  group_by(infection, sex) %>%
+  summarise(
+    mean_expression = mean(expression),
+    sd_expression = sd(expression),
+    n_samples = n_distinct(sample)
+  )
+```
+
+🔍 **Challenge 2:**
+Create a summary that shows:
+- The number of genes
+- Mean and median expression
+- Standard deviation of expression
+Grouped by both tissue and infection status
+
+<details>
+<summary>Click for solution</summary>
+```{r challenge-2}
+comprehensive_summary <- rna_data %>%
+  group_by(tissue, infection) %>%
+  summarise(
+    n_genes = n(),
+    mean_expr = mean(expression),
+    median_expr = median(expression),
+    sd_expr = sd(expression)
+  )
+
+print(comprehensive_summary)
+```
+</details>
+
+### 6. Common Data Wrangling Tasks in RNA-seq Analysis
+
+Let's explore various ways to wrangle our RNA-seq data for different analysis needs:
+
+```{r data-wrangling-examples}
+# Example 1: Finding genes expressed in multiple tissues
+genes_in_tissues <- rna_data %>%
+  group_by(gene) %>%
+  summarise(
+    n_tissues = n_distinct(tissue),
+    tissues = paste(unique(tissue), collapse = ", "),
+    mean_expression = mean(expression)
+  ) %>%
+  filter(n_tissues > 1) %>%
+  arrange(desc(mean_expression))
+
+print("Genes expressed in multiple tissues:")
+head(genes_in_tissues)
+
+# Example 2: Sample-level statistics
+sample_stats <- rna_data %>%
+  group_by(sample) %>%
+  summarise(
+    n_genes = n(),
+    total_expression = sum(expression),
+    mean_expression = mean(expression),
+    median_expression = median(expression),
+    n_high_expressed = sum(expression > 10000)
+  ) %>%
+  arrange(desc(mean_expression))
+
+print("\nSample-level statistics:")
+head(sample_stats)
+
+# Example 3: Tissue-specific gene analysis
+tissue_specific_genes <- rna_data %>%
+  group_by(gene) %>%
+  mutate(
+    mean_expr_per_gene = mean(expression),
+    zscore = (expression - mean_expr_per_gene) / sd(expression)
+  ) %>%
+  group_by(tissue) %>%
+  slice_max(order_by = zscore, n = 5) %>%
+  select(tissue, gene, expression, zscore) %>%
+  arrange(tissue, desc(zscore))
+
+print("\nTop tissue-specific genes:")
+head(tissue_specific_genes)
+
+# Example 4: Expression categories by condition
+expression_categories <- rna_data %>%
+  mutate(
+    expr_category = case_when(
+      expression < 1000 ~ "low",
+      expression < 5000 ~ "medium-low",
+      expression < 10000 ~ "medium-high",
+      TRUE ~ "high"
+    )
+  ) %>%
+  group_by(tissue, infection, expr_category) %>%
+  summarise(
+    n_genes = n(),
+    .groups = 'drop'
+  ) %>%
+  pivot_wider(
+    names_from = expr_category,
+    values_from = n_genes,
+    values_fill = 0
+  )
+
+print("\nExpression categories by condition:")
+head(expression_categories)
+```
+
+🔍 **Challenge 3:**
+Create a comprehensive analysis that:
+1. Groups genes by their chromosome location
+2. For each chromosome:
+   - Calculate the number of genes
+   - Find the mean and median expression
+   - Count how many genes are highly expressed (>10000)
+   - Determine the most common tissue for highly expressed genes
+3. Sort chromosomes by their number of highly expressed genes
+
+<details>
+<summary>Click for solution</summary>
+```{r challenge-3}
+chromosome_analysis <- rna_data %>%
+  # Group by chromosome and get basic stats
+  group_by(chromosome_name) %>%
+  summarise(
+    n_genes = n_distinct(gene),
+    mean_expression = mean(expression),
+    median_expression = median(expression),
+    n_high_expressed = sum(expression > 10000),
+    # Find most common tissue for highly expressed genes
+    most_common_tissue = rna_data %>%
+      filter(chromosome_name == .env$chromosome_name, 
+             expression > 10000) %>%
+      count(tissue) %>%
+      slice_max(n = 1, order_by = n) %>%
+      pull(tissue)
+  ) %>%
+  # Sort by number of highly expressed genes
+  arrange(desc(n_high_expressed))
+
+print(chromosome_analysis)
+```
+</details>
+
+🔍 **Challenge 4:**
+Create a summary of gene expression patterns that:
+1. Identifies genes that are consistently expressed (low variance) across all samples
+2. Calculates the coefficient of variation (CV = sd/mean) for each gene
+3. Finds the top 10 most stable genes in each tissue
+4. Returns a table with gene, tissue, mean expression, and CV
+
+<details>
+<summary>Click for solution</summary>
+```{r challenge-4}
+stable_genes <- rna_data %>%
+  # Calculate statistics for each gene in each tissue
+  group_by(gene, tissue) %>%
+  summarise(
+    mean_expression = mean(expression),
+    sd_expression = sd(expression),
+    cv = sd_expression / mean_expression,
+    n_samples = n(),
+    .groups = 'drop'
+  ) %>%
+  # Filter for genes with enough samples
+  filter(n_samples >= 3) %>%
+  # Get top 10 most stable genes per tissue
+  group_by(tissue) %>%
+  slice_min(order_by = cv, n = 10) %>%
+  # Sort by tissue and CV
+  arrange(tissue, cv)
+
+print(stable_genes)
+```
+</details>
+
+These examples demonstrate how to combine multiple dplyr operations to answer complex biological questions about your RNA-seq data. Remember to always consider the biological context when interpreting results and to verify your data transformations at each step.
+
+## Conclusion
+
+These data manipulation techniques form the foundation of RNA-seq data analysis. Practice with these tools will help you:
+- Clean and organize your data effectively
+- Create meaningful summaries of your results
+- Prepare your data for downstream analyses like differential expression
+
+Remember:
+- Always check your data after each transformation
+- Use meaningful names for new columns and objects
+- Document your analysis steps
+- Consider the biological meaning of your operations
+
+## Additional Resources
+
+- [dplyr cheat sheet](https://github.com/rstudio/cheat-sheets/raw/master/data-transformation.pdf)
+- [tidyr cheat sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/tidyr.pdf)
+- [R for Data Science book](https://r4ds.had.co.nz/) 
