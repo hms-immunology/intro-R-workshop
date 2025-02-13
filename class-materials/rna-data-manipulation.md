@@ -6,8 +6,8 @@ nav_order: 14
 
 # RNA-seq Data Manipulation with tidyverse
 
-[<img src="https://img.shields.io/badge/Download-HTML-blue?style=for-the-badge&logo=html5" alt="Download HTML" />](../rendered-html/rna-data-manipulation.html)
-[<img src="https://img.shields.io/badge/Download-R_Markdown-green?style=for-the-badge&logo=r" alt="Download R Markdown" />](rna-data-manipulation.Rmd)
+[<img src="https://img.shields.io/badge/Download-HTML-blue?style=for-the-badge&logo=html5" alt="Download HTML" />](../rendered-html/rna_data_manipulation.html)
+[<img src="https://img.shields.io/badge/Download-R_Markdown-green?style=for-the-badge&logo=r" alt="Download R Markdown" />](rna_data_manipulation.Rmd)
 
 ## Introduction to Data Manipulation for RNA-seq Analysis
 

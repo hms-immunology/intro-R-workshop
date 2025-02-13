@@ -6,8 +6,8 @@ nav_order: 13
 
 # Loops and Apply Functions in R
 
-[<img src="https://img.shields.io/badge/Download-HTML-blue?style=for-the-badge&logo=html5" alt="Download HTML" />](../rendered-html/loops-and-apply.html)
-[<img src="https://img.shields.io/badge/Download-R_Markdown-green?style=for-the-badge&logo=r" alt="Download R Markdown" />](loops-and-apply.Rmd)
+[<img src="https://img.shields.io/badge/Download-HTML-blue?style=for-the-badge&logo=html5" alt="Download HTML" />](../rendered-html/loops_and_apply.html)
+[<img src="https://img.shields.io/badge/Download-R_Markdown-green?style=for-the-badge&logo=r" alt="Download R Markdown" />](loops_and_apply.Rmd)
 
 ## Introduction to Loops and Apply Functions
 

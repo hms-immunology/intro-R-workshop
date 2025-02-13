@@ -6,8 +6,8 @@ nav_order: 12
 
 # Introduction to Functions in R
 
-[<img src="https://img.shields.io/badge/Download-HTML-blue?style=for-the-badge&logo=html5" alt="Download HTML" />](../rendered-html/function-basics.html)
-[<img src="https://img.shields.io/badge/Download-R_Markdown-green?style=for-the-badge&logo=r" alt="Download R Markdown" />](function-basics.Rmd)
+[<img src="https://img.shields.io/badge/Download-HTML-blue?style=for-the-badge&logo=html5" alt="Download HTML" />](../rendered-html/function_basics.html)
+[<img src="https://img.shields.io/badge/Download-R_Markdown-green?style=for-the-badge&logo=r" alt="Download R Markdown" />](function_basics.Rmd)
 
 ## Introduction to Functions in R
 
