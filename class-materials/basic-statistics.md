@@ -40,37 +40,40 @@ Let's create and visualize a normal distribution. Imagine we're measuring height
 
 ```r
 # Generate some example height data (in centimeters)
-set.seed(123)  # This makes our random numbers reproducible
-heights <- rnorm(1000, mean = 170, sd = 10)  # Mean height 170cm, SD 10cm
+set.seed(123)  # This makes our random numbers reproducible - same results each time
+heights <- rnorm(1000, mean = 170, sd = 10)  # Generate 1000 random heights:
+                                            # - Mean height of 170cm
+                                            # - Standard deviation of 10cm
+                                            # This creates a normal distribution
 
 # Create a histogram with density scaling
 hist(heights, 
-     breaks = 30,
-     main = "Distribution of Heights in Our Population",
-     xlab = "Height (cm)",
-     ylab = "Density",
-     col = "lightblue",
-     border = "white",
-     prob = TRUE)  # Use probability scaling for density curves
+     breaks = 30,                    # Number of bars in histogram
+     main = "Distribution of Heights in Our Population",  # Plot title
+     xlab = "Height (cm)",          # X-axis label
+     ylab = "Density",              # Y-axis label
+     col = "lightblue",             # Bar color
+     border = "white",              # Bar border color
+     prob = TRUE)                   # Use probability scaling for density curves
 
 # Add theoretical normal density curve
-curve(dnorm(x, mean = mean(heights), sd = sd(heights)), 
-      col = "red", 
-      lwd = 2,
-      add = TRUE)
+curve(dnorm(x, mean = mean(heights), sd = sd(heights)), # Add perfect bell curve
+      col = "red",                  # Curve color
+      lwd = 2,                      # Line width
+      add = TRUE)                   # Add to existing plot
 
 # Add empirical density curve
-lines(density(heights), 
-      col = "darkblue", 
-      lwd = 2,
-      lty = 2)
+lines(density(heights),             # Add smoothed curve of actual data
+      col = "darkblue",            # Curve color
+      lwd = 2,                     # Line width
+      lty = 2)                     # Make line dashed
 
-# Add legend
-legend("topright", 
-       legend = c("Theoretical Normal", "Empirical Density"),
-       col = c("red", "darkblue"),
-       lwd = 2,
-       lty = c(1, 2))
+# Add legend to explain the curves
+legend("topright",                  # Position legend in top right
+       legend = c("Theoretical Normal", "Empirical Density"),  # Legend labels
+       col = c("red", "darkblue"), # Colors matching curves
+       lwd = 2,                    # Line width
+       lty = c(1, 2))              # Line types (solid and dashed)
 ```
 
 ### Understanding the Normal Distribution
@@ -88,26 +91,27 @@ Key features of a normal distribution:
 
 ```r
 # Calculate basic statistics
-mean_height <- mean(heights)
-median_height <- median(heights)
-mode_height <- as.numeric(names(sort(table(round(heights)), decreasing = TRUE)[1]))
+mean_height <- mean(heights)        # Average height
+median_height <- median(heights)    # Middle value when sorted
+mode_height <- as.numeric(names(sort(table(round(heights)), 
+                                   decreasing = TRUE)[1]))  # Most common height
 
-# Print results
-cat("Mean height:", round(mean_height, 1), "cm\n")
-cat("Median height:", round(median_height, 1), "cm\n")
-cat("Mode height:", round(mode_height, 1), "cm\n")
+# Print results with clear labels
+cat("Mean height:", round(mean_height, 1), "cm\n")      # Average to 1 decimal
+cat("Median height:", round(median_height, 1), "cm\n")  # Median to 1 decimal
+cat("Mode height:", round(mode_height, 1), "cm\n")      # Mode to 1 decimal
 ```
 
 ### Measures of Spread
 
 ```r
 # Calculate measures of spread
-sd_height <- sd(heights)
-var_height <- var(heights)
-range_height <- range(heights)
-iqr_height <- IQR(heights)
+sd_height <- sd(heights)            # Standard deviation - typical distance from mean
+var_height <- var(heights)          # Variance - squared standard deviation
+range_height <- range(heights)      # Min and max values
+iqr_height <- IQR(heights)         # Interquartile range - middle 50% of data
 
-# Print results
+# Print results with clear labels and rounding
 cat("Standard deviation:", round(sd_height, 1), "cm\n")
 cat("Variance:", round(var_height, 1), "cm²\n")
 cat("Range:", round(diff(range_height), 1), "cm\n")
@@ -119,34 +123,38 @@ cat("Interquartile range:", round(iqr_height, 1), "cm\n")
 Let's say we're comparing a control group to a treatment group:
 
 ```r
-# Create example data
-control <- rnorm(30, mean = 100, sd = 15)    # Control group measurements
-treatment <- rnorm(30, mean = 115, sd = 15)   # Treatment group measurements
+# Create example data for comparing groups
+control <- rnorm(30, mean = 100, sd = 15)    # Control group: 30 samples, mean 100, SD 15
+treatment <- rnorm(30, mean = 115, sd = 15)   # Treatment group: 30 samples, mean 115, SD 15
 
-# Put data in a nice format
+# Put data in a nice format for plotting and analysis
 experiment_data <- data.frame(
-  value = c(control, treatment),
-  group = rep(c("Control", "Treatment"), each = 30)
+  value = c(control, treatment),              # Combine all measurements
+  group = rep(c("Control", "Treatment"),      # Create group labels
+             each = 30)                       # 30 repeats of each label
 )
 
-# Create a clear visualization
+# Create a clear visualization using boxplot
 boxplot(value ~ group, data = experiment_data,
-        main = "Comparing Control vs Treatment",
-        ylab = "Measurement Value",
-        col = c("lightblue", "lightgreen"))
+        main = "Comparing Control vs Treatment",  # Plot title
+        ylab = "Measurement Value",              # Y-axis label
+        col = c("lightblue", "lightgreen"))      # Box colors
 
-# Add individual points
+# Add individual points to show data distribution
 stripchart(value ~ group, data = experiment_data,
-           vertical = TRUE, method = "jitter",
-           add = TRUE, pch = 19, col = "darkgray")
+           vertical = TRUE,                    # Points arranged vertically
+           method = "jitter",                  # Add random horizontal jitter
+           add = TRUE,                         # Add to existing plot
+           pch = 19,                          # Solid circle points
+           col = "darkgray")                  # Point color
 
-# Calculate and display some basic statistics
+# Calculate and display summary statistics
 cat("\nControl Group:")
-cat("\n  Average:", round(mean(control), 1))
-cat("\n  SD:", round(sd(control), 1))
+cat("\n  Average:", round(mean(control), 1))    # Mean of control group
+cat("\n  SD:", round(sd(control), 1))           # Standard deviation of control
 cat("\n\nTreatment Group:")
-cat("\n  Average:", round(mean(treatment), 1))
-cat("\n  SD:", round(sd(treatment), 1))
+cat("\n  Average:", round(mean(treatment), 1))  # Mean of treatment group
+cat("\n  SD:", round(sd(treatment), 1))         # Standard deviation of treatment
 ```
 
 ## Part 4: Statistical Tests

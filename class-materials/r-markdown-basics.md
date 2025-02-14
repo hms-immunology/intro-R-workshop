@@ -34,7 +34,7 @@ This is the part at the top of your document between the `---` marks:
 title: "My First R Markdown"
 author: "Your Name"
 date: "2024-03-20"
-output: html_document
+output: html_document    # Specifies output format (can also be PDF or Word)
 ---
 ```
 
@@ -54,10 +54,44 @@ Write regular text using Markdown formatting:
 Code chunks are where you put your R code. They look like this:
 
 ```r
-# This is a code chunk
-x <- 1:10
-mean(x)
-# Result: 5.5
+# This is a code chunk that demonstrates basic R operations
+x <- 1:10               # Create a sequence from 1 to 10
+mean(x)                 # Calculate the average
+# Result: 5.5          # The mean of numbers 1 through 10
+
+# Code chunk with customized options
+# This chunk will:
+# - Show the code (echo=TRUE)
+# - Hide messages from package loading (message=FALSE)
+# - Hide any warnings (warning=FALSE)
+library(tidyverse)      # Load the tidyverse package suite
+ggplot(mtcars,          # Create a scatter plot using mtcars dataset
+       aes(x = mpg,     # Map miles per gallon to x-axis
+           y = wt)) +   # Map weight to y-axis
+  geom_point()         # Add points to the plot
+
+# Create a nice table using knitr
+library(knitr)         # Load knitr package for table formatting
+head(mtcars) %>%       # Take first 6 rows of mtcars dataset
+  kable()             # Create a nicely formatted table
+
+# Including equations using LaTeX syntax
+# Inline equation: $y = mx + b$
+# Display equation:
+# $$
+# \bar{X} = \frac{1}{n}\sum_{i=1}^n X_i
+# $$
+
+# Including images with alt text for accessibility
+# ![RStudio Logo](https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-Flat.png)
+
+# Common chunk options:
+# echo: Should the code be shown? (TRUE/FALSE)
+# eval: Should the code be run? (TRUE/FALSE)
+# message: Show messages? (TRUE/FALSE)
+# warning: Show warnings? (TRUE/FALSE)
+# fig.width, fig.height: Control figure size
+# fig.cap: Add a figure caption
 ```
 
 ## Part 2: Code Chunks in Detail

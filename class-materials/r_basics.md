@@ -18,19 +18,103 @@ R is a powerful programming language designed for statistical computing and data
 R can be used as a simple calculator. Type expressions directly in the console:
 
 ```r
-# Basic arithmetic operations
-2 + 2       # Addition
-10 - 5      # Subtraction
-4 * 3       # Multiplication
-15 / 3      # Division
-2^3         # Exponentiation
+# Basic arithmetic operations in R
+2 + 2                  # Addition
+10 - 5                 # Subtraction
+4 * 3                  # Multiplication
+15 / 3                 # Division
+2^3                    # Exponentiation
+10 %% 3                # Modulo (remainder)
+10 %/% 3              # Integer division
 
-# Results:
-# Addition: 2 + 2 = 4
-# Subtraction: 10 - 5 = 5
-# Multiplication: 4 * 3 = 12
-# Division: 15 / 3 = 5
-# Exponentiation: 2^3 = 8
+# Variable assignment and basic operations
+x <- 10                # Assign value 10 to variable x
+y <- 5                 # Assign value 5 to variable y
+z <- x + y            # Add x and y, store result in z
+result <- x * y       # Multiply x and y, store in result
+
+# Working with vectors
+numbers <- c(1, 2, 3, 4, 5)          # Create numeric vector
+letters <- c("a", "b", "c")          # Create character vector
+logical_vec <- c(TRUE, FALSE, TRUE)  # Create logical vector
+
+# Vector operations
+sum(numbers)                         # Sum all elements
+mean(numbers)                        # Calculate mean
+length(numbers)                      # Get vector length
+sort(numbers)                        # Sort vector
+rev(numbers)                         # Reverse vector
+
+# Sequence generation
+seq_1 <- 1:10                       # Create sequence from 1 to 10
+seq_2 <- seq(0, 10, by = 2)         # Sequence with step size 2
+rep_vec <- rep(1:3, times = 2)      # Repeat sequence
+
+# Basic data types
+numeric_val <- 42.5                 # Numeric (double)
+integer_val <- 42L                  # Integer
+character_val <- "Hello"            # Character string
+logical_val <- TRUE                 # Logical (boolean)
+
+# Type checking and conversion
+class(numeric_val)                  # Check object class
+is.numeric(numeric_val)             # Check if numeric
+as.character(numeric_val)           # Convert to character
+as.numeric("42.5")                  # Convert to numeric
+
+# Basic statistical functions
+data <- c(15, 20, 25, 30, 35)      # Sample data
+mean(data)                         # Calculate mean
+median(data)                       # Calculate median
+sd(data)                          # Calculate standard deviation
+var(data)                         # Calculate variance
+range(data)                       # Get range (min and max)
+summary(data)                     # Get summary statistics
+
+# Working with missing values (NA)
+data_with_na <- c(1, NA, 3, NA, 5)  # Vector with missing values
+is.na(data_with_na)                 # Check for NA values
+na.omit(data_with_na)               # Remove NA values
+mean(data_with_na, na.rm = TRUE)    # Calculate mean ignoring NA
+
+# Basic plotting
+plot(1:10, type = "l")              # Line plot
+hist(rnorm(100))                    # Histogram of random normal data
+boxplot(data)                       # Box plot
+
+# Basic string operations
+text <- "Hello, World!"             # Create string
+nchar(text)                         # Count characters
+toupper(text)                       # Convert to uppercase
+tolower(text)                       # Convert to lowercase
+substr(text, 1, 5)                  # Extract substring
+
+# Logical operations
+a <- 10
+b <- 5
+a > b                               # Greater than
+a < b                               # Less than
+a == b                              # Equal to
+a != b                              # Not equal to
+a >= b                              # Greater than or equal to
+a <= b                              # Less than or equal to
+
+# Conditional statements
+if (a > b) {                        # If statement
+  print("a is greater than b")
+} else {
+  print("a is not greater than b")
+}
+
+# Basic functions
+square <- function(x) {             # Define function
+  return(x^2)                       # Return square of input
+}
+square(4)                           # Call function
+
+# Working with packages
+# install.packages("tidyverse")     # Install package (commented out)
+library(stats)                      # Load built-in stats package
 ```
 
 ### Objects and Variables

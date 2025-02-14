@@ -4,17 +4,18 @@ author: "Eren Ada"
 date: "`r Sys.Date()`"
 output:
   html_document:
-    toc: true
-    toc_float: true
-    theme: united
-    highlight: tango
+    toc: true          # Enables table of contents
+    toc_float: true    # Makes TOC floating on the left
+    theme: united      # Sets the document theme
+    highlight: tango   # Sets code highlighting style
 ---
 
 [![](https://img.shields.io/badge/download%20html-blue)](../rendered-html/r_basics.html)
 [![](https://img.shields.io/badge/download%20Rmd-blue)](r_basics.Rmd)
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+# This chunk sets up global options for all code chunks in the document
+knitr::opts_chunk$set(echo = TRUE)  # Makes code visible in output
 ```
 
 ## Getting Started with R
@@ -23,165 +24,139 @@ R is a powerful programming language designed for statistical computing and data
 
 ### Using R as a Calculator
 
-R can be used as a simple calculator. Type expressions directly in the console:
-
 ```{r calculator}
-# Basic arithmetic operations
-2 + 2       # Addition
-10 - 5      # Subtraction
-4 * 3       # Multiplication
-15 / 3      # Division
-2^3         # Exponentiation
+# Basic arithmetic operations demonstration
+2 + 2       # Addition operator (+)
+10 - 5      # Subtraction operator (-)
+4 * 3       # Multiplication operator (*)
+15 / 3      # Division operator (/)
+2^3         # Exponentiation operator (^) - 2 raised to power 3
 
-# Let's print the results with labels
-print("Addition: 2 + 2 =")
-print(2 + 2)
-print("Exponentiation: 2^3 =")
-print(2^3)
+# Print results with descriptive labels using print() function
+print("Addition: 2 + 2 =")          # Print a text label
+print(2 + 2)                        # Print the result
+print("Exponentiation: 2^3 =")      # Print another label
+print(2^3)                          # Print the result
 ```
 
 ### Objects and Variables
 
-In R, you can store values in objects using the assignment operator `<-` (or `=`):
-
 ```{r objects}
-# Creating objects
-x <- 10
-my_number = 42
-text <- "Hello, R!"
+# Creating objects using different assignment operators
+x <- 10                # Using <- (preferred in R)
+my_number = 42         # Using = (works but <- is more common in R)
+text <- "Hello, R!"    # Assigning a string value
 
-# Print objects
-print("Value of x:")
-print(x)
-print("Value of my_number:")
-print(my_number)    # Just typing the object name will print it
-print("Value of text:")
-print(text)
+# Demonstrating how to print object values
+print("Value of x:")                 # Print label
+print(x)                            # Print numeric value
+print("Value of my_number:")         # Print label
+print(my_number)                    # Print numeric value
+print("Value of text:")              # Print label
+print(text)                         # Print string value
 ```
 
 ### Data Types in R
 
-R has several basic data types:
-
 ```{r data-types}
-# Numeric
-age <- 25
+# Demonstrating different basic data types in R
+age <- 25                           # Numeric type (includes integers and decimals)
+name <- "John"                      # Character type (for text/strings)
+is_student <- TRUE                  # Logical type (TRUE/FALSE)
 
-# Character (string)
-name <- "John"
-
-# Logical (boolean)
-is_student <- TRUE
-
-# Check the type of an object
+# Using class() function to check data types
 print("Type of 'age':")
-print(class(age))      # "numeric"
+print(class(age))                   # Shows "numeric"
 print("Type of 'name':")
-print(class(name))     # "character"
+print(class(name))                  # Shows "character"
 print("Type of 'is_student':")
-print(class(is_student))   # "logical"
+print(class(is_student))            # Shows "logical"
 ```
 
 ### Vectors
 
-Vectors are one-dimensional arrays that can hold data of the same type:
-
 ```{r vectors}
-# Create a vector using c()
-numbers <- c(1, 2, 3, 4, 5)
-fruits <- c("apple", "banana", "orange")
+# Creating vectors using the combine function c()
+numbers <- c(1, 2, 3, 4, 5)         # Numeric vector
+fruits <- c("apple", "banana", "orange")  # Character vector
 
-# Vector operations
-numbers_plus_2 <- numbers + 2     # Adds 2 to each element
-numbers_times_3 <- numbers * 3     # Multiplies each element by 3
+# Demonstrating vector operations (vectorization)
+numbers_plus_2 <- numbers + 2       # Adds 2 to each element
+numbers_times_3 <- numbers * 3      # Multiplies each element by 3
 
-# Vector indexing (starts at 1, not 0)
-first_number <- numbers[1]      # First element
-second_fruit <- fruits[2]       # Second element
+# Demonstrating vector indexing (R uses 1-based indexing)
+first_number <- numbers[1]          # Get first element using []
+second_fruit <- fruits[2]           # Get second element using []
 
-# Print results
+# Print results to show vector operations
 print("Original numbers vector:")
 print(numbers)
-print("Numbers + 2:")
+print("Numbers + 2:")               # Show vectorized addition
 print(numbers_plus_2)
-print("Numbers * 3:")
+print("Numbers * 3:")               # Show vectorized multiplication
 print(numbers_times_3)
-print("First number:")
+print("First number:")              # Show indexing result
 print(first_number)
-print("Second fruit:")
+print("Second fruit:")              # Show indexing result
 print(second_fruit)
 ```
 
 ### Saving Objects
 
-There are several ways to save R objects for later use:
-
 ```{r saving-objects}
-# Create some objects to save
+# Create example objects to demonstrate saving
 numbers <- c(1, 2, 3, 4, 5)
 fruits <- c("apple", "banana", "orange")
 
-# Save a single object to a .RData file
-save(numbers, file = "my_numbers.RData")
+# Demonstrate different ways to save R objects
+save(numbers, file = "my_numbers.RData")     # Save single object
+save(numbers, fruits, file = "my_objects.RData")  # Save multiple objects
+save.image(file = "workspace.RData")         # Save entire workspace
 
-# Save multiple objects
-save(numbers, fruits, file = "my_objects.RData")
-
-# Save entire workspace
-save.image(file = "workspace.RData")
-
-# Load saved objects
-load("my_numbers.RData")
+# Demonstrate loading saved objects
+load("my_numbers.RData")                     # Load saved data
 print("Loaded numbers:")
 print(numbers)
 ```
 
 ### Working with Files
 
-You can write data to and read data from files:
-
 ```{r files}
-# Create a data frame to write
+# Create a sample data frame for file operations
 df <- data.frame(
-  numbers = 1:5,
-  letters = LETTERS[1:5]
+  numbers = 1:5,                    # Sequence 1 to 5
+  letters = LETTERS[1:5]            # First 5 uppercase letters
 )
 
-# Write a CSV file
+# Demonstrate writing data to CSV
 write.csv(df, file = "example.csv", row.names = FALSE)
 
-# Read the CSV file back
-data <- read.csv("example.csv")
+# Demonstrate reading data from CSV
+data <- read.csv("example.csv")     # Read the file we just created
 print("Data read from CSV:")
-print(data)
+print(data)                         # Show the loaded data
 ```
 
 ### Getting Help
 
-R has excellent built-in documentation. Here are some examples of how to access help:
-
 ```{r help, eval=FALSE}
-# Get help on a function
-?mean
-help(sum)
-
-# See examples
-example(mean)
+# Demonstrate different ways to get help in R
+?mean           # Access help page for mean function
+help(sum)       # Alternative way to access help
+example(mean)   # See examples of using mean function
 ```
 
 ## Practice Exercises
 
-Try these exercises to test your understanding:
-
 ### Exercise 1: Create and Manipulate a Vector
 ```{r exercise1}
-# Create a numeric vector with numbers 1 through 10
-my_vector <- 1:10
+# Create a sequence vector using : operator
+my_vector <- 1:10                   # Creates vector from 1 to 10
 
-# Calculate the mean
-vector_mean <- mean(my_vector)
+# Calculate the arithmetic mean
+vector_mean <- mean(my_vector)      # Use mean() function
 
-# Print results
+# Display results
 print("My vector:")
 print(my_vector)
 print("Mean of my vector:")
@@ -190,16 +165,16 @@ print(vector_mean)
 
 ### Exercise 2: Working with Different Data Types
 ```{r exercise2}
-# Create a character vector with three colors
-colors <- c("red", "blue", "green")
+# Create a character vector
+colors <- c("red", "blue", "green")  # Vector of color names
 
-# Create a list combining numeric and character vectors
+# Create a list to hold multiple data types
 my_list <- list(
-  numbers = my_vector,
-  colors = colors
+  numbers = my_vector,              # Add numeric vector
+  colors = colors                   # Add character vector
 )
 
-# Print the list
+# Show the structure of the list
 print("My list:")
 print(my_list)
 ```
@@ -214,9 +189,9 @@ After mastering these basics, you can move on to:
 - Control structures (if/else, loops)
 
 ```{r cleanup, include=FALSE}
-# Clean up files created during the tutorial
-file.remove("my_numbers.RData")
-file.remove("my_objects.RData")
-file.remove("workspace.RData")
-file.remove("example.csv")
+# Clean up temporary files created during the tutorial
+file.remove("my_numbers.RData")      # Remove saved number data
+file.remove("my_objects.RData")      # Remove saved objects
+file.remove("workspace.RData")       # Remove workspace
+file.remove("example.csv")           # Remove CSV file
 ``` 

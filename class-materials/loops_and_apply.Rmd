@@ -10,6 +10,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
+# Set global options for all code chunks in this R Markdown document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -25,17 +26,20 @@ Let's learn both approaches with simple examples!
 
 ### For Loops
 
-A for loop repeats a block of code for a specified number of times:
-
 ```{r}
-# Basic for loop
+# Example 1: Basic for loop that iterates from 1 to 5
 for (i in 1:5) {
+  # paste() combines strings, converting numbers to text if needed
+  # This will print "This is iteration number X" for each value of i
   print(paste("This is iteration number", i))
 }
 
-# Loop through a vector
+# Example 2: Loop through elements in a vector
+# Create a vector of fruit names
 fruits <- c("apple", "banana", "orange", "grape")
+# Loop through each fruit in the vector
 for (fruit in fruits) {
+  # Print a message for each fruit
   print(paste("I like", fruit))
 }
 ```
@@ -43,157 +47,163 @@ for (fruit in fruits) {
 ### Practical Examples with For Loops
 
 ```{r}
-# 1. Calculate squares of numbers
+# Example 1: Calculate squares of numbers
+# Create a sequence of numbers from 1 to 5
 numbers <- 1:5
-squares <- numeric(length(numbers))  # Pre-allocate the vector
+# Create an empty numeric vector to store results (pre-allocation for efficiency)
+squares <- numeric(length(numbers))  
 
+# Loop through each number and calculate its square
 for (i in 1:length(numbers)) {
+  # Store the square of each number in the pre-allocated vector
   squares[i] <- numbers[i]^2
 }
+# Display the results
 print(squares)
 
-# 2. Working with a data frame
+# Example 2: Working with a data frame
+# Create a sample data frame with student information
 students <- data.frame(
-  name = c("Alice", "Bob", "Charlie"),
-  score1 = c(85, 92, 78),
-  score2 = c(88, 85, 90)
+  name = c("Alice", "Bob", "Charlie"),    # Student names
+  score1 = c(85, 92, 78),                 # First test scores
+  score2 = c(88, 85, 90)                  # Second test scores
 )
 
-# Calculate average score for each student
+# Calculate and print average score for each student
 for (i in 1:nrow(students)) {
+  # Calculate mean of both scores for current student
   avg <- mean(c(students$score1[i], students$score2[i]))
+  # Print formatted message with student name and average
   print(paste(students$name[i], "has an average score of", avg))
 }
 ```
 
 ### While Loops
 
-While loops continue until a condition becomes false:
-
 ```{r}
-# Basic while loop
+# Example 1: Basic while loop
+# Initialize counter
 counter <- 1
+# Continue loop as long as counter is less than or equal to 5
 while (counter <= 5) {
+  # Print current counter value
   print(paste("Counter is", counter))
+  # Increment counter
   counter <- counter + 1
 }
 
-# Example: Keep adding numbers until sum exceeds 100
-sum <- 0
-count <- 0
+# Example 2: Sum numbers until exceeding 100
+# Initialize variables
+sum <- 0    # Running sum
+count <- 0  # Number counter
+# Continue adding numbers until sum reaches or exceeds 100
 while (sum < 100) {
-  count <- count + 1
-  sum <- sum + count
+  count <- count + 1              # Increment counter
+  sum <- sum + count             # Add current number to sum
+  # Print progress message
   print(paste("Added", count, "Sum is now", sum))
 }
 ```
 
 ### Nested Loops
 
-We can put loops inside other loops:
-
 ```{r}
-# Create a multiplication table
-for (i in 1:3) {
-  for (j in 1:3) {
+# Create a multiplication table using nested loops
+for (i in 1:3) {                     # Outer loop: first number
+  for (j in 1:3) {                   # Inner loop: second number
+    # Calculate and print multiplication result
     print(paste(i, "x", j, "=", i*j))
   }
-  print("---")  # Separator between numbers
+  print("---")  # Print separator between numbers
 }
 ```
 
 ## Part 2: Apply Functions
 
-Apply functions are often more efficient and readable than loops in R. They're a key part of functional programming.
-
 ### lapply(): List Apply
 
-`lapply()` applies a function to each element of a list or vector and returns a list:
-
 ```{r}
-# Basic lapply example
+# Create a list of numeric vectors
 numbers <- list(a = 1:3, b = 4:6, c = 7:9)
+# Apply sum function to each element of the list
 lapply(numbers, sum)
 
-# Using lapply with our own function
+# Create a custom function to double values
 double_it <- function(x) {
   return(x * 2)
 }
-
+# Apply custom function to each element
 lapply(numbers, double_it)
 
-# lapply with anonymous function
+# Use anonymous function to triple values
 lapply(numbers, function(x) x * 3)
 ```
 
 ### sapply(): Simplified Apply
 
-`sapply()` is similar to `lapply()` but tries to simplify the output:
-
 ```{r}
-# Compare lapply and sapply
+# Create a vector of numbers
 numbers <- 1:5
 
+# Compare lapply and sapply outputs
 # lapply returns a list
 lapply(numbers, sqrt)
-
-# sapply returns a vector
+# sapply returns a simplified structure (vector in this case)
 sapply(numbers, sqrt)
 
-# Example with character lengths
+# Example with character string lengths
 words <- c("cat", "dog", "elephant", "rhinoceros")
+# Calculate length of each word
 sapply(words, nchar)
 ```
 
 ### apply(): Matrix or Array Apply
 
-`apply()` works with matrices and arrays:
-
 ```{r}
-# Create a matrix
+# Create a 3x3 matrix with numbers 1-9
 mat <- matrix(1:9, nrow = 3)
 print(mat)
 
-# Calculate row means (MARGIN = 1 for rows)
+# Calculate mean of each row (MARGIN = 1)
 apply(mat, 1, mean)
 
-# Calculate column means (MARGIN = 2 for columns)
+# Calculate mean of each column (MARGIN = 2)
 apply(mat, 2, mean)
 
-# More complex example
+# Create a grade matrix for multiple students and subjects
 grades <- matrix(c(
-  85, 90, 88,  # Student 1
-  92, 85, 87,  # Student 2
-  78, 83, 85   # Student 3
+  85, 90, 88,  # Student 1's grades
+  92, 85, 87,  # Student 2's grades
+  78, 83, 85   # Student 3's grades
 ), nrow = 3, byrow = TRUE)
 
+# Add column and row names for clarity
 colnames(grades) <- c("Math", "Science", "History")
 rownames(grades) <- c("Alice", "Bob", "Charlie")
 
 print(grades)
 
-# Calculate average for each student
+# Calculate average grade for each student (row means)
 student_averages <- apply(grades, 1, mean)
 print(student_averages)
 
-# Calculate average for each subject
+# Calculate average grade for each subject (column means)
 subject_averages <- apply(grades, 2, mean)
 print(subject_averages)
 ```
 
 ### mapply(): Multivariate Apply
 
-`mapply()` applies a function to multiple arguments:
-
 ```{r}
-# Basic mapply example
+# Repeat letters different numbers of times
 mapply(rep, times = 1:4, x = letters[1:4])
 
-# Create a custom function for mapply
+# Create a custom function for generating sequences
 create_sequence <- function(start, end) {
   return(start:end)
 }
 
+# Generate multiple sequences with different start/end points
 mapply(create_sequence, 
        start = c(1, 2, 3), 
        end = c(3, 4, 5))
@@ -260,46 +270,67 @@ high_scorers[!sapply(high_scorers, is.null)]
 
 Try these exercises to practice:
 
-1. Create a for loop that prints the first 10 Fibonacci numbers
-2. Use `sapply()` to find the length of each word in a sentence
-3. Use `apply()` to find the maximum value in each row of a matrix
-4. Use `mapply()` to create pairs of numbers
-
-Here are the solutions:
-
 ```{r}
-# 1. Fibonacci numbers with for loop
+# Exercise 1: Generate Fibonacci sequence
+# Initialize a vector to store the first 10 Fibonacci numbers
 fibonacci <- numeric(10)
-fibonacci[1] <- 1
-fibonacci[2] <- 1
+# Set the first two numbers of the sequence
+fibonacci[1] <- 1    # First Fibonacci number
+fibonacci[2] <- 1    # Second Fibonacci number
 
+# Calculate the rest of the sequence using a for loop
 for (i in 3:10) {
+  # Each number is the sum of the previous two numbers
   fibonacci[i] <- fibonacci[i-1] + fibonacci[i-2]
 }
+# Display the complete sequence
 print(fibonacci)
 
-# 2. Word lengths with sapply
+# Exercise 2: Calculate word lengths using sapply
+# Create a vector of words to analyze
 sentence <- c("The", "quick", "brown", "fox", "jumps")
+# Use sapply to count characters in each word
 word_lengths <- sapply(sentence, nchar)
+# Display the length of each word
 print(word_lengths)
 
-# 3. Row maximums with apply
+# Exercise 3: Find maximum values in matrix rows
+# Create a matrix with 4 rows and 5 columns containing numbers 1-20
 matrix_data <- matrix(1:20, nrow = 4)
+# Use apply to find the maximum value in each row
 row_maxes <- apply(matrix_data, 1, max)
+# Display the maximum value from each row
 print(row_maxes)
 
-# 4. Number pairs with mapply
+# Exercise 4: Create number pairs using mapply
+# Define vectors for start and end points
 starts <- 1:3
 ends <- 4:6
+# Use mapply to create formatted pairs of numbers
 number_pairs <- mapply(function(x, y) paste(x, "and", y),
                       starts, ends)
+# Display the resulting pairs
 print(number_pairs)
 ```
 
 ## Tips and Best Practices
 
 1. **Pre-allocate vectors** in loops for better performance
+   - Always create vectors with known size before the loop
+   - Avoid growing vectors inside loops
+   
 2. **Use meaningful iterator names** (not just `i`, `j`, `k`)
+   - Choose names that describe what they represent
+   - Makes code more readable and maintainable
+   
 3. **Consider readability** when choosing between loops and apply functions
+   - Use loops for complex operations or when code clarity is priority
+   - Use apply functions for simpler operations on data structures
+   
 4. **Test your code** with small examples first
-5. **Comment your code** to explain complex operations 
+   - Verify logic with simple cases
+   - Scale up to larger datasets after confirming correctness
+   
+5. **Comment your code** to explain complex operations
+   - Document the purpose of each major code block
+   - Explain any non-obvious logic or calculations 

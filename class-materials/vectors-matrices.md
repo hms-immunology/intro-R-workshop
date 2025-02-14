@@ -22,16 +22,140 @@ A vector is a one-dimensional array that can hold elements of the same type (num
 There are several ways to create vectors in R:
 
 ```r
-# Using c() function (combine)
-gene_expression <- c(156.7, 238.9, 184.3, 145.6)
-gene_names <- c("BRCA1", "TP53", "EGFR", "KRAS")
-is_significant <- c(TRUE, FALSE, TRUE, TRUE)
+# Create vectors for different types of gene expression data
+gene_expression <- c(156.7, 238.9, 184.3, 145.6)  # Raw expression values
+gene_names <- c("BRCA1", "TP53", "EGFR", "KRAS")  # Gene identifiers
+is_significant <- c(TRUE, FALSE, TRUE, TRUE)       # Significance flags
 
-# Using : operator for sequences
-sample_numbers <- 1:10  # Creates 1,2,3,...,10
+# Create sequences for different purposes
+sample_numbers <- 1:10                             # Create sequence from 1 to 10
+time_points <- seq(0, 48, by = 6)                 # Create sequence from 0 to 48 in steps of 6 hours
 
-# Using seq() function for more complex sequences
-time_points <- seq(0, 48, by = 6)  # Creates 0,6,12,...,48
+# RNA-seq data manipulation example
+raw_counts <- c(1200, 1500, 800, 2000)           # Raw read counts from sequencing
+scaling_factor <- 0.5                             # Normalization factor
+normalized_counts <- raw_counts * scaling_factor  # Apply normalization
+
+# Compare expression between conditions
+control_expression <- c(100, 150, 80, 200)        # Expression values in control samples
+treated_expression <- c(150, 180, 90, 250)        # Expression values in treated samples
+expression_difference <- treated_expression - control_expression  # Calculate absolute difference
+fold_change <- treated_expression / control_expression  # Calculate fold change
+
+# Calculate basic statistics for a vector
+length(gene_names)                                # Count number of genes
+mean(raw_counts)                                  # Calculate average read count
+median(raw_counts)                                # Find middle value
+max(raw_counts)                                   # Find highest count
+min(raw_counts)                                   # Find lowest count
+sum(raw_counts)                                   # Total read count
+
+# Sort values in different ways
+sorted_counts <- sort(raw_counts)                 # Sort counts in ascending order
+sorted_counts_desc <- sort(raw_counts, decreasing = TRUE)  # Sort in descending order
+
+# Access vector elements by position
+first_gene <- gene_names[1]                       # Get first gene name
+selected_genes <- gene_names[c(1, 3)]             # Get first and third gene names
+
+# Filter elements using logical conditions
+high_expression <- raw_counts > 1000              # Create logical vector for high expression
+high_expressed_genes <- gene_names[high_expression]  # Get names of highly expressed genes
+
+# Use which() to find positions meeting criteria
+significant_indices <- which(is_significant)      # Get indices of significant genes
+significant_genes <- gene_names[significant_indices]  # Get names of significant genes
+
+# Create a matrix from expression data
+expression_matrix <- matrix(
+  c(100, 200, 150, 300,    # Expression values for sample 1
+    120, 180, 160, 280,    # Expression values for sample 2
+    90, 220, 170, 320),    # Expression values for sample 3
+  nrow = 3,                # Number of rows (genes)
+  ncol = 4,                # Number of columns (samples)
+  byrow = TRUE             # Fill matrix by rows
+)
+
+# Add row and column names to matrix
+rownames(expression_matrix) <- c("Gene1", "Gene2", "Gene3")  # Label genes
+colnames(expression_matrix) <- c("Sample1", "Sample2", "Sample3", "Sample4")  # Label samples
+
+# Perform matrix operations
+transposed_matrix <- t(expression_matrix)         # Transpose matrix (swap rows and columns)
+correlation_matrix <- t(expression_matrix) %*% expression_matrix  # Calculate correlation matrix
+scaled_matrix <- expression_matrix * 2            # Multiply all values by 2
+log_matrix <- log2(expression_matrix)             # Convert to log2 scale
+
+# Access matrix elements
+value <- expression_matrix[1, 2]                  # Get value for Gene1, Sample2
+gene1_expression <- expression_matrix[1, ]        # Get all values for Gene1
+sample1_values <- expression_matrix[, 1]          # Get all values for Sample1
+subset_matrix <- expression_matrix[1:2, c(1,3)]   # Get values for first two genes in samples 1 and 3
+
+# Create RNA-seq expression matrix with replicates
+expression_data <- matrix(
+  c(
+    1200, 1300, 1250, 1800, 1900, 1850,  # Expression values for Gene1
+    800,  750,  780,  1200, 1180, 1220,   # Expression values for Gene2
+    2000, 2100, 2050, 2080, 2150, 2090,   # Expression values for Gene3
+    300,  320,  310,  900,  920,  880,    # Expression values for Gene4
+    1500, 1450, 1480, 1600, 1580, 1620    # Expression values for Gene5
+  ),
+  nrow = 5,                               # 5 genes
+  ncol = 6,                               # 6 samples (3 control, 3 treated)
+  byrow = TRUE                            # Fill matrix by rows
+)
+
+# Label rows and columns
+rownames(expression_data) <- c("Gene1", "Gene2", "Gene3", "Gene4", "Gene5")  # Gene names
+colnames(expression_data) <- c("Ctrl1", "Ctrl2", "Ctrl3", "Treat1", "Treat2", "Treat3")  # Sample names
+
+# Calculate mean expression for each condition
+control_means <- rowMeans(expression_data[, 1:3])    # Mean of control replicates
+treated_means <- rowMeans(expression_data[, 4:6])    # Mean of treated replicates
+
+# Calculate fold changes
+fold_changes <- treated_means / control_means         # Ratio of treated to control means
+
+# Identify differentially expressed genes
+is_differential <- abs(fold_changes) > 1.5           # Genes with >1.5-fold change
+differential_genes <- rownames(expression_data)[is_differential]  # Names of differential genes
+
+# Practice exercises
+exp_condition1 <- c(1200, 800, 2000, 300, 1500)     # Expression values for condition 1
+exp_condition2 <- c(1800, 1200, 2080, 900, 1600)    # Expression values for condition 2
+
+# Calculate statistics
+mean_exp1 <- mean(exp_condition1)                    # Average expression in condition 1
+mean_exp2 <- mean(exp_condition2)                    # Average expression in condition 2
+
+# Find highly expressed genes
+high_exp1 <- exp_condition1 > 1000                   # Logical vector for high expression in condition 1
+high_exp2 <- exp_condition2 > 1000                   # Logical vector for high expression in condition 2
+
+# Calculate fold changes between conditions
+fold_changes <- exp_condition2 / exp_condition1       # Ratio of condition 2 to condition 1
+
+# Extract specific genes from matrix
+gene1_expression <- expression_data["Gene1", ]        # Expression profile of Gene1
+
+# Calculate mean expression per sample
+sample_means <- colMeans(expression_data)             # Average expression in each sample
+
+# Find highest expressed gene in each sample
+max_expression <- apply(expression_data, 2, which.max)  # Index of highest expressed gene per sample
+highest_genes <- rownames(expression_data)[max_expression]  # Names of highest expressed genes
+
+# Create and transform sample matrix
+sample_matrix <- matrix(rnorm(20, mean=100, sd=20),  # Generate random expression data
+                       nrow=4,                        # 4 genes
+                       ncol=5)                        # 5 samples
+rownames(sample_matrix) <- paste0("Gene", 1:4)       # Label genes
+colnames(sample_matrix) <- paste0("Sample", 1:5)     # Label samples
+
+# Transform data
+log_data <- log2(sample_matrix)                      # Convert to log2 scale
+scaled_data <- t(scale(t(log_data)))                 # Scale and center the data
 
 # Results:
 # Gene Expression Values: 156.7, 238.9, 184.3, 145.6

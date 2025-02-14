@@ -20,10 +20,11 @@ Functions are like recipes - they take ingredients (inputs), follow a set of ins
 
 A function in R has this basic structure:
 ```r
+# Basic function structure in R
 function_name <- function(parameter1, parameter2) {
   # Function body - what the function does
-  result <- # some operation
-  return(result)
+  result <- # some operation using parameters
+  return(result)  # Send result back to caller
 }
 ```
 
@@ -32,47 +33,49 @@ function_name <- function(parameter1, parameter2) {
 Let's start with some very simple functions:
 
 ```r
-# 1. A function to calculate the square of a number
+# 1. Simple function to calculate square of a number
 square_number <- function(x) {
-  result <- x * x
-  return(result)
+  result <- x * x     # Multiply number by itself
+  return(result)      # Return the squared value
 }
 
-# Try it out
-square_number(5)  # Returns 25
-square_number(3)  # Returns 9
+# Test the square_number function
+square_number(5)  # Returns 25 (5 * 5)
+square_number(3)  # Returns 9 (3 * 3)
 
-# 2. A function to greet someone
+# 2. Function to create personalized greeting
 greet_person <- function(name) {
-  greeting <- paste("Hello,", name, "!")
-  return(greeting)
+  greeting <- paste("Hello,", name, "!")  # Combine text with name
+  return(greeting)                        # Return the complete greeting
 }
 
-# Try it out
-greet_person("Alice")
-greet_person("Bob")
+# Test the greeting function
+greet_person("Alice")  # Returns "Hello, Alice!"
+greet_person("Bob")    # Returns "Hello, Bob!"
 ```
 
 ### Functions with Multiple Parameters
 
 ```r
-# 1. Calculate rectangle area
+# Function with multiple parameters
+# 1. Calculate area of a rectangle
 calculate_rectangle_area <- function(length, width) {
-  area <- length * width
-  return(area)
+  area <- length * width    # Area formula: length × width
+  return(area)             # Return calculated area
 }
 
-# Try it out
-calculate_rectangle_area(5, 3)  # Returns 15
+# Test rectangle area calculation
+calculate_rectangle_area(5, 3)  # Returns 15 (5 × 3)
 
-# 2. Create a personalized message
+# 2. Create personalized message with multiple pieces of information
 create_message <- function(name, age, hobby) {
+  # Combine all information into a single message
   message <- paste(name, "is", age, "years old and loves", hobby)
-  return(message)
+  return(message)  # Return the complete message
 }
 
-# Try it out
-create_message("Sarah", 25, "painting")
+# Test message creation
+create_message("Sarah", 25, "painting")  # Returns complete sentence about Sarah
 ```
 
 ### Functions for Data Manipulation
@@ -80,38 +83,38 @@ create_message("Sarah", 25, "painting")
 Let's create some functions that work with data:
 
 ```r
-# Create sample data
+# Create sample data for data manipulation examples
 student_scores <- data.frame(
-  name = c("Alice", "Bob", "Charlie", "Diana"),
-  math = c(85, 92, 78, 95),
-  science = c(92, 88, 85, 90),
-  history = c(88, 85, 82, 87)
+  name = c("Alice", "Bob", "Charlie", "Diana"),  # Student names
+  math = c(85, 92, 78, 95),                      # Math scores
+  science = c(92, 88, 85, 90),                   # Science scores
+  history = c(88, 85, 82, 87)                    # History scores
 )
 
 # 1. Function to calculate average score for a student
 calculate_average <- function(math, science, history) {
-  avg <- (math + science + history) / 3
-  return(round(avg, 1))
+  avg <- (math + science + history) / 3  # Average of three subjects
+  return(round(avg, 1))                  # Round to 1 decimal place
 }
 
-# Apply to our data
+# Apply average calculation to our data
 student_scores$average <- with(student_scores, 
                              calculate_average(math, science, history))
 
-# 2. Function to determine grade based on score
+# 2. Function to determine letter grade based on numeric score
 determine_grade <- function(score) {
-  if (score >= 90) {
-    return("A")
-  } else if (score >= 80) {
-    return("B")
-  } else if (score >= 70) {
-    return("C")
-  } else {
-    return("D")
+  if (score >= 90) {           # 90 or above
+    return("A")                # A grade
+  } else if (score >= 80) {    # 80-89
+    return("B")                # B grade
+  } else if (score >= 70) {    # 70-79
+    return("C")                # C grade
+  } else {                     # Below 70
+    return("D")                # D grade
   }
 }
 
-# Apply to our average scores
+# Apply grade determination to average scores
 student_scores$grade <- sapply(student_scores$average, determine_grade)
 ```
 
@@ -120,15 +123,16 @@ student_scores$grade <- sapply(student_scores$average, determine_grade)
 Sometimes we want functions to have default values for parameters:
 
 ```r
-# Function to calculate tip
+# Function with default parameter values
+# Calculate tip amount with default 15% tip
 calculate_tip <- function(bill_amount, tip_percentage = 15) {
-  tip <- bill_amount * (tip_percentage / 100)
-  return(round(tip, 2))
+  tip <- bill_amount * (tip_percentage / 100)  # Convert percentage to decimal
+  return(round(tip, 2))                        # Round to 2 decimal places
 }
 
-# Try it out
-calculate_tip(50)  # Uses default 15% tip
-calculate_tip(50, 20)  # Specifies 20% tip
+# Test tip calculation
+calculate_tip(50)       # Uses default 15% tip
+calculate_tip(50, 20)   # Specifies 20% tip
 ```
 
 ### Functions That Return Multiple Values
@@ -136,26 +140,26 @@ calculate_tip(50, 20)  # Specifies 20% tip
 Functions can return multiple values using a list:
 
 ```r
-# Function to analyze a numeric vector
+# Function that returns multiple values using a list
 analyze_numbers <- function(numbers) {
   result <- list(
-    mean = mean(numbers),
-    median = median(numbers),
-    std_dev = sd(numbers),
-    range = max(numbers) - min(numbers)
+    mean = mean(numbers),                    # Calculate average
+    median = median(numbers),                # Find middle value
+    std_dev = sd(numbers),                   # Calculate standard deviation
+    range = max(numbers) - min(numbers)      # Calculate range (max - min)
   )
-  return(result)
+  return(result)  # Return all statistics in a list
 }
 
-# Try it out with some numbers
-test_scores <- c(85, 92, 78, 95, 88, 90)
-analysis <- analyze_numbers(test_scores)
+# Test statistical analysis function
+test_scores <- c(85, 92, 78, 95, 88, 90)  # Sample test scores
+analysis <- analyze_numbers(test_scores)    # Analyze the scores
 
-# Access individual results
-analysis$mean
-analysis$median
-analysis$std_dev
-analysis$range
+# Access individual results from the analysis
+analysis$mean     # Get mean score
+analysis$median   # Get median score
+analysis$std_dev  # Get standard deviation
+analysis$range    # Get range of scores
 ```
 
 ### Practice Exercises

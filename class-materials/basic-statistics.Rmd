@@ -4,16 +4,18 @@ author: "Eren Ada"
 date: "`r Sys.Date()`"
 output:
   html_document:
-    toc: true
-    toc_float: true
-    theme: united
-    highlight: tango
+    toc: true          # Enable table of contents for easy navigation
+    toc_float: true    # Make table of contents float alongside content
+    theme: united      # Use the united theme for a clean, modern look
+    highlight: tango   # Use tango syntax highlighting for code
 ---
 
 [![](https://img.shields.io/badge/download%20html-blue)](../rendered-html/basic-statistics.html)
 [![](https://img.shields.io/badge/download%20Rmd-blue)](basic-statistics.Rmd)
 
 ```{r setup, include=FALSE}
+# Set global options for all code chunks in this document
+# echo = TRUE means code will be displayed along with its output
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -47,74 +49,85 @@ The most common distribution we see in nature is the "normal" or "bell-shaped" d
 Let's create and visualize a normal distribution. Imagine we're measuring heights of 1000 people:
 
 ```{r normal-dist}
-# Generate some example height data (in centimeters)
-set.seed(123)  # This makes our random numbers reproducible
-heights <- rnorm(1000, mean = 170, sd = 10)  # Mean height 170cm, SD 10cm
+# Set a random seed for reproducibility - this ensures we get the same random numbers each time
+set.seed(123)  
+
+# Generate synthetic height data:
+# - 1000 random numbers from a normal distribution
+# - Mean (average) height of 170 cm
+# - Standard deviation of 10 cm (spread of the data)
+heights <- rnorm(1000, mean = 170, sd = 10)  
 
 # Create a histogram with density scaling
+# This shows the distribution of our height data
 hist(heights, 
-     breaks = 30,
-     main = "Distribution of Heights in Our Population",
-     xlab = "Height (cm)",
-     ylab = "Density",
-     col = "lightblue",
-     border = "white",
-     prob = TRUE)  # Use probability scaling for density curves
+     breaks = 30,                    # Number of bars in the histogram
+     main = "Distribution of Heights in Our Population",  # Title
+     xlab = "Height (cm)",          # X-axis label
+     ylab = "Density",              # Y-axis label
+     col = "lightblue",             # Bar color
+     border = "white",              # Border color
+     prob = TRUE)                   # Use probability scaling for density curves
 
-# Add theoretical normal density curve
+# Add the theoretical normal curve (red line)
+# This shows what a perfect normal distribution would look like
 curve(dnorm(x, mean = mean(heights), sd = sd(heights)), 
       col = "red", 
-      lwd = 2,
-      add = TRUE)
+      lwd = 2,                      # Line width
+      add = TRUE)                   # Add to existing plot
 
-# Add empirical density curve
+# Add the empirical density curve (blue dashed line)
+# This shows the actual distribution of our data
 lines(density(heights), 
       col = "darkblue", 
       lwd = 2,
-      lty = 2)
+      lty = 2)                      # Make line dashed
 
-# Add legend
+# Add a legend to explain the lines
 legend("topright", 
        legend = c("Theoretical Normal", "Empirical Density"),
        col = c("red", "darkblue"),
        lwd = 2,
        lty = c(1, 2))
 
-# Add some basic statistics
+# Calculate and display summary statistics
 cat("\nSummary of Heights:")
-cat("\nAverage Height:", round(mean(heights), 1), "cm")
-cat("\nStandard Deviation:", round(sd(heights), 1), "cm")
-cat("\nMinimum:", round(min(heights), 1), "cm")
-cat("\nMaximum:", round(max(heights), 1), "cm")
+cat("\nAverage Height:", round(mean(heights), 1), "cm")     # Mean height
+cat("\nStandard Deviation:", round(sd(heights), 1), "cm")   # Spread of heights
+cat("\nMinimum:", round(min(heights), 1), "cm")             # Shortest height
+cat("\nMaximum:", round(max(heights), 1), "cm")             # Tallest height
 ```
 
 What can we learn from this plot?
 - Most people have heights near the average (170 cm)
 - Fewer people have very tall or very short heights
 - The red curve shows the "ideal" bell shape
+- The blue dashed line shows our actual data follows this shape closely
 
 ### How Different Factors Affect Our Distribution
 
 Let's look at how changing our measurements affects the shape. Imagine measuring heights in different populations:
 
 ```{r distribution-comparison}
-# Create three different height distributions
-child_heights <- rnorm(1000, mean = 120, sd = 10)    # Children
-adult_heights <- rnorm(1000, mean = 170, sd = 10)    # Adults
-variable_heights <- rnorm(1000, mean = 170, sd = 20) # More variable group
+# Generate three different height distributions to compare:
+child_heights <- rnorm(1000, mean = 120, sd = 10)    # Children (shorter average)
+adult_heights <- rnorm(1000, mean = 170, sd = 10)    # Adults (taller average)
+variable_heights <- rnorm(1000, mean = 170, sd = 20) # More variable group (same average, more spread)
 
-# Plot them together
+# Create a base plot using the density of child heights
 plot(density(child_heights), 
      main = "Comparing Height Distributions",
      xlab = "Height (cm)",
      ylab = "Frequency",
-     col = "blue",
-     lwd = 2,
-     xlim = c(80, 220))
-lines(density(adult_heights), col = "red", lwd = 2)
-lines(density(variable_heights), col = "green", lwd = 2)
+     col = "blue",                  # Blue line for children
+     lwd = 2,                       # Line width
+     xlim = c(80, 220))            # Set x-axis limits
 
-# Add a legend
+# Add lines for other distributions
+lines(density(adult_heights), col = "red", lwd = 2)      # Red line for adults
+lines(density(variable_heights), col = "green", lwd = 2) # Green line for variable group
+
+# Add a legend to explain the lines
 legend("topright", 
        legend = c("Children (mean=120cm)", 
                  "Adults (mean=170cm)", 
@@ -139,40 +152,56 @@ Imagine we're testing a new treatment and want to know if it works. We have:
 Let's look at some example data:
 
 ```{r group-comparison}
-# Create example data
-control <- rnorm(30, mean = 100, sd = 15)    # Control group measurements
-treatment <- rnorm(30, mean = 115, sd = 15)   # Treatment group measurements
+# Generate example data for our experiment
+# Control group: 30 measurements with mean=100 and SD=15
+control <- rnorm(30, mean = 100, sd = 15)    
 
-# Put data in a nice format
+# Treatment group: 30 measurements with mean=115 and SD=15
+# Note: We set a higher mean to simulate a treatment effect
+treatment <- rnorm(30, mean = 115, sd = 15)   
+
+# Combine data into a single data frame for easier analysis
+# This creates a structured format with two columns:
+# - value: the actual measurements
+# - group: indicates whether each measurement is from control or treatment
 experiment_data <- data.frame(
-  value = c(control, treatment),
-  group = rep(c("Control", "Treatment"), each = 30)
+  value = c(control, treatment),                # All measurements combined
+  group = rep(c("Control", "Treatment"), each = 30)  # Group labels
 )
 
-# Create a clear visualization
+# Create a box plot to visualize the data distribution
+# Box plots show:
+# - The median (middle line)
+# - The interquartile range (box)
+# - The range of typical values (whiskers)
+# - Any outliers (individual points)
 boxplot(value ~ group, data = experiment_data,
         main = "Comparing Control vs Treatment",
         ylab = "Measurement Value",
-        col = c("lightblue", "lightgreen"))
+        col = c("lightblue", "lightgreen"))  # Different colors for each group
 
-# Add individual points
+# Add individual data points to show the actual distribution
+# This helps us see the raw data alongside the summary statistics
 stripchart(value ~ group, data = experiment_data,
-           vertical = TRUE, method = "jitter",
-           add = TRUE, pch = 19, col = "darkgray")
+           vertical = TRUE,           # Points arranged vertically
+           method = "jitter",         # Add random horizontal jitter to prevent overlap
+           add = TRUE,                # Add to existing plot
+           pch = 19,                  # Use filled circles for points
+           col = "darkgray")          # Point color
 
-# Calculate and display some basic statistics
+# Calculate and display summary statistics for each group
 cat("\nControl Group:")
-cat("\n  Average:", round(mean(control), 1))
-cat("\n  SD:", round(sd(control), 1))
+cat("\n  Average:", round(mean(control), 1))        # Mean of control group
+cat("\n  SD:", round(sd(control), 1))               # Standard deviation of control
 cat("\n\nTreatment Group:")
-cat("\n  Average:", round(mean(treatment), 1))
-cat("\n  SD:", round(sd(treatment), 1))
+cat("\n  Average:", round(mean(treatment), 1))      # Mean of treatment group
+cat("\n  SD:", round(sd(treatment), 1))             # Standard deviation of treatment
 ```
 
 What are we seeing?
 - Each dot represents one measurement
-- The boxes show where most of the data falls
-- The horizontal line in each box is the average
+- The boxes show where most of the data falls (25th to 75th percentile)
+- The horizontal line in each box is the median (middle value)
 - The treatment group seems to have higher values, but is this difference real?
 
 ### Testing if the Difference is Real: The t-test
@@ -180,134 +209,186 @@ What are we seeing?
 To decide if the difference between groups is "real" (statistically significant), we use a t-test:
 
 ```{r simple-ttest}
-# Perform a t-test
+# Perform an independent samples t-test
+# This test compares the means of two groups and tells us if they're significantly different
 test_result <- t.test(value ~ group, data = experiment_data)
 
-# Print results in a friendly way
+# Print results in a user-friendly format
 cat("\nResults of our Statistical Test:")
 cat("\n--------------------------------")
+# Calculate and display the actual difference between group means
 cat("\nAverage difference between groups:", 
     round(diff(tapply(experiment_data$value, experiment_data$group, mean)), 1))
+# Interpret the p-value in plain language
 cat("\nIs this difference significant?", 
     ifelse(test_result$p.value < 0.05, "YES!", "No"))
+# Show the actual p-value
 cat("\n(p-value =", round(test_result$p.value, 4), ")")
 ```
 
 What does this mean?
-- If the p-value is less than 0.05, we say the difference is "significant"
-- A significant result suggests the difference is probably real, not just by chance
-- In this case, the treatment appears to have a real effect!
+- The p-value tells us how likely we would see this difference by chance
+- If p < 0.05, we say the difference is "statistically significant"
+- A significant result suggests the treatment has a real effect
+- But remember: statistical significance ≠ practical importance!
 
 ## Part 3: Common Mistakes to Avoid
 
 1. **Don't jump to conclusions!**
    - A "significant" result doesn't always mean a practically important difference
    - Always look at the actual size of the difference
+   - Consider the context of your research
 
 2. **Check your assumptions**
-   - Data should be roughly normal (bell-shaped)
-   - Let's check our data:
+   - The t-test assumes our data is roughly normal (bell-shaped)
+   - We can check this using Q-Q plots (Quantile-Quantile plots)
+   - Points following the line suggest normal distribution
 
 ```{r check-normality}
-# Create Q-Q plots to check normality
+# Create Q-Q plots to check if our data follows a normal distribution
+# Q-Q plots compare our data quantiles to theoretical normal quantiles
+# Points should roughly follow the diagonal line if data is normal
+
+# Set up the plotting area to show two plots side by side
 par(mfrow = c(1, 2))
+
+# Q-Q plot for Control group
 qqnorm(experiment_data$value[experiment_data$group == "Control"],
        main = "Control Group")
 qqline(experiment_data$value[experiment_data$group == "Control"])
 
+# Q-Q plot for Treatment group
 qqnorm(experiment_data$value[experiment_data$group == "Treatment"],
        main = "Treatment Group")
 qqline(experiment_data$value[experiment_data$group == "Treatment"])
+
+# Reset plotting area to single plot
 par(mfrow = c(1, 1))
 ```
 
 If the points follow the line closely, our data is approximately normal!
+- Points falling exactly on the line would indicate perfect normality
+- Small deviations are usually acceptable
+- Large deviations might suggest we need different statistical methods
 
 ## Practice Exercises
 
 Try these exercises to test your understanding:
 
-1. Generate your own data for two groups and test if they're different
-2. Create a histogram of your data
-3. Perform a t-test and interpret the results
+### Exercise 1: Generate and Compare Groups
+Create your own experiment comparing two groups:
+```{r exercise1, eval=FALSE}
+# Generate data for two groups (e.g., different medical treatments)
+group1 <- rnorm(25, mean = 50, sd = 10)    # First treatment group
+group2 <- rnorm(25, mean = 55, sd = 10)    # Second treatment group
 
-## Next Steps
+# Create a data frame
+my_experiment <- data.frame(
+  value = c(group1, group2),
+  group = rep(c("Treatment1", "Treatment2"), each = 25)
+)
 
-After mastering these basics, you can explore:
-- More types of statistical tests
-- Working with multiple groups
-- Advanced visualization techniques
+# Create visualizations
+# 1. Box plot with individual points
+boxplot(value ~ group, data = my_experiment,
+        main = "Comparing Treatments",
+        col = c("pink", "lightgreen"))
+stripchart(value ~ group, data = my_experiment,
+           vertical = TRUE, method = "jitter",
+           add = TRUE, col = "darkgray")
 
-Remember: Statistics is about telling stories with data. The more you practice, the better you'll get at understanding and telling these stories!
+# 2. Perform t-test
+test_result <- t.test(value ~ group, data = my_experiment)
+print(test_result)
+```
+
+### Exercise 2: Explore Different Distributions
+Create and compare different types of distributions:
+```{r exercise2, eval=FALSE}
+# Generate data from different distributions
+normal_data <- rnorm(1000, mean = 0, sd = 1)       # Normal distribution
+skewed_data <- rexp(1000, rate = 1)                # Exponential (skewed) distribution
+uniform_data <- runif(1000, min = -2, max = 2)     # Uniform distribution
+
+# Create histograms to compare
+par(mfrow = c(1, 3))  # Set up for three plots side by side
+
+# Normal distribution
+hist(normal_data, main = "Normal Distribution",
+     prob = TRUE, col = "lightblue")
+lines(density(normal_data), col = "red", lwd = 2)
+
+# Skewed distribution
+hist(skewed_data, main = "Skewed Distribution",
+     prob = TRUE, col = "lightgreen")
+lines(density(skewed_data), col = "red", lwd = 2)
+
+# Uniform distribution
+hist(uniform_data, main = "Uniform Distribution",
+     prob = TRUE, col = "lightpink")
+lines(density(uniform_data), col = "red", lwd = 2)
+
+par(mfrow = c(1, 1))  # Reset plotting window
+```
+
+### Exercise 3: Working with Real Data
+Try these analyses with your own data:
+1. Load your dataset
+2. Create appropriate visualizations
+3. Perform statistical tests
+4. Interpret the results
+
+## Tips for Success
+
+1. **Always Start with Visualization**
+   - Plot your data before running tests
+   - Look for patterns and potential problems
+   - Consider different types of plots
+
+2. **Check Your Assumptions**
+   - Normal distribution when needed
+   - Equal variances between groups
+   - Independent samples
+
+3. **Interpret Results Carefully**
+   - Consider practical significance
+   - Look at effect sizes
+   - Think about your research context
 
 ## Additional Resources
 
 1. [UCLA Statistical Methods and Data Analytics](https://stats.oarc.ucla.edu/)
+   - Comprehensive resource for statistical methods
+   - Detailed R tutorials and examples
+   - Practice datasets and exercises
+
 2. [R for Data Science - Statistical Analysis](https://r4ds.had.co.nz/)
+   - Modern R programming techniques
+   - Data visualization best practices
+   - Statistical analysis workflows
+
 3. [Quick R: Basic Statistics](https://www.statmethods.net/stats/index.html)
+   - Quick reference for common statistical tests
+   - Code examples and explanations
+   - Troubleshooting tips
 
 ## Advanced Topics (Optional)
 
-### Understanding Hypothesis Testing in Detail
+For those interested in going further:
 
-Hypothesis testing is like being a detective - you start with a assumption (called the null hypothesis) and then look for evidence to disprove it.
+1. **Advanced Statistical Tests**
+   - ANOVA for multiple groups
+   - Non-parametric alternatives
+   - Mixed effects models
 
-1. **The Two Hypotheses**:
-   - **Null Hypothesis (H₀)**: Your initial assumption (usually "no effect" or "no difference")
-   - **Alternative Hypothesis (H₁)**: What you're looking for evidence to support
+2. **Power Analysis**
+   - Sample size calculations
+   - Effect size estimation
+   - Study design considerations
 
-```{r hypothesis-advanced}
-# Let's simulate a medical trial example
-# H₀: New drug has no effect (difference = 0)
-# H₁: New drug has an effect (difference ≠ 0)
+3. **Advanced Visualization**
+   - Interactive plots
+   - Custom themes
+   - Publication-ready figures
 
-set.seed(123)  # For reproducible results
-placebo <- rnorm(100, mean = 100, sd = 15)    # Placebo group
-drug <- rnorm(100, mean = 110, sd = 15)       # Drug group
-
-# Visualize both groups
-par(mfrow = c(1, 2))
-hist(placebo, main = "Placebo Group", xlab = "Response", col = "lightblue")
-hist(drug, main = "Drug Group", xlab = "Response", col = "lightgreen")
-par(mfrow = c(1, 1))
-```
-
-### Understanding P-values Better
-
-The p-value is often misunderstood. Think of it as the probability of seeing your results (or something more extreme) if there really was no effect.
-
-```{r pvalue-detailed}
-# Function to demonstrate p-value concept
-demonstrate_pvalue <- function(n_trials = 1000) {
-  # Store our results
-  differences <- numeric(n_trials)
-  
-  # Simulate many trials where there is NO real effect
-  for(i in 1:n_trials) {
-    group1 <- rnorm(30, mean = 100, sd = 15)
-    group2 <- rnorm(30, mean = 100, sd = 15)  # Same mean = no effect
-    differences[i] <- mean(group2) - mean(group1)
-  }
-  
-  # Plot the distribution of differences
-  hist(differences, 
-       main = "Distribution of Differences Under No Effect",
-       xlab = "Difference Between Groups",
-       col = "lightblue",
-       breaks = 30)
-  
-  # Add vertical lines for our observed difference
-  observed_diff <- mean(drug) - mean(placebo)
-  abline(v = observed_diff, col = "red", lwd = 2)
-  abline(v = -observed_diff, col = "red", lwd = 2)
-  
-  # Add legend
-  legend("topright", 
-         legend = "Our observed difference",
-         col = "red", 
-         lwd = 2)
-}
-
-# Run the demonstration
-demonstrate_pvalue()
-```
+Remember: The best way to learn statistics is through practice. Try these exercises with different datasets and explore how changing parameters affects your results!

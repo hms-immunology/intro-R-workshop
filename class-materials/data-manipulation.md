@@ -46,16 +46,97 @@ Keep these resources open in another tab while working through the examples - th
 We'll use a gene expression dataset to demonstrate these concepts:
 
 ```r
-# Create a sample gene expression dataset
+# Load required packages for data manipulation
+library(tidyverse)  # Includes dplyr, tidyr, and other data manipulation tools
+
+# Create sample gene expression dataset
 gene_data <- tibble(
-  gene_id = c("BRCA1", "TP53", "EGFR", "KRAS", "HER2"),
-  control_1 = c(100, 150, 80, 200, 120),
-  control_2 = c(110, 140, 85, 190, 125),
-  treated_1 = c(200, 300, 90, 180, 240),
-  treated_2 = c(190, 280, 95, 185, 230),
-  chromosome = c("17", "17", "7", "12", "17"),
-  pathway = c("DNA repair", "Cell cycle", "Growth", "Signaling", "Growth")
+  gene_id = c("BRCA1", "TP53", "EGFR", "KRAS", "HER2"),        # Gene identifiers
+  control_1 = c(100, 150, 80, 200, 120),                        # Expression values for control replicate 1
+  control_2 = c(110, 140, 85, 190, 125),                        # Expression values for control replicate 2
+  treated_1 = c(200, 300, 90, 180, 240),                        # Expression values for treatment replicate 1
+  treated_2 = c(190, 280, 95, 185, 230),                        # Expression values for treatment replicate 2
+  chromosome = c("17", "17", "7", "12", "17"),                  # Chromosome locations
+  pathway = c("DNA repair", "Cell cycle", "Growth", "Signaling", "Growth")  # Associated biological pathways
 )
+
+# Basic data filtering using dplyr
+filtered_genes <- gene_data %>%
+  filter(chromosome == "17") %>%                # Select only genes on chromosome 17
+  select(gene_id, control_1, treated_1) %>%     # Keep only gene ID and first replicates
+  arrange(desc(control_1))                      # Sort by control_1 values in descending order
+
+# Calculate mean expression for each condition
+mean_expression <- gene_data %>%
+  rowwise() %>%                                # Operate on each row independently
+  mutate(
+    mean_control = mean(c(control_1, control_2)),    # Calculate mean of control replicates
+    mean_treated = mean(c(treated_1, treated_2))     # Calculate mean of treated replicates
+  ) %>%
+  select(gene_id, mean_control, mean_treated)        # Keep only relevant columns
+
+# Calculate fold change between conditions
+fold_changes <- mean_expression %>%
+  mutate(
+    fold_change = mean_treated / mean_control,       # Calculate fold change
+    log2_fold_change = log2(fold_change)            # Calculate log2 fold change
+  )
+
+# Convert data from wide to long format
+long_data <- gene_data %>%
+  pivot_longer(
+    cols = c(control_1, control_2, treated_1, treated_2),  # Columns to convert
+    names_to = "sample",                                   # New column for sample names
+    values_to = "expression"                              # New column for expression values
+  ) %>%
+  separate(sample,                                        # Split sample column
+          into = c("condition", "replicate"),             # New column names
+          sep = "_")                                      # Separator in sample names
+
+# Calculate summary statistics by condition
+summary_stats <- long_data %>%
+  group_by(condition) %>%                                # Group by experimental condition
+  summarise(
+    mean_expr = mean(expression),                        # Calculate mean expression
+    sd_expr = sd(expression),                           # Calculate standard deviation
+    n_samples = n(),                                    # Count number of samples
+    sem = sd_expr / sqrt(n_samples)                     # Calculate standard error of mean
+  )
+
+# Join gene information with pathway data
+pathway_analysis <- gene_data %>%
+  group_by(pathway) %>%                                 # Group by biological pathway
+  summarise(
+    n_genes = n(),                                     # Count genes in each pathway
+    mean_control = mean(control_1),                    # Calculate mean control expression
+    mean_treated = mean(treated_1)                     # Calculate mean treated expression
+  ) %>%
+  mutate(
+    pathway_fc = mean_treated / mean_control           # Calculate pathway-level fold change
+  )
+
+# Create summary table with multiple statistics
+gene_summary <- gene_data %>%
+  rowwise() %>%
+  mutate(
+    control_mean = mean(c(control_1, control_2)),      # Mean control expression
+    treated_mean = mean(c(treated_1, treated_2)),      # Mean treated expression
+    control_sd = sd(c(control_1, control_2)),          # Control standard deviation
+    treated_sd = sd(c(treated_1, treated_2)),          # Treated standard deviation
+    fold_change = treated_mean / control_mean          # Calculate fold change
+  ) %>%
+  select(gene_id, chromosome, pathway,                 # Select columns for final table
+         control_mean, control_sd,
+         treated_mean, treated_sd,
+         fold_change)
+
+# Filter significant changes
+significant_changes <- gene_summary %>%
+  filter(fold_change >= 1.5 | fold_change <= 0.67) %>%  # Select genes with 1.5-fold change
+  arrange(desc(fold_change))                            # Sort by fold change magnitude
+
+# Export results to CSV file
+write_csv(significant_changes, "significant_genes.csv")  # Save results to file
 ```
 
 ## Understanding the Pipe Operator (`%>%`)

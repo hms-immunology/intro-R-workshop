@@ -4,17 +4,18 @@ author: "Eren Ada"
 date: "`r Sys.Date()`"
 output:
   html_document:
-    toc: true
-    toc_float: true
-    theme: united
-    highlight: tango
+    toc: true          # Enable table of contents
+    toc_float: true    # Make TOC floating
+    theme: united      # Use united theme
+    highlight: tango   # Use tango syntax highlighting
 ---
 
 [![](https://img.shields.io/badge/download%20html-blue)](../rendered-html/objects-variables.html)
 [![](https://img.shields.io/badge/download%20Rmd-blue)](objects-variables.Rmd)
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+# Set global options for all code chunks
+knitr::opts_chunk$set(echo = TRUE)  # Display code in output
 ```
 
 ## Introduction
@@ -23,25 +24,24 @@ In R, we work with objects to store and manipulate data. Understanding how to cr
 
 ## Creating Objects
 
-In R, we create objects using the assignment operator `<-` (or `=`). The basic syntax is:
-
 ```{r basic-objects}
-# Creating a numeric object (gene expression value)
-expression_level <- 1543.7
+# Store a gene expression value as a numeric object
+# Typical RNA-seq count data might be in this range
+expression_level <- 1543.7           # Numeric value representing expression
 
-# Creating a text (character) object
-gene_name <- "BRCA1"
+# Store a gene name as a character (text) object
+gene_name <- "BRCA1"                # String value for breast cancer gene 1
 
-# Creating a logical object
-is_differentially_expressed <- TRUE
+# Store a boolean flag for differential expression
+is_differentially_expressed <- TRUE  # Logical value (TRUE/FALSE)
 
-# Let's print our objects
-print("Expression level:")
-print(expression_level)
-print("Gene name:")
-print(gene_name)
-print("Is differentially expressed?")
-print(is_differentially_expressed)
+# Display all our created objects with labels
+print("Expression level:")           # Print label
+print(expression_level)             # Print numeric value
+print("Gene name:")                 # Print label
+print(gene_name)                    # Print string value
+print("Is differentially expressed?") # Print label
+print(is_differentially_expressed)   # Print logical value
 ```
 
 ### Pro Tip
@@ -64,98 +64,99 @@ When naming objects in R, follow these guidelines:
 
 ## Working with Objects
 
-Once you create an object, you can use it in calculations or operations:
-
 ```{r calculations}
-# RNA-seq example: calculating fold change
-control_expression <- 100
-treated_expression <- 200
-fold_change <- treated_expression / control_expression
-print("Fold change:")
-print(fold_change)  # This will print: 2
+# RNA-seq example: Calculate fold change between treated and control samples
+control_expression <- 100           # Control sample expression level
+treated_expression <- 200          # Treated sample expression level
+fold_change <- treated_expression / control_expression  # Calculate ratio
+print("Fold change:")              # Print label
+print(fold_change)                 # Will show 2x increase
 
-# Medical example: BMI calculation
-weight_kg <- 70.5
-height_m <- 1.75
-bmi <- weight_kg / (height_m^2)
-print("BMI calculation:")
-print(bmi)  # This will print: 23.02
+# Medical example: Calculate Body Mass Index (BMI)
+weight_kg <- 70.5                  # Patient weight in kilograms
+height_m <- 1.75                   # Patient height in meters
+bmi <- weight_kg / (height_m^2)    # BMI formula: weight/(height^2)
+print("BMI calculation:")          # Print label
+print(bmi)                         # Will show BMI value
 ```
 
 ## Practice Challenges
 
 ### Challenge 1: Basic Calculations
-Try to predict the values after each operation:
-
 ```{r challenge1}
-read_count <- 1000       # What is read_count?
-scaling_factor <- 1.5    # What is scaling_factor?
-read_count <- read_count * scaling_factor  # Now what is read_count?
-normalized_count <- read_count / 10     # What is normalized_count?
+# Initialize read count from sequencing data
+read_count <- 1000                 # Initial number of reads
+scaling_factor <- 1.5              # Factor to adjust for library size
+read_count <- read_count * scaling_factor  # Apply scaling
+normalized_count <- read_count / 10  # Further normalization step
 
-# Let's print the results
-print("Final read count:")
+# Display results of calculations
+print("Final read count:")         # Show scaled count
 print(read_count)
-print("Normalized count:")
+print("Normalized count:")         # Show normalized value
 print(normalized_count)
 ```
 
 ### Challenge 2: Temperature Conversion
-Convert a patient's temperature from Celsius to Fahrenheit using the formula: °F = (°C × 9/5) + 32
-
 ```{r challenge2}
-# Convert temperature
-temp_celsius <- 37.5  # Normal body temperature
-temp_fahrenheit <- (temp_celsius * 9/5) + 32
+# Convert patient temperature from Celsius to Fahrenheit
+temp_celsius <- 37.5              # Normal body temperature in Celsius
+# Formula: (°C × 9/5) + 32
+temp_fahrenheit <- (temp_celsius * 9/5) + 32  # Convert to Fahrenheit
 
+# Display the conversion result with units
 print("Temperature conversion:")
 print(paste(temp_celsius, "°C =", temp_fahrenheit, "°F"))
 ```
 
 ### Challenge 3: Sample Information
-Create three variables and combine them into a single sentence:
-
 ```{r challenge3}
-sample_id <- "RNA_01"
-gene_name <- "TP53"
-expression_value <- 2456
+# Create variables for sample metadata
+sample_id <- "RNA_01"             # Unique sample identifier
+gene_name <- "TP53"              # Target gene (tumor protein p53)
+expression_value <- 2456         # Expression count for this gene
 
-message <- paste("Sample", sample_id, "shows", expression_value, "counts for gene", gene_name)
-print("Combined message:")
+# Combine information into a readable message using paste()
+message <- paste("Sample", sample_id, "shows", expression_value, 
+                "counts for gene", gene_name)
+print("Combined message:")        # Print formatted message
 print(message)
 ```
 
 ## Common Mistakes and How to Avoid Them
 
-1. **Case Sensitivity**
+1. **Case Sensitivity Demonstration**
 ```{r case-sensitivity}
-# These are three different objects!
-expression <- 5000
-Expression <- 6000
-EXPRESSION <- 7000
+# R is case-sensitive - these are three different variables
+expression <- 5000               # lowercase
+Expression <- 6000               # Title case
+EXPRESSION <- 7000              # uppercase
 
+# Show how all three variables are distinct
 print("Three different variables:")
-print(expression)
-print(Expression)
-print(EXPRESSION)
+print(expression)               # Shows 5000
+print(Expression)              # Shows 6000
+print(EXPRESSION)              # Shows 7000
 ```
 
-2. **Overwriting Objects**
+2. **Object Overwriting Example**
 ```{r overwriting}
-read_depth <- 1000000
+# Initial value assignment
+read_depth <- 1000000          # One million reads
 print("Original read depth:")
 print(read_depth)
 
-read_depth <- 1500000  # The original value (1000000) is now gone
+# Overwriting with new value
+read_depth <- 1500000          # Changed to 1.5 million reads
 print("New read depth:")
-print(read_depth)
+print(read_depth)              # Original value is lost
 ```
 
-3. **Invalid Names**
+3. **Invalid Names Example**
 ```{r invalid-names, eval=FALSE}
-# This won't work:
-1st_sample <- 5  # Invalid: starts with number
-sample name <- "Control"  # Invalid: contains space
+# Examples of invalid variable names (these will cause errors)
+1st_sample <- 5               # Invalid: starts with number
+sample name <- "Control"      # Invalid: contains space
 ```
 
 ## Tips for Success
@@ -167,14 +168,14 @@ sample name <- "Control"  # Invalid: contains space
 5. Use `rm(object_name)` to remove objects you no longer need
 
 ```{r tips}
-# List all objects in environment
+# Display all objects in current environment
 print("Objects in environment:")
-ls()
+ls()                          # List all variables
 
-# Remove an object
-rm(expression)
+# Remove a specific object from environment
+rm(expression)               # Delete 'expression' variable
 print("Objects after removing 'expression':")
-ls()
+ls()                         # Show updated list
 ```
 
 ## Next Steps

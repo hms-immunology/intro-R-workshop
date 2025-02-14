@@ -4,33 +4,37 @@ author: "Eren Ada"
 date: "`r Sys.Date()`"
 output:
   html_document:
-    toc: true
-    toc_float: true
-    theme: united
-    highlight: tango
+    toc: true          # Enable table of contents for easy navigation
+    toc_float: true    # Make table of contents float alongside content
+    theme: united      # Use united theme for clean, modern appearance
+    highlight: tango   # Use tango syntax highlighting for code blocks
 ---
 
 [![](https://img.shields.io/badge/download%20html-blue)](../rendered-html/data-manipulation.html)
 [![](https://img.shields.io/badge/download%20Rmd-blue)](data-manipulation.Rmd)
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+# Set global options for all code chunks in this document
+knitr::opts_chunk$set(echo = TRUE)  # Display code alongside its output
 ```
 
 ## Introduction to the Tidyverse
 
-The tidyverse is a collection of R packages designed for data science that share a common philosophy and design. In this lesson, we'll focus on two core packages:
+The tidyverse is a collection of R packages designed for data science that share a common philosophy and design. These packages are essential for modern data analysis in R, especially for bioinformatics and genomics research.
 
-- **dplyr**: For data manipulation
-- **tidyr**: For data tidying and reshaping
+Key packages we'll focus on:
+- **dplyr**: For efficient data manipulation and transformation
+- **tidyr**: For cleaning and reshaping messy data into tidy format
 
 Let's start by loading the required packages:
 
 ```{r load-packages}
-# Install packages if not already installed
+# First, check if tidyverse is installed and install if needed
+# This is good practice for reproducible code
 if (!require("tidyverse")) install.packages("tidyverse")
 
-# Load the tidyverse (includes dplyr and tidyr)
+# Load the tidyverse meta-package
+# This includes: dplyr, tidyr, ggplot2, and other essential packages
 library(tidyverse)
 ```
 
@@ -41,72 +45,81 @@ Before we begin, here are some valuable resources to keep handy:
 1. **RStudio Cheat Sheets**: 
    - [Data Transformation with dplyr](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf)
    - [Data Tidying with tidyr](https://github.com/rstudio/cheatsheets/blob/main/tidyr.pdf)
-   These cheat sheets provide quick references for the functions we'll be using.
+   These cheat sheets are invaluable quick references for data manipulation functions.
 
 2. **Keyboard Shortcuts**:
    - Pipe operator (`%>%`): Ctrl/Cmd + Shift + M
    - Assignment operator (`<-`): Alt + - (Windows/Linux) or Option + - (Mac)
-
-Keep these resources open in another tab while working through the examples - they're incredibly helpful for remembering function names and arguments!
+   These shortcuts will speed up your coding significantly!
 
 ## Sample Dataset
 
-We'll use a gene expression dataset to demonstrate these concepts:
+We'll use a gene expression dataset that mimics real RNA-seq data:
 
 ```{r create-data}
-# Create a sample gene expression dataset
+# Create a sample gene expression dataset with:
+# - Gene identifiers
+# - Expression values for control and treated samples (with replicates)
+# - Genomic information (chromosome location)
+# - Biological pathway information
 gene_data <- tibble(
-  gene_id = c("BRCA1", "TP53", "EGFR", "KRAS", "HER2"),
-  control_1 = c(100, 150, 80, 200, 120),
-  control_2 = c(110, 140, 85, 190, 125),
-  treated_1 = c(200, 300, 90, 180, 240),
-  treated_2 = c(190, 280, 95, 185, 230),
-  chromosome = c("17", "17", "7", "12", "17"),
-  pathway = c("DNA repair", "Cell cycle", "Growth", "Signaling", "Growth")
+  gene_id = c("BRCA1", "TP53", "EGFR", "KRAS", "HER2"),     # Important cancer genes
+  control_1 = c(100, 150, 80, 200, 120),                     # Control replicate 1
+  control_2 = c(110, 140, 85, 190, 125),                     # Control replicate 2
+  treated_1 = c(200, 300, 90, 180, 240),                     # Treatment replicate 1
+  treated_2 = c(190, 280, 95, 185, 230),                     # Treatment replicate 2
+  chromosome = c("17", "17", "7", "12", "17"),               # Chromosome locations
+  pathway = c("DNA repair", "Cell cycle", "Growth", "Signaling", "Growth")  # Biological pathways
 )
 
-# View the data
+# Display the dataset
 print(gene_data)
 ```
 
 ## Understanding the Pipe Operator (`%>%`)
 
-Before diving into data manipulation, let's understand the pipe operator (`%>%`), which is fundamental to writing clear and readable code in R.
+The pipe operator is a fundamental concept in modern R programming, especially for data analysis workflows.
 
 ### What is Piping?
 
-The pipe operator (`%>%`) takes the output from one function and passes it as the first argument to the next function. It helps write code that can be read from left to right, making it more intuitive and easier to understand.
+The pipe operator (`%>%`) takes the output from one function and passes it as the first argument to the next function. Think of it like a pipeline where data flows through a series of operations.
+
+Benefits:
+1. Makes code more readable (left-to-right flow)
+2. Reduces need for intermediate variables
+3. Makes complex operations more manageable
 
 ### Traditional vs. Piped Syntax
 
 ```{r piping-example}
-# Traditional nested syntax
+# Traditional nested syntax (hard to read)
 mean(sqrt(abs(log(c(1:10)))))
 
-# Same operation with pipes
+# Same operation with pipes (easier to follow)
+# Each step is clearly visible
 c(1:10) %>%
-  log() %>%
-  abs() %>%
-  sqrt() %>%
-  mean()
+  log() %>%      # First take the log
+  abs() %>%      # Then the absolute value
+  sqrt() %>%     # Then the square root
+  mean()         # Finally calculate the mean
 
 # Example with our gene data
-# Traditional syntax
+# Traditional syntax (nested, harder to understand)
 head(arrange(filter(gene_data, chromosome == "17"), desc(control_1)))
 
-# Same operation with pipes
+# Same operation with pipes (clear sequence of operations)
 gene_data %>%
-  filter(chromosome == "17") %>%
-  arrange(desc(control_1)) %>%
-  head()
+  filter(chromosome == "17") %>%         # First, keep only chromosome 17 genes
+  arrange(desc(control_1)) %>%           # Then sort by control_1 values
+  head()                                 # Finally, show first few rows
 ```
 
 ### Why Use Pipes?
 
-1. **Readability**: Pipes make code easier to read by showing the sequence of operations from left to right
-2. **Maintainability**: Each step in the analysis is clearly separated, making it easier to modify or debug
-3. **Reduced Nesting**: Eliminates the need for nested function calls or multiple intermediate objects
-4. **Code Organization**: Makes it clear how data flows through a series of transformations
+1. **Readability**: Code flows naturally from left to right
+2. **Maintainability**: Easy to add/remove/modify steps
+3. **Reduced Nesting**: No more deeply nested function calls
+4. **Code Organization**: Clear data transformation workflow
 
 ### Pro Tips for Using Pipes
 
@@ -114,15 +127,15 @@ gene_data %>%
 2. Add one operation per line
 3. Indent lines after the first pipe
 4. Use pipes for 2 or more operations
-5. In RStudio, type `Ctrl/Cmd + Shift + M` to insert the pipe operator
+5. Use keyboard shortcut: Ctrl/Cmd + Shift + M
 
 ```{r pipe-tips}
-# Example of well-formatted piped operations
+# Example of a well-formatted analysis pipeline
 result <- gene_data %>%
-  filter(chromosome == "17") %>%
-  select(gene_id, control_1, treated_1) %>%
-  mutate(fold_change = treated_1 / control_1) %>%
-  arrange(desc(fold_change))
+  filter(chromosome == "17") %>%                    # Filter for chromosome 17
+  select(gene_id, control_1, treated_1) %>%        # Keep only needed columns
+  mutate(fold_change = treated_1 / control_1) %>%  # Calculate fold change
+  arrange(desc(fold_change))                       # Sort by fold change
 
 print("Well-formatted pipe example result:")
 print(result)
@@ -132,83 +145,90 @@ print(result)
 
 ### 1. Selecting Columns (select)
 
-The `select()` function helps you choose which columns to keep or remove:
+The `select()` function helps you choose which columns to keep or remove. This is essential for focusing on relevant data:
 
 ```{r selecting}
-# Select specific columns
+# Select specific columns of interest
 gene_data %>%
-  select(gene_id, control_1, treated_1)
+  select(gene_id, control_1, treated_1)  # Keep only gene IDs and one replicate each
 
-# Select columns by pattern
+# Select columns by pattern matching
+# Useful when you have many similarly named columns
 gene_data %>%
-  select(starts_with("control"))
+  select(starts_with("control"))  # Get all control samples
 
-# Remove columns
+# Remove unwanted columns
+# Useful for excluding replicate 2 data
 gene_data %>%
-  select(-ends_with("2"))
+  select(-ends_with("2"))  # Remove all replicate 2 columns
 ```
 
 ### 2. Filtering Rows (filter)
 
-Use `filter()` to subset rows based on conditions:
+Use `filter()` to subset rows based on conditions. Essential for focusing on genes of interest:
 
 ```{r filtering}
 # Filter genes on chromosome 17
+# Common in cancer studies (many cancer genes on chr17)
 gene_data %>%
   filter(chromosome == "17")
 
 # Multiple conditions
+# Find highly expressed genes on chr17
 gene_data %>%
-  filter(chromosome == "17", 
-         control_1 > 100)
+  filter(chromosome == "17",    # Must be on chromosome 17
+         control_1 > 100)       # Must have high expression
 
-# Complex conditions
+# Complex conditions using %in%
+# Find genes in specific pathways
 gene_data %>%
-  filter(pathway %in% c("Growth", "Signaling"))
+  filter(pathway %in% c("Growth", "Signaling"))  # Growth or signaling genes
 ```
 
 ### 3. Creating New Columns (mutate)
 
-`mutate()` adds new columns based on calculations:
+`mutate()` adds new columns based on calculations. Essential for data analysis:
 
 ```{r mutating}
-# Calculate mean expression for controls and treated
+# Calculate summary statistics
 gene_data %>%
   mutate(
-    mean_control = (control_1 + control_2) / 2,
-    mean_treated = (treated_1 + treated_2) / 2,
-    fold_change = mean_treated / mean_control
+    mean_control = (control_1 + control_2) / 2,     # Average control expression
+    mean_treated = (treated_1 + treated_2) / 2,     # Average treated expression
+    fold_change = mean_treated / mean_control       # Fold change calculation
   )
 
 # Log transform expression values
+# Common in RNA-seq analysis
 gene_data %>%
   mutate(across(
-    .cols = c(control_1, control_2, treated_1, treated_2),
-    .fns = log2,
-    .names = "log2_{.col}"
+    .cols = c(control_1, control_2, treated_1, treated_2),  # All expression columns
+    .fns = log2,                                           # Apply log2 transform
+    .names = "log2_{.col}"                                 # Name new columns
   ))
 ```
 
 ### 4. Summarizing Data (summarize/summarise)
 
-`summarize()` creates summary statistics:
+`summarize()` creates summary statistics. Perfect for getting overview of your data:
 
 ```{r summarizing}
 # Calculate mean expression per condition
 gene_data %>%
   summarise(
-    mean_control_1 = mean(control_1),
-    mean_treated_1 = mean(treated_1),
-    n_genes = n()
+    mean_control_1 = mean(control_1),     # Average control expression
+    mean_treated_1 = mean(treated_1),     # Average treated expression
+    n_genes = n()                         # Number of genes analyzed
   )
 
 # Group by pathway and summarize
+# Useful for pathway-level analysis
 gene_data %>%
-  group_by(pathway) %>%
+  group_by(pathway) %>%                   # Group genes by pathway
   summarise(
-    n_genes = n(),
-    mean_control = mean(control_1),
-    mean_treated = mean(treated_1)
+    n_genes = n(),                        # Genes per pathway
+    mean_control = mean(control_1),       # Average control expression
+    mean_treated = mean(treated_1)        # Average treated expression
   )
 ```
 
@@ -216,75 +236,31 @@ gene_data %>%
 
 ### 1. Reshaping Data (pivot_longer and pivot_wider)
 
-Data often comes in different formats, and we frequently need to convert between them for different types of analysis:
+Data reshaping is crucial in bioinformatics, especially when preparing data for different analyses:
 
-- **Wide format**: Each sample/condition is in a separate column (e.g., control_1, control_2, treated_1, treated_2)
-  - Good for: Viewing data in spreadsheets, manual data entry
-  - Example use: When you want to see all measurements for a gene in one row
+**Wide format**: Each sample in a separate column
+- Good for: Spreadsheet viewing, manual data entry
+- Example: RNA-seq count matrix
 
-- **Long format**: Each observation is in a separate row
-  - Good for: Statistical analysis, plotting with ggplot2, most modeling functions
-  - Example use: When you need to compare conditions or create box plots
-
-Common reasons for converting formats:
-1. **Visualization**: Many plotting functions (especially ggplot2) prefer long format
-2. **Statistical Analysis**: Functions like t.test() and ANOVA expect data in long format
-3. **Data Manipulation**: Some calculations are easier in one format vs. another
-4. **Data Export**: Different tools might require specific formats
-
-Let's see this in practice:
+**Long format**: Each observation in a separate row
+- Good for: Statistical tests, plotting
+- Example: DESeq2 results
 
 ```{r reshaping}
-# Convert to long format
+# Convert from wide to long format
+# This is often needed for visualization and statistical testing
 gene_data_long <- gene_data %>%
   pivot_longer(
-    cols = c(control_1, control_2, treated_1, treated_2),
-    names_to = "sample",
-    values_to = "expression"
+    cols = c(control_1, control_2, treated_1, treated_2),  # Expression columns
+    names_to = "sample",                                   # Column for sample names
+    values_to = "expression"                               # Column for expression values
   )
 
-print("Long format (good for plotting and statistics):")
+print("Long format (ideal for plotting and statistics):")
 print(gene_data_long)
 
-# Example of why long format is useful for plotting
-library(ggplot2)
-ggplot(gene_data_long, aes(x = gene_id, y = expression, fill = sample)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  theme_minimal() +
-  labs(title = "Gene Expression by Sample")
-
-# Convert back to wide format
-gene_data_wide <- gene_data_long %>%
-  pivot_wider(
-    names_from = sample,
-    values_from = expression
-  )
-
-print("\nWide format (good for viewing all conditions at once):")
-print(gene_data_wide)
-```
-
-### 2. Separating and Uniting Columns
-
-Sometimes we need to split or combine columns:
-
-```{r separate-unite}
-# Add a column with gene info to split
-gene_data_info <- gene_data %>%
-  mutate(gene_info = paste(gene_id, chromosome, sep = "_chr"))
-
-# Separate the gene_info column
-gene_data_info %>%
-  separate(gene_info, 
-          into = c("gene", "chromosome"),
-          sep = "_chr")
-
-# Unite columns back together
-gene_data_info %>%
-  separate(gene_info, 
-          into = c("gene", "chromosome"),
-          sep = "_chr") %>%
-  unite("gene_chr", gene, chromosome, sep = "_chr")
+# Now ready for visualization with ggplot2
+library(ggplot2)  # For plotting
 ```
 
 ## Advanced dplyr Operations
@@ -541,3 +517,163 @@ gene_data_na %>%
 
 After mastering these advanced concepts, you can explore:
 - Data visualization with ggplot2
+
+# Create example visualization
+ggplot(gene_data_long, 
+       aes(x = gene_id, y = expression, fill = sample)) +  # Map variables to plot
+  geom_bar(stat = "identity", position = "dodge") +        # Create grouped bars
+  theme_minimal() +                                        # Use clean theme
+  labs(title = "Gene Expression by Sample",                # Add informative labels
+       x = "Gene",
+       y = "Expression Level") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate gene names
+
+### 2. Separating and Uniting Columns (tidyr)
+
+Sometimes we need to work with complex identifiers or combine/split information:
+
+```{r separate-unite}
+# Create complex identifiers (common in bioinformatics)
+gene_data_info <- gene_data %>%
+  mutate(gene_info = paste(gene_id, chromosome, sep = "_chr"))  # Create combined ID
+
+# Separate the gene_info column into components
+# Useful when working with complex identifiers
+gene_data_split <- gene_data_info %>%
+  separate(gene_info,                    # Column to split
+          into = c("gene", "chr_num"),   # New column names
+          sep = "_chr")                  # Split at "_chr"
+
+print("Data with separated columns:")
+print(gene_data_split)
+
+# Unite columns back together
+# Useful for creating standardized identifiers
+gene_data_united <- gene_data_split %>%
+  unite("gene_chr",                      # Name of new column
+        gene, chr_num,                   # Columns to combine
+        sep = "_chr")                    # Separator to use
+
+print("\nData with united columns:")
+print(gene_data_united)
+```
+
+## Practice Exercises
+
+### Exercise 1: Basic Data Manipulation
+
+Try these operations with the gene expression data:
+
+```{r exercise1, eval=FALSE}
+# 1. Calculate log2 fold change for each gene
+gene_data %>%
+  mutate(
+    mean_control = (control_1 + control_2) / 2,     # Average control
+    mean_treated = (treated_1 + treated_2) / 2,     # Average treated
+    log2_fold_change = log2(mean_treated / mean_control)  # Log2 fold change
+  )
+
+# 2. Find genes with absolute log2 fold change > 1
+# This indicates a 2-fold or greater change
+gene_data %>%
+  mutate(
+    mean_control = (control_1 + control_2) / 2,
+    mean_treated = (treated_1 + treated_2) / 2,
+    log2_fold_change = log2(mean_treated / mean_control)
+  ) %>%
+  filter(abs(log2_fold_change) > 1)  # |log2 FC| > 1 means >2-fold change
+```
+
+### Exercise 2: Grouped Analysis
+
+Analyze expression patterns by pathway:
+
+```{r exercise2, eval=FALSE}
+# 1. Calculate average expression and standard deviation by pathway
+gene_data %>%
+  group_by(pathway) %>%
+  summarise(
+    mean_control = mean(control_1),           # Average control expression
+    sd_control = sd(control_1),               # Variability in control
+    mean_treated = mean(treated_1),           # Average treated expression
+    sd_treated = sd(treated_1),               # Variability in treated
+    n_genes = n()                             # Number of genes in pathway
+  )
+
+# 2. Find pathways with the highest average fold change
+gene_data %>%
+  group_by(pathway) %>%
+  summarise(
+    mean_fc = mean(treated_1 / control_1),    # Average fold change
+    max_fc = max(treated_1 / control_1)       # Maximum fold change
+  ) %>%
+  arrange(desc(mean_fc))                      # Sort by average fold change
+```
+
+### Exercise 3: Data Reshaping
+
+Practice reshaping data for different analyses:
+
+```{r exercise3, eval=FALSE}
+# 1. Convert to long format and calculate statistics
+gene_data %>%
+  pivot_longer(
+    cols = c(control_1, control_2, treated_1, treated_2),
+    names_to = c("condition", "replicate"),
+    names_pattern = "(.+)_(.+)",              # Split names into condition and replicate
+    values_to = "expression"
+  ) %>%
+  group_by(condition) %>%
+  summarise(
+    mean_expr = mean(expression),             # Average by condition
+    sd_expr = sd(expression)                  # Variability by condition
+  )
+
+# 2. Create a correlation matrix between samples
+gene_data %>%
+  select(control_1, control_2, treated_1, treated_2) %>%  # Select expression columns
+  cor()                                                   # Calculate correlations
+```
+
+## Tips for Effective Data Manipulation
+
+1. **Start with Raw Data**
+   - Keep original data unchanged
+   - Document all transformations
+   - Make analysis reproducible
+
+2. **Use Appropriate Data Structures**
+   - Wide format for viewing/manual entry
+   - Long format for analysis/plotting
+   - Consider memory usage for large datasets
+
+3. **Check Your Work**
+   - Verify transformations with small examples
+   - Use summary statistics to catch errors
+   - Plot data to visualize changes
+
+4. **Optimize Performance**
+   - Use appropriate data types
+   - Minimize redundant calculations
+   - Consider using data.table for large datasets
+
+## Next Steps
+
+After mastering these basics, explore:
+
+1. **Advanced dplyr Functions**
+   - `across()` for applying functions to multiple columns
+   - `rowwise()` for row-wise operations
+   - Window functions for ranking and comparisons
+
+2. **Complex Data Transformations**
+   - Nested data frames
+   - List columns
+   - Custom functions for repeated operations
+
+3. **Integration with Other Tools**
+   - Bioconductor packages
+   - Statistical analysis packages
+   - Advanced visualization tools
+
+Remember: The key to effective data manipulation is choosing the right tools for your specific needs and ensuring your code is clear and reproducible.

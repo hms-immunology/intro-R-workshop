@@ -20,28 +20,132 @@ ggplot2 is a powerful package for creating beautiful visualizations in R. It's b
 Let's start by loading the required packages and our sample data:
 
 ```r
-# Load required packages
-library(tidyverse)  # includes ggplot2
-library(viridis)    # for color-blind friendly palettes
+# Load required packages for data visualization
+library(tidyverse)  # Includes ggplot2 and data manipulation tools
+library(viridis)    # Color-blind friendly color palettes
 
-# Create our sample gene expression dataset (from previous lesson)
+# Create sample gene expression dataset
 gene_data <- tibble(
-  gene_id = c("BRCA1", "TP53", "EGFR", "KRAS", "HER2"),
-  control_1 = c(100, 150, 80, 200, 120),
-  control_2 = c(110, 140, 85, 190, 125),
-  treated_1 = c(200, 300, 90, 180, 240),
-  treated_2 = c(190, 280, 95, 185, 230),
-  chromosome = c("17", "17", "7", "12", "17"),
-  pathway = c("DNA repair", "Cell cycle", "Growth", "Signaling", "Growth")
+  gene_id = c("BRCA1", "TP53", "EGFR", "KRAS", "HER2"),        # Gene names
+  control_1 = c(100, 150, 80, 200, 120),                        # Control replicate 1
+  control_2 = c(110, 140, 85, 190, 125),                        # Control replicate 2
+  treated_1 = c(200, 300, 90, 180, 240),                        # Treatment replicate 1
+  treated_2 = c(190, 280, 95, 185, 230),                        # Treatment replicate 2
+  chromosome = c("17", "17", "7", "12", "17"),                  # Chromosome location
+  pathway = c("DNA repair", "Cell cycle", "Growth", "Signaling", "Growth")  # Biological pathway
 )
 
-# Convert to long format for plotting
+# Convert data from wide to long format for plotting
 gene_data_long <- gene_data %>%
   pivot_longer(
-    cols = c(control_1, control_2, treated_1, treated_2),
-    names_to = "sample",
-    values_to = "expression"
+    cols = c(control_1, control_2, treated_1, treated_2),  # Columns to convert
+    names_to = "sample",                                   # New column for sample names
+    values_to = "expression"                              # New column for expression values
   )
+
+# Basic bar plot showing gene expression levels
+ggplot(gene_data_long, aes(x = gene_id, y = expression)) +     # Map genes to x-axis, expression to y-axis
+  geom_bar(stat = "identity") +                                # Create bars with heights = y values
+  labs(title = "Gene Expression Levels",                       # Add plot title
+       x = "Gene",                                            # Label x-axis
+       y = "Expression Level")                                # Label y-axis
+
+# Grouped bar plot showing expression by sample
+ggplot(gene_data_long, aes(x = gene_id, y = expression, fill = sample)) +  # Add color grouping
+  geom_bar(stat = "identity", position = "dodge") +           # Place bars side by side
+  labs(title = "Gene Expression Levels by Sample",            # Add title
+       x = "Gene",                                           # Label x-axis
+       y = "Expression Level") +                             # Label y-axis
+  theme_minimal() +                                          # Use minimal theme
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x-axis labels
+
+# Calculate summary statistics for each gene
+gene_summary <- gene_data_long %>%
+  group_by(gene_id) %>%                                      # Group data by gene
+  summarise(
+    mean_expr = mean(expression),                            # Calculate mean expression
+    sd_expr = sd(expression),                                # Calculate standard deviation
+    sem_expr = sd(expression) / sqrt(n())                    # Calculate standard error
+  )
+
+# Basic box plot showing expression distribution
+ggplot(gene_data_long, aes(x = gene_id, y = expression)) +   # Map genes and expression
+  geom_boxplot() +                                           # Create box plot
+  labs(title = "Distribution of Expression Levels",          # Add title
+       x = "Gene",                                          # Label x-axis
+       y = "Expression Level")                              # Label y-axis
+
+# Box plot with individual points and error bars
+ggplot(gene_data_long, aes(x = gene_id, y = expression, fill = gene_id)) +  # Add color by gene
+  geom_boxplot(alpha = 0.7) +                               # Add semi-transparent boxes
+  geom_point(position = position_jitter(width = 0.2)) +     # Add jittered data points
+  labs(title = "Gene Expression Distribution with Data Points",  # Add title
+       x = "Gene",                                          # Label x-axis
+       y = "Expression Level") +                            # Label y-axis
+  theme_minimal() +                                         # Use minimal theme
+  theme(legend.position = "none")                          # Remove legend
+
+# Calculate mean expression for control and treated conditions
+expression_means <- gene_data %>%
+  mutate(
+    mean_control = (control_1 + control_2) / 2,             # Average control replicates
+    mean_treated = (treated_1 + treated_2) / 2              # Average treated replicates
+  )
+
+# Create scatter plot comparing control vs treated expression
+ggplot(expression_means, 
+       aes(x = mean_control, y = mean_treated, label = gene_id)) +  # Map control vs treated
+  geom_point() +                                            # Add points
+  geom_text(vjust = -0.5) +                                # Add labels above points
+  geom_abline(intercept = 0, slope = 1,                    # Add y=x reference line
+              linetype = "dashed", color = "red") +         # Make line dashed and red
+  labs(title = "Control vs Treated Expression",            # Add title
+       x = "Mean Control Expression",                      # Label x-axis
+       y = "Mean Treated Expression") +                    # Label y-axis
+  theme_minimal()                                         # Use minimal theme
+
+# Scatter plot with additional pathway information
+ggplot(expression_means, 
+       aes(x = mean_control, y = mean_treated, 
+           color = pathway, label = gene_id)) +             # Color points by pathway
+  geom_point(size = 3) +                                   # Add larger points
+  geom_text(vjust = -0.5) +                               # Add labels above points
+  geom_abline(intercept = 0, slope = 1,                   # Add reference line
+              linetype = "dashed", color = "gray") +       # Gray dashed line
+  labs(title = "Control vs Treated Expression by Pathway", # Add title
+       x = "Mean Control Expression",                     # Label x-axis
+       y = "Mean Treated Expression") +                   # Label y-axis
+  theme_minimal()                                        # Use minimal theme
+
+# Create basic histogram of expression values
+ggplot(gene_data_long, aes(x = expression)) +              # Map expression to x-axis
+  geom_histogram(bins = 10) +                              # Create histogram with 10 bins
+  labs(title = "Distribution of Expression Values",        # Add title
+       x = "Expression Level",                            # Label x-axis
+       y = "Count")                                       # Label y-axis
+
+# Histogram with density curve
+ggplot(gene_data_long, aes(x = expression)) +
+  geom_histogram(aes(y = ..density..),                    # Convert to density scale
+                 bins = 10,                               # Number of bins
+                 fill = "lightblue",                      # Bar color
+                 alpha = 0.7) +                           # Bar transparency
+  geom_density(color = "red") +                          # Add density curve in red
+  labs(title = "Distribution of Expression Values with Density Curve",  # Add title
+       x = "Expression Level",                           # Label x-axis
+       y = "Density") +                                  # Label y-axis
+  theme_minimal()                                        # Use minimal theme
+
+# Faceted histogram by sample type
+ggplot(gene_data_long, aes(x = expression, fill = sample)) +  # Map expression and color
+  geom_histogram(bins = 10,                              # Number of bins
+                 alpha = 0.7,                            # Bar transparency
+                 position = "identity") +                # Overlay histograms
+  facet_wrap(~sample) +                                 # Create separate plot per sample
+  labs(title = "Expression Distribution by Sample",     # Add title
+       x = "Expression Level",                         # Label x-axis
+       y = "Count") +                                  # Label y-axis
+  theme_minimal()                                      # Use minimal theme
 ```
 
 ## Basic ggplot2 Syntax
