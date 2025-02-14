@@ -11,7 +11,7 @@
 
 <meta name="author" content="Eren Ada" />
 
-<meta name="date" content="2025-02-13" />
+<meta name="date" content="2025-02-14" />
 
 <title>Objects and Variables in R</title>
 
@@ -1559,7 +1559,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Objects and Variables in R</h1>
 <h4 class="author">Eren Ada</h4>
-<h4 class="date">2025-02-13</h4>
+<h4 class="date">2025-02-14</h4>
 
 </div>
 
@@ -1575,29 +1575,28 @@ health sciences, including RNA sequencing analysis.</p>
 </div>
 <div id="creating-objects" class="section level2">
 <h2>Creating Objects</h2>
-<p>In R, we create objects using the assignment operator
-<code>&lt;-</code> (or <code>=</code>). The basic syntax is:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Creating a numeric object (gene expression value)</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>expression_level <span class="ot">&lt;-</span> <span class="fl">1543.7</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co"># Creating a text (character) object</span></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>gene_name <span class="ot">&lt;-</span> <span class="st">&quot;BRCA1&quot;</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co"># Creating a logical object</span></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>is_differentially_expressed <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co"># Let&#39;s print our objects</span></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Expression level:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Store a gene expression value as a numeric object</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co"># Typical RNA-seq count data might be in this range</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>expression_level <span class="ot">&lt;-</span> <span class="fl">1543.7</span>           <span class="co"># Numeric value representing expression</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co"># Store a gene name as a character (text) object</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>gene_name <span class="ot">&lt;-</span> <span class="st">&quot;BRCA1&quot;</span>                <span class="co"># String value for breast cancer gene 1</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co"># Store a boolean flag for differential expression</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>is_differentially_expressed <span class="ot">&lt;-</span> <span class="cn">TRUE</span>  <span class="co"># Logical value (TRUE/FALSE)</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co"># Display all our created objects with labels</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Expression level:&quot;</span>)           <span class="co"># Print label</span></span></code></pre></div>
 <pre><code>## [1] &quot;Expression level:&quot;</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">print</span>(expression_level)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">print</span>(expression_level)             <span class="co"># Print numeric value</span></span></code></pre></div>
 <pre><code>## [1] 1543.7</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Gene name:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Gene name:&quot;</span>)                 <span class="co"># Print label</span></span></code></pre></div>
 <pre><code>## [1] &quot;Gene name:&quot;</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">print</span>(gene_name)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">print</span>(gene_name)                    <span class="co"># Print string value</span></span></code></pre></div>
 <pre><code>## [1] &quot;BRCA1&quot;</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Is differentially expressed?&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Is differentially expressed?&quot;</span>) <span class="co"># Print label</span></span></code></pre></div>
 <pre><code>## [1] &quot;Is differentially expressed?&quot;</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">print</span>(is_differentially_expressed)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">print</span>(is_differentially_expressed)   <span class="co"># Print logical value</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <div id="pro-tip" class="section level3">
 <h3>Pro Tip</h3>
@@ -1621,67 +1620,67 @@ for spaces: <code>fold_change</code></p>
 </div>
 <div id="working-with-objects" class="section level2">
 <h2>Working with Objects</h2>
-<p>Once you create an object, you can use it in calculations or
-operations:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># RNA-seq example: calculating fold change</span></span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>control_expression <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>treated_expression <span class="ot">&lt;-</span> <span class="dv">200</span></span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>fold_change <span class="ot">&lt;-</span> treated_expression <span class="sc">/</span> control_expression</span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Fold change:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># RNA-seq example: Calculate fold change between treated and control samples</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>control_expression <span class="ot">&lt;-</span> <span class="dv">100</span>           <span class="co"># Control sample expression level</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>treated_expression <span class="ot">&lt;-</span> <span class="dv">200</span>          <span class="co"># Treated sample expression level</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>fold_change <span class="ot">&lt;-</span> treated_expression <span class="sc">/</span> control_expression  <span class="co"># Calculate ratio</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Fold change:&quot;</span>)              <span class="co"># Print label</span></span></code></pre></div>
 <pre><code>## [1] &quot;Fold change:&quot;</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">print</span>(fold_change)  <span class="co"># This will print: 2</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">print</span>(fold_change)                 <span class="co"># Will show 2x increase</span></span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># Medical example: BMI calculation</span></span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>weight_kg <span class="ot">&lt;-</span> <span class="fl">70.5</span></span>
-<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>height_m <span class="ot">&lt;-</span> <span class="fl">1.75</span></span>
-<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>bmi <span class="ot">&lt;-</span> weight_kg <span class="sc">/</span> (height_m<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;BMI calculation:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># Medical example: Calculate Body Mass Index (BMI)</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>weight_kg <span class="ot">&lt;-</span> <span class="fl">70.5</span>                  <span class="co"># Patient weight in kilograms</span></span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>height_m <span class="ot">&lt;-</span> <span class="fl">1.75</span>                   <span class="co"># Patient height in meters</span></span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>bmi <span class="ot">&lt;-</span> weight_kg <span class="sc">/</span> (height_m<span class="sc">^</span><span class="dv">2</span>)    <span class="co"># BMI formula: weight/(height^2)</span></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;BMI calculation:&quot;</span>)          <span class="co"># Print label</span></span></code></pre></div>
 <pre><code>## [1] &quot;BMI calculation:&quot;</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">print</span>(bmi)  <span class="co"># This will print: 23.02</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">print</span>(bmi)                         <span class="co"># Will show BMI value</span></span></code></pre></div>
 <pre><code>## [1] 23.02041</code></pre>
 </div>
 <div id="practice-challenges" class="section level2">
 <h2>Practice Challenges</h2>
 <div id="challenge-1-basic-calculations" class="section level3">
 <h3>Challenge 1: Basic Calculations</h3>
-<p>Try to predict the values after each operation:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>read_count <span class="ot">&lt;-</span> <span class="dv">1000</span>       <span class="co"># What is read_count?</span></span>
-<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>scaling_factor <span class="ot">&lt;-</span> <span class="fl">1.5</span>    <span class="co"># What is scaling_factor?</span></span>
-<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>read_count <span class="ot">&lt;-</span> read_count <span class="sc">*</span> scaling_factor  <span class="co"># Now what is read_count?</span></span>
-<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a>normalized_count <span class="ot">&lt;-</span> read_count <span class="sc">/</span> <span class="dv">10</span>     <span class="co"># What is normalized_count?</span></span>
-<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a></span>
-<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="co"># Let&#39;s print the results</span></span>
-<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Final read count:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co"># Initialize read count from sequencing data</span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>read_count <span class="ot">&lt;-</span> <span class="dv">1000</span>                 <span class="co"># Initial number of reads</span></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>scaling_factor <span class="ot">&lt;-</span> <span class="fl">1.5</span>              <span class="co"># Factor to adjust for library size</span></span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a>read_count <span class="ot">&lt;-</span> read_count <span class="sc">*</span> scaling_factor  <span class="co"># Apply scaling</span></span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a>normalized_count <span class="ot">&lt;-</span> read_count <span class="sc">/</span> <span class="dv">10</span>  <span class="co"># Further normalization step</span></span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="co"># Display results of calculations</span></span>
+<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Final read count:&quot;</span>)         <span class="co"># Show scaled count</span></span></code></pre></div>
 <pre><code>## [1] &quot;Final read count:&quot;</code></pre>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">print</span>(read_count)</span></code></pre></div>
 <pre><code>## [1] 1500</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Normalized count:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Normalized count:&quot;</span>)         <span class="co"># Show normalized value</span></span></code></pre></div>
 <pre><code>## [1] &quot;Normalized count:&quot;</code></pre>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">print</span>(normalized_count)</span></code></pre></div>
 <pre><code>## [1] 150</code></pre>
 </div>
 <div id="challenge-2-temperature-conversion" class="section level3">
 <h3>Challenge 2: Temperature Conversion</h3>
-<p>Convert a patient’s temperature from Celsius to Fahrenheit using the
-formula: °F = (°C × 9/5) + 32</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="co"># Convert temperature</span></span>
-<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>temp_celsius <span class="ot">&lt;-</span> <span class="fl">37.5</span>  <span class="co"># Normal body temperature</span></span>
-<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>temp_fahrenheit <span class="ot">&lt;-</span> (temp_celsius <span class="sc">*</span> <span class="dv">9</span><span class="sc">/</span><span class="dv">5</span>) <span class="sc">+</span> <span class="dv">32</span></span>
-<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Temperature conversion:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="co"># Convert patient temperature from Celsius to Fahrenheit</span></span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>temp_celsius <span class="ot">&lt;-</span> <span class="fl">37.5</span>              <span class="co"># Normal body temperature in Celsius</span></span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a><span class="co"># Formula: (°C × 9/5) + 32</span></span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a>temp_fahrenheit <span class="ot">&lt;-</span> (temp_celsius <span class="sc">*</span> <span class="dv">9</span><span class="sc">/</span><span class="dv">5</span>) <span class="sc">+</span> <span class="dv">32</span>  <span class="co"># Convert to Fahrenheit</span></span>
+<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a><span class="co"># Display the conversion result with units</span></span>
+<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Temperature conversion:&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Temperature conversion:&quot;</code></pre>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(temp_celsius, <span class="st">&quot;°C =&quot;</span>, temp_fahrenheit, <span class="st">&quot;°F&quot;</span>))</span></code></pre></div>
 <pre><code>## [1] &quot;37.5 °C = 99.5 °F&quot;</code></pre>
 </div>
 <div id="challenge-3-sample-information" class="section level3">
 <h3>Challenge 3: Sample Information</h3>
-<p>Create three variables and combine them into a single sentence:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>sample_id <span class="ot">&lt;-</span> <span class="st">&quot;RNA_01&quot;</span></span>
-<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>gene_name <span class="ot">&lt;-</span> <span class="st">&quot;TP53&quot;</span></span>
-<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>expression_value <span class="ot">&lt;-</span> <span class="dv">2456</span></span>
-<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a></span>
-<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a>message <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;Sample&quot;</span>, sample_id, <span class="st">&quot;shows&quot;</span>, expression_value, <span class="st">&quot;counts for gene&quot;</span>, gene_name)</span>
-<span id="cb33-6"><a href="#cb33-6" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Combined message:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="co"># Create variables for sample metadata</span></span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>sample_id <span class="ot">&lt;-</span> <span class="st">&quot;RNA_01&quot;</span>             <span class="co"># Unique sample identifier</span></span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>gene_name <span class="ot">&lt;-</span> <span class="st">&quot;TP53&quot;</span>              <span class="co"># Target gene (tumor protein p53)</span></span>
+<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a>expression_value <span class="ot">&lt;-</span> <span class="dv">2456</span>         <span class="co"># Expression count for this gene</span></span>
+<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a></span>
+<span id="cb33-6"><a href="#cb33-6" tabindex="-1"></a><span class="co"># Combine information into a readable message using paste()</span></span>
+<span id="cb33-7"><a href="#cb33-7" tabindex="-1"></a>message <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;Sample&quot;</span>, sample_id, <span class="st">&quot;shows&quot;</span>, expression_value, </span>
+<span id="cb33-8"><a href="#cb33-8" tabindex="-1"></a>                <span class="st">&quot;counts for gene&quot;</span>, gene_name)</span>
+<span id="cb33-9"><a href="#cb33-9" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Combined message:&quot;</span>)        <span class="co"># Print formatted message</span></span></code></pre></div>
 <pre><code>## [1] &quot;Combined message:&quot;</code></pre>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="fu">print</span>(message)</span></code></pre></div>
 <pre><code>## [1] &quot;Sample RNA_01 shows 2456 counts for gene TP53&quot;</code></pre>
@@ -1690,40 +1689,43 @@ formula: °F = (°C × 9/5) + 32</p>
 <div id="common-mistakes-and-how-to-avoid-them" class="section level2">
 <h2>Common Mistakes and How to Avoid Them</h2>
 <ol style="list-style-type: decimal">
-<li><strong>Case Sensitivity</strong></li>
+<li><strong>Case Sensitivity Demonstration</strong></li>
 </ol>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="co"># These are three different objects!</span></span>
-<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a>expression <span class="ot">&lt;-</span> <span class="dv">5000</span></span>
-<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a>Expression <span class="ot">&lt;-</span> <span class="dv">6000</span></span>
-<span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a>EXPRESSION <span class="ot">&lt;-</span> <span class="dv">7000</span></span>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="co"># R is case-sensitive - these are three different variables</span></span>
+<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a>expression <span class="ot">&lt;-</span> <span class="dv">5000</span>               <span class="co"># lowercase</span></span>
+<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a>Expression <span class="ot">&lt;-</span> <span class="dv">6000</span>               <span class="co"># Title case</span></span>
+<span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a>EXPRESSION <span class="ot">&lt;-</span> <span class="dv">7000</span>              <span class="co"># uppercase</span></span>
 <span id="cb37-5"><a href="#cb37-5" tabindex="-1"></a></span>
-<span id="cb37-6"><a href="#cb37-6" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Three different variables:&quot;</span>)</span></code></pre></div>
+<span id="cb37-6"><a href="#cb37-6" tabindex="-1"></a><span class="co"># Show how all three variables are distinct</span></span>
+<span id="cb37-7"><a href="#cb37-7" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Three different variables:&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Three different variables:&quot;</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="fu">print</span>(expression)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="fu">print</span>(expression)               <span class="co"># Shows 5000</span></span></code></pre></div>
 <pre><code>## [1] 5000</code></pre>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="fu">print</span>(Expression)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="fu">print</span>(Expression)              <span class="co"># Shows 6000</span></span></code></pre></div>
 <pre><code>## [1] 6000</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="fu">print</span>(EXPRESSION)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="fu">print</span>(EXPRESSION)              <span class="co"># Shows 7000</span></span></code></pre></div>
 <pre><code>## [1] 7000</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li><strong>Overwriting Objects</strong></li>
+<li><strong>Object Overwriting Example</strong></li>
 </ol>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a>read_depth <span class="ot">&lt;-</span> <span class="dv">1000000</span></span>
-<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Original read depth:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="co"># Initial value assignment</span></span>
+<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a>read_depth <span class="ot">&lt;-</span> <span class="dv">1000000</span>          <span class="co"># One million reads</span></span>
+<span id="cb45-3"><a href="#cb45-3" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Original read depth:&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Original read depth:&quot;</code></pre>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="fu">print</span>(read_depth)</span></code></pre></div>
 <pre><code>## [1] 1e+06</code></pre>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a>read_depth <span class="ot">&lt;-</span> <span class="dv">1500000</span>  <span class="co"># The original value (1000000) is now gone</span></span>
-<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;New read depth:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="co"># Overwriting with new value</span></span>
+<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a>read_depth <span class="ot">&lt;-</span> <span class="dv">1500000</span>          <span class="co"># Changed to 1.5 million reads</span></span>
+<span id="cb49-3"><a href="#cb49-3" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;New read depth:&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;New read depth:&quot;</code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="fu">print</span>(read_depth)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="fu">print</span>(read_depth)              <span class="co"># Original value is lost</span></span></code></pre></div>
 <pre><code>## [1] 1500000</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li><strong>Invalid Names</strong></li>
+<li><strong>Invalid Names Example</strong></li>
 </ol>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a><span class="co"># This won&#39;t work:</span></span>
-<span id="cb53-2"><a href="#cb53-2" tabindex="-1"></a><span class="dv">1</span>st_sample <span class="ot">&lt;-</span> <span class="dv">5</span>  <span class="co"># Invalid: starts with number</span></span>
-<span id="cb53-3"><a href="#cb53-3" tabindex="-1"></a>sample name <span class="ot">&lt;-</span> <span class="st">&quot;Control&quot;</span>  <span class="co"># Invalid: contains space</span></span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a><span class="co"># Examples of invalid variable names (these will cause errors)</span></span>
+<span id="cb53-2"><a href="#cb53-2" tabindex="-1"></a><span class="dv">1</span>st_sample <span class="ot">&lt;-</span> <span class="dv">5</span>               <span class="co"># Invalid: starts with number</span></span>
+<span id="cb53-3"><a href="#cb53-3" tabindex="-1"></a>sample name <span class="ot">&lt;-</span> <span class="st">&quot;Control&quot;</span>      <span class="co"># Invalid: contains space</span></span></code></pre></div>
 </div>
 <div id="tips-for-success" class="section level2">
 <h2>Tips for Success</h2>
@@ -1737,36 +1739,138 @@ environment</li>
 <li>Use <code>rm(object_name)</code> to remove objects you no longer
 need</li>
 </ol>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a><span class="co"># List all objects in environment</span></span>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a><span class="co"># Display all objects in current environment</span></span>
 <span id="cb54-2"><a href="#cb54-2" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Objects in environment:&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Objects in environment:&quot;</code></pre>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a><span class="fu">ls</span>()</span></code></pre></div>
-<pre><code>##  [1] &quot;bmi&quot;                         &quot;control_expression&quot;         
-##  [3] &quot;expression&quot;                  &quot;Expression&quot;                 
-##  [5] &quot;EXPRESSION&quot;                  &quot;expression_level&quot;           
-##  [7] &quot;expression_value&quot;            &quot;fold_change&quot;                
-##  [9] &quot;gene_name&quot;                   &quot;height_m&quot;                   
-## [11] &quot;is_differentially_expressed&quot; &quot;message&quot;                    
-## [13] &quot;normalized_count&quot;            &quot;read_count&quot;                 
-## [15] &quot;read_depth&quot;                  &quot;sample_id&quot;                  
-## [17] &quot;scaling_factor&quot;              &quot;temp_celsius&quot;               
-## [19] &quot;temp_fahrenheit&quot;             &quot;treated_expression&quot;         
-## [21] &quot;weight_kg&quot;</code></pre>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a><span class="co"># Remove an object</span></span>
-<span id="cb58-2"><a href="#cb58-2" tabindex="-1"></a><span class="fu">rm</span>(expression)</span>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a><span class="fu">ls</span>()                          <span class="co"># List all variables</span></span></code></pre></div>
+<pre><code>##   [1] &quot;adult_heights&quot;               &quot;analysis&quot;                   
+##   [3] &quot;analyze_expression&quot;          &quot;analyze_numbers&quot;            
+##   [5] &quot;avg&quot;                         &quot;base_plot&quot;                  
+##   [7] &quot;bmi&quot;                         &quot;calculate_average&quot;          
+##   [9] &quot;calculate_fold_change&quot;       &quot;calculate_rectangle_area&quot;   
+##  [11] &quot;calculate_sum_product&quot;       &quot;calculate_tip&quot;              
+##  [13] &quot;child_heights&quot;               &quot;clinical_data&quot;              
+##  [15] &quot;control&quot;                     &quot;control_expression&quot;         
+##  [17] &quot;count&quot;                       &quot;counter&quot;                    
+##  [19] &quot;create_message&quot;              &quot;create_sequence&quot;            
+##  [21] &quot;create_student_report&quot;       &quot;data&quot;                       
+##  [23] &quot;determine_grade&quot;             &quot;df&quot;                         
+##  [25] &quot;df_from_csv&quot;                 &quot;double_it&quot;                  
+##  [27] &quot;element&quot;                     &quot;ends&quot;                       
+##  [29] &quot;experiment_data&quot;             &quot;expression&quot;                 
+##  [31] &quot;Expression&quot;                  &quot;EXPRESSION&quot;                 
+##  [33] &quot;expression_level&quot;            &quot;expression_means&quot;           
+##  [35] &quot;expression_value&quot;            &quot;expression_values&quot;          
+##  [37] &quot;fahrenheit_to_celsius&quot;       &quot;fibonacci&quot;                  
+##  [39] &quot;file&quot;                        &quot;first_row&quot;                  
+##  [41] &quot;fold_change&quot;                 &quot;fold_changes&quot;               
+##  [43] &quot;fruit&quot;                       &quot;fruits&quot;                     
+##  [45] &quot;function_name&quot;               &quot;gene_annotations&quot;           
+##  [47] &quot;gene_data&quot;                   &quot;gene_data_info&quot;             
+##  [49] &quot;gene_data_long&quot;              &quot;gene_data_na&quot;               
+##  [51] &quot;gene_data_split&quot;             &quot;gene_data_united&quot;           
+##  [53] &quot;gene_expression_df&quot;          &quot;gene_name&quot;                  
+##  [55] &quot;gene_names&quot;                  &quot;gene_summary&quot;               
+##  [57] &quot;grades&quot;                      &quot;greet_person&quot;               
+##  [59] &quot;grouped_data&quot;                &quot;heatmap_data&quot;               
+##  [61] &quot;heatmap_data_scaled&quot;         &quot;height_m&quot;                   
+##  [63] &quot;heights&quot;                     &quot;high_expression&quot;            
+##  [65] &quot;high_scorers&quot;                &quot;i&quot;                          
+##  [67] &quot;important_genes&quot;             &quot;interesting_genes&quot;          
+##  [69] &quot;is_differentially_expressed&quot; &quot;is_significant&quot;             
+##  [71] &quot;j&quot;                           &quot;mat&quot;                        
+##  [73] &quot;matrix_data&quot;                 &quot;mean_expr&quot;                  
+##  [75] &quot;message&quot;                     &quot;new_gene&quot;                   
+##  [77] &quot;normalize_expression&quot;        &quot;normalized_count&quot;           
+##  [79] &quot;number_pairs&quot;                &quot;numbers&quot;                    
+##  [81] &quot;p_val&quot;                       &quot;p_values&quot;                   
+##  [83] &quot;read_count&quot;                  &quot;read_depth&quot;                 
+##  [85] &quot;responders_over_50&quot;          &quot;result&quot;                     
+##  [87] &quot;rmd_files&quot;                   &quot;row_1&quot;                      
+##  [89] &quot;row_maxes&quot;                   &quot;rows_2_4&quot;                   
+##  [91] &quot;sample_id&quot;                   &quot;scaling_factor&quot;             
+##  [93] &quot;sd_expr&quot;                     &quot;selected_cols&quot;              
+##  [95] &quot;sentence&quot;                    &quot;set1&quot;                       
+##  [97] &quot;set2&quot;                        &quot;sig_genes&quot;                  
+##  [99] &quot;sig_indices&quot;                 &quot;significant_genes&quot;          
+## [101] &quot;single_col_df&quot;               &quot;square_number&quot;              
+## [103] &quot;squares&quot;                     &quot;squares_loop&quot;               
+## [105] &quot;squares_sapply&quot;              &quot;standard_analysis&quot;          
+## [107] &quot;starts&quot;                      &quot;student_averages&quot;           
+## [109] &quot;student_scores&quot;              &quot;students&quot;                   
+## [111] &quot;subject_averages&quot;            &quot;subset&quot;                     
+## [113] &quot;sum&quot;                         &quot;temp_celsius&quot;               
+## [115] &quot;temp_fahrenheit&quot;             &quot;test_result&quot;                
+## [117] &quot;test_scores&quot;                 &quot;treated_expression&quot;         
+## [119] &quot;treatment&quot;                   &quot;variable_heights&quot;           
+## [121] &quot;weight_kg&quot;                   &quot;word_lengths&quot;               
+## [123] &quot;words&quot;</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a><span class="co"># Remove a specific object from environment</span></span>
+<span id="cb58-2"><a href="#cb58-2" tabindex="-1"></a><span class="fu">rm</span>(expression)               <span class="co"># Delete &#39;expression&#39; variable</span></span>
 <span id="cb58-3"><a href="#cb58-3" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Objects after removing &#39;expression&#39;:&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Objects after removing &#39;expression&#39;:&quot;</code></pre>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" tabindex="-1"></a><span class="fu">ls</span>()</span></code></pre></div>
-<pre><code>##  [1] &quot;bmi&quot;                         &quot;control_expression&quot;         
-##  [3] &quot;Expression&quot;                  &quot;EXPRESSION&quot;                 
-##  [5] &quot;expression_level&quot;            &quot;expression_value&quot;           
-##  [7] &quot;fold_change&quot;                 &quot;gene_name&quot;                  
-##  [9] &quot;height_m&quot;                    &quot;is_differentially_expressed&quot;
-## [11] &quot;message&quot;                     &quot;normalized_count&quot;           
-## [13] &quot;read_count&quot;                  &quot;read_depth&quot;                 
-## [15] &quot;sample_id&quot;                   &quot;scaling_factor&quot;             
-## [17] &quot;temp_celsius&quot;                &quot;temp_fahrenheit&quot;            
-## [19] &quot;treated_expression&quot;          &quot;weight_kg&quot;</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" tabindex="-1"></a><span class="fu">ls</span>()                         <span class="co"># Show updated list</span></span></code></pre></div>
+<pre><code>##   [1] &quot;adult_heights&quot;               &quot;analysis&quot;                   
+##   [3] &quot;analyze_expression&quot;          &quot;analyze_numbers&quot;            
+##   [5] &quot;avg&quot;                         &quot;base_plot&quot;                  
+##   [7] &quot;bmi&quot;                         &quot;calculate_average&quot;          
+##   [9] &quot;calculate_fold_change&quot;       &quot;calculate_rectangle_area&quot;   
+##  [11] &quot;calculate_sum_product&quot;       &quot;calculate_tip&quot;              
+##  [13] &quot;child_heights&quot;               &quot;clinical_data&quot;              
+##  [15] &quot;control&quot;                     &quot;control_expression&quot;         
+##  [17] &quot;count&quot;                       &quot;counter&quot;                    
+##  [19] &quot;create_message&quot;              &quot;create_sequence&quot;            
+##  [21] &quot;create_student_report&quot;       &quot;data&quot;                       
+##  [23] &quot;determine_grade&quot;             &quot;df&quot;                         
+##  [25] &quot;df_from_csv&quot;                 &quot;double_it&quot;                  
+##  [27] &quot;element&quot;                     &quot;ends&quot;                       
+##  [29] &quot;experiment_data&quot;             &quot;Expression&quot;                 
+##  [31] &quot;EXPRESSION&quot;                  &quot;expression_level&quot;           
+##  [33] &quot;expression_means&quot;            &quot;expression_value&quot;           
+##  [35] &quot;expression_values&quot;           &quot;fahrenheit_to_celsius&quot;      
+##  [37] &quot;fibonacci&quot;                   &quot;file&quot;                       
+##  [39] &quot;first_row&quot;                   &quot;fold_change&quot;                
+##  [41] &quot;fold_changes&quot;                &quot;fruit&quot;                      
+##  [43] &quot;fruits&quot;                      &quot;function_name&quot;              
+##  [45] &quot;gene_annotations&quot;            &quot;gene_data&quot;                  
+##  [47] &quot;gene_data_info&quot;              &quot;gene_data_long&quot;             
+##  [49] &quot;gene_data_na&quot;                &quot;gene_data_split&quot;            
+##  [51] &quot;gene_data_united&quot;            &quot;gene_expression_df&quot;         
+##  [53] &quot;gene_name&quot;                   &quot;gene_names&quot;                 
+##  [55] &quot;gene_summary&quot;                &quot;grades&quot;                     
+##  [57] &quot;greet_person&quot;                &quot;grouped_data&quot;               
+##  [59] &quot;heatmap_data&quot;                &quot;heatmap_data_scaled&quot;        
+##  [61] &quot;height_m&quot;                    &quot;heights&quot;                    
+##  [63] &quot;high_expression&quot;             &quot;high_scorers&quot;               
+##  [65] &quot;i&quot;                           &quot;important_genes&quot;            
+##  [67] &quot;interesting_genes&quot;           &quot;is_differentially_expressed&quot;
+##  [69] &quot;is_significant&quot;              &quot;j&quot;                          
+##  [71] &quot;mat&quot;                         &quot;matrix_data&quot;                
+##  [73] &quot;mean_expr&quot;                   &quot;message&quot;                    
+##  [75] &quot;new_gene&quot;                    &quot;normalize_expression&quot;       
+##  [77] &quot;normalized_count&quot;            &quot;number_pairs&quot;               
+##  [79] &quot;numbers&quot;                     &quot;p_val&quot;                      
+##  [81] &quot;p_values&quot;                    &quot;read_count&quot;                 
+##  [83] &quot;read_depth&quot;                  &quot;responders_over_50&quot;         
+##  [85] &quot;result&quot;                      &quot;rmd_files&quot;                  
+##  [87] &quot;row_1&quot;                       &quot;row_maxes&quot;                  
+##  [89] &quot;rows_2_4&quot;                    &quot;sample_id&quot;                  
+##  [91] &quot;scaling_factor&quot;              &quot;sd_expr&quot;                    
+##  [93] &quot;selected_cols&quot;               &quot;sentence&quot;                   
+##  [95] &quot;set1&quot;                        &quot;set2&quot;                       
+##  [97] &quot;sig_genes&quot;                   &quot;sig_indices&quot;                
+##  [99] &quot;significant_genes&quot;           &quot;single_col_df&quot;              
+## [101] &quot;square_number&quot;               &quot;squares&quot;                    
+## [103] &quot;squares_loop&quot;                &quot;squares_sapply&quot;             
+## [105] &quot;standard_analysis&quot;           &quot;starts&quot;                     
+## [107] &quot;student_averages&quot;            &quot;student_scores&quot;             
+## [109] &quot;students&quot;                    &quot;subject_averages&quot;           
+## [111] &quot;subset&quot;                      &quot;sum&quot;                        
+## [113] &quot;temp_celsius&quot;                &quot;temp_fahrenheit&quot;            
+## [115] &quot;test_result&quot;                 &quot;test_scores&quot;                
+## [117] &quot;treated_expression&quot;          &quot;treatment&quot;                  
+## [119] &quot;variable_heights&quot;            &quot;weight_kg&quot;                  
+## [121] &quot;word_lengths&quot;                &quot;words&quot;</code></pre>
 </div>
 <div id="next-steps" class="section level2">
 <h2>Next Steps</h2>

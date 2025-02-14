@@ -11,7 +11,7 @@
 
 <meta name="author" content="Eren Ada" />
 
-<meta name="date" content="2025-02-13" />
+<meta name="date" content="2025-02-14" />
 
 <title>Working with Data Frames in R</title>
 
@@ -1559,7 +1559,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Working with Data Frames in R</h1>
 <h4 class="author">Eren Ada</h4>
-<h4 class="date">2025-02-13</h4>
+<h4 class="date">2025-02-14</h4>
 
 </div>
 
@@ -1582,15 +1582,15 @@ logical)</li>
 <h2>Creating Data Frames</h2>
 <div id="method-1-from-scratch" class="section level3">
 <h3>Method 1: From Scratch</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Create a simple data frame</span></span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Create a simple data frame with patient information</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="at">patient_id =</span> <span class="fu">c</span>(<span class="st">&quot;P001&quot;</span>, <span class="st">&quot;P002&quot;</span>, <span class="st">&quot;P003&quot;</span>, <span class="st">&quot;P004&quot;</span>),</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">45</span>, <span class="dv">52</span>, <span class="dv">38</span>, <span class="dv">61</span>),</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="at">diabetic =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="at">patient_id =</span> <span class="fu">c</span>(<span class="st">&quot;P001&quot;</span>, <span class="st">&quot;P002&quot;</span>, <span class="st">&quot;P003&quot;</span>, <span class="st">&quot;P004&quot;</span>),    <span class="co"># Patient identifiers</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">45</span>, <span class="dv">52</span>, <span class="dv">38</span>, <span class="dv">61</span>),                           <span class="co"># Patient ages</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="at">diabetic =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)             <span class="co"># Diabetes status</span></span>
 <span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>)</span>
 <span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co"># View the data frame</span></span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Basic data frame:&quot;</span>)</span></code></pre></div>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co"># Display the created data frame</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Basic data frame:&quot;</span>)                           <span class="co"># Show the data</span></span></code></pre></div>
 <pre><code>## [1] &quot;Basic data frame:&quot;</code></pre>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">print</span>(df)</span></code></pre></div>
 <pre><code>##   patient_id age diabetic
@@ -1598,10 +1598,10 @@ logical)</li>
 ## 2       P002  52    FALSE
 ## 3       P003  38    FALSE
 ## 4       P004  61     TRUE</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Look at the structure</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Structure of the data frame:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Examine the structure of the data frame</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Structure of the data frame:&quot;</span>)              <span class="co"># Show data types and structure</span></span></code></pre></div>
 <pre><code>## [1] &quot;\nStructure of the data frame:&quot;</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">str</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">str</span>(df)                                             <span class="co"># Display detailed structure</span></span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    4 obs. of  3 variables:
 ##  $ patient_id: chr  &quot;P001&quot; &quot;P002&quot; &quot;P003&quot; &quot;P004&quot;
 ##  $ age       : num  45 52 38 61
@@ -1609,24 +1609,24 @@ logical)</li>
 </div>
 <div id="method-2-from-existing-vectors" class="section level3">
 <h3>Method 2: From Existing Vectors</h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Create vectors (similar to our previous RNA-seq examples)</span></span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>gene_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;BRCA1&quot;</span>, <span class="st">&quot;TP53&quot;</span>, <span class="st">&quot;EGFR&quot;</span>, <span class="st">&quot;KRAS&quot;</span>, <span class="st">&quot;HER2&quot;</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>expression_values <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1543.7</span>, <span class="fl">2345.2</span>, <span class="fl">1234.5</span>, <span class="fl">876.3</span>, <span class="fl">2345.6</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>is_significant <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>p_values <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.0001</span>, <span class="fl">0.08</span>, <span class="fl">0.07</span>, <span class="fl">0.001</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>fold_changes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="fl">3.2</span>, <span class="fl">1.1</span>, <span class="fl">0.9</span>, <span class="fl">2.8</span>)</span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Create vectors for RNA-seq analysis results</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>gene_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;BRCA1&quot;</span>, <span class="st">&quot;TP53&quot;</span>, <span class="st">&quot;EGFR&quot;</span>, <span class="st">&quot;KRAS&quot;</span>, <span class="st">&quot;HER2&quot;</span>)  <span class="co"># Gene identifiers</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>expression_values <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1543.7</span>, <span class="fl">2345.2</span>, <span class="fl">1234.5</span>, <span class="fl">876.3</span>, <span class="fl">2345.6</span>)  <span class="co"># Expression levels</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>is_significant <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)    <span class="co"># Statistical significance</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>p_values <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.0001</span>, <span class="fl">0.08</span>, <span class="fl">0.07</span>, <span class="fl">0.001</span>)       <span class="co"># Statistical p-values</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>fold_changes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="fl">3.2</span>, <span class="fl">1.1</span>, <span class="fl">0.9</span>, <span class="fl">2.8</span>)            <span class="co"># Expression fold changes</span></span>
 <span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co"># Combine into a data frame</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co"># Combine vectors into a data frame for analysis</span></span>
 <span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>gene_expression_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>  <span class="at">gene =</span> gene_names,</span>
-<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>  <span class="at">expression =</span> expression_values,</span>
-<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>  <span class="at">significant =</span> is_significant,</span>
-<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a>  <span class="at">p_value =</span> p_values,</span>
-<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a>  <span class="at">fold_change =</span> fold_changes</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>  <span class="at">gene =</span> gene_names,                    <span class="co"># Gene names column</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>  <span class="at">expression =</span> expression_values,        <span class="co"># Expression values column</span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>  <span class="at">significant =</span> is_significant,          <span class="co"># Significance flags column</span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a>  <span class="at">p_value =</span> p_values,                   <span class="co"># P-values column</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a>  <span class="at">fold_change =</span> fold_changes            <span class="co"># Fold changes column</span></span>
 <span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a>)</span>
 <span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a></span>
-<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co"># View the result</span></span>
-<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Gene expression data frame:&quot;</span>)</span></code></pre></div>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co"># Display the resulting data frame</span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Gene expression data frame:&quot;</span>)     <span class="co"># Show combined data</span></span></code></pre></div>
 <pre><code>## [1] &quot;Gene expression data frame:&quot;</code></pre>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">print</span>(gene_expression_df)</span></code></pre></div>
 <pre><code>##    gene expression significant p_value fold_change
@@ -1638,14 +1638,14 @@ logical)</li>
 </div>
 <div id="method-3-reading-from-files" class="section level3">
 <h3>Method 3: Reading from Files</h3>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Create a sample CSV file</span></span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">write.csv</span>(gene_expression_df, <span class="st">&quot;gene_expression.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Save data frame to CSV file for sharing/storage</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">write.csv</span>(gene_expression_df, <span class="st">&quot;gene_expression.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)  <span class="co"># Export data</span></span>
 <span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co"># Read it back</span></span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>df_from_csv <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;gene_expression.csv&quot;</span>)</span>
-<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Data frame read from CSV:&quot;</span>)</span></code></pre></div>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co"># Read data back from CSV file</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>df_from_csv <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;gene_expression.csv&quot;</span>)    <span class="co"># Import data from file</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Data frame read from CSV:&quot;</span>)                <span class="co"># Show imported data</span></span></code></pre></div>
 <pre><code>## [1] &quot;Data frame read from CSV:&quot;</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">head</span>(df_from_csv)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">head</span>(df_from_csv)                                <span class="co"># Display first few rows</span></span></code></pre></div>
 <pre><code>##    gene expression significant p_value fold_change
 ## 1 BRCA1     1543.7        TRUE   1e-03         2.5
 ## 2  TP53     2345.2        TRUE   1e-04         3.2
@@ -1656,18 +1656,18 @@ logical)</li>
 </div>
 <div id="examining-data-frames" class="section level2">
 <h2>Examining Data Frames</h2>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># Basic information about the data frame</span></span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Dimensions of the data frame:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># Display basic information about the data frame</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Dimensions of the data frame:&quot;</span>)           <span class="co"># Show size of data</span></span></code></pre></div>
 <pre><code>## [1] &quot;Dimensions of the data frame:&quot;</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">dim</span>(gene_expression_df)  <span class="co"># Returns [rows, columns]</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">dim</span>(gene_expression_df)                          <span class="co"># [rows, columns]</span></span></code></pre></div>
 <pre><code>## [1] 5 5</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Column names:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Column names:&quot;</span>)                         <span class="co"># Show variable names</span></span></code></pre></div>
 <pre><code>## [1] &quot;\nColumn names:&quot;</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">names</span>(gene_expression_df)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">names</span>(gene_expression_df)                        <span class="co"># List all columns</span></span></code></pre></div>
 <pre><code>## [1] &quot;gene&quot;        &quot;expression&quot;  &quot;significant&quot; &quot;p_value&quot;     &quot;fold_change&quot;</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Summary of the data:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Summary of the data:&quot;</span>)                  <span class="co"># Show statistical summary</span></span></code></pre></div>
 <pre><code>## [1] &quot;\nSummary of the data:&quot;</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">summary</span>(gene_expression_df)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">summary</span>(gene_expression_df)                      <span class="co"># Basic statistics for each column</span></span></code></pre></div>
 <pre><code>##      gene             expression     significant        p_value       
 ##  Length:5           Min.   : 876.3   Mode :logical   Min.   :0.00010  
 ##  Class :character   1st Qu.:1234.5   FALSE:2         1st Qu.:0.00100  
@@ -1682,16 +1682,16 @@ logical)</li>
 ##  Mean   :2.1  
 ##  3rd Qu.:2.8  
 ##  Max.   :3.2</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">First few rows:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">First few rows:&quot;</span>)                       <span class="co"># Show start of data</span></span></code></pre></div>
 <pre><code>## [1] &quot;\nFirst few rows:&quot;</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="fu">head</span>(gene_expression_df, <span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="fu">head</span>(gene_expression_df, <span class="at">n =</span> <span class="dv">3</span>)                  <span class="co"># First 3 rows</span></span></code></pre></div>
 <pre><code>##    gene expression significant p_value fold_change
 ## 1 BRCA1     1543.7        TRUE   1e-03         2.5
 ## 2  TP53     2345.2        TRUE   1e-04         3.2
 ## 3  EGFR     1234.5       FALSE   8e-02         1.1</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Last few rows:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Last few rows:&quot;</span>)                        <span class="co"># Show end of data</span></span></code></pre></div>
 <pre><code>## [1] &quot;\nLast few rows:&quot;</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="fu">tail</span>(gene_expression_df, <span class="at">n =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="fu">tail</span>(gene_expression_df, <span class="at">n =</span> <span class="dv">2</span>)                  <span class="co"># Last 2 rows</span></span></code></pre></div>
 <pre><code>##   gene expression significant p_value fold_change
 ## 4 KRAS      876.3       FALSE   0.070         0.9
 ## 5 HER2     2345.6        TRUE   0.001         2.8</code></pre>
@@ -1700,14 +1700,15 @@ logical)</li>
 <h2>Accessing Elements in Data Frames</h2>
 <div id="accessing-columns" class="section level3">
 <h3>1. Accessing Columns</h3>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="co"># Using $ notation</span></span>
-<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a>expression_values <span class="ot">&lt;-</span> gene_expression_df<span class="sc">$</span>expression</span>
-<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Expression values using $:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="co"># Demonstrate different methods to access columns</span></span>
+<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a><span class="co"># Using $ notation (direct column access)</span></span>
+<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a>expression_values <span class="ot">&lt;-</span> gene_expression_df<span class="sc">$</span>expression    <span class="co"># Get expression column</span></span>
+<span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Expression values using $:&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Expression values using $:&quot;</code></pre>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="fu">print</span>(expression_values)</span></code></pre></div>
 <pre><code>## [1] 1543.7 2345.2 1234.5  876.3 2345.6</code></pre>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="co"># Using column name with brackets</span></span>
-<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a>p_values <span class="ot">&lt;-</span> gene_expression_df[<span class="st">&quot;p_value&quot;</span>]</span>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="co"># Using column name with brackets (returns data frame)</span></span>
+<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a>p_values <span class="ot">&lt;-</span> gene_expression_df[<span class="st">&quot;p_value&quot;</span>]            <span class="co"># Get p-value column</span></span>
 <span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">P-values using brackets:&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;\nP-values using brackets:&quot;</code></pre>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="fu">print</span>(p_values)</span></code></pre></div>
@@ -1717,8 +1718,8 @@ logical)</li>
 ## 3   8e-02
 ## 4   7e-02
 ## 5   1e-03</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="co"># Multiple columns</span></span>
-<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a>selected_cols <span class="ot">&lt;-</span> gene_expression_df[<span class="fu">c</span>(<span class="st">&quot;gene&quot;</span>, <span class="st">&quot;fold_change&quot;</span>)]</span>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="co"># Select multiple columns at once</span></span>
+<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a>selected_cols <span class="ot">&lt;-</span> gene_expression_df[<span class="fu">c</span>(<span class="st">&quot;gene&quot;</span>, <span class="st">&quot;fold_change&quot;</span>)]  <span class="co"># Get gene names and fold changes</span></span>
 <span id="cb45-3"><a href="#cb45-3" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Selected columns:&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;\nSelected columns:&quot;</code></pre>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="fu">print</span>(selected_cols)</span></code></pre></div>
@@ -1731,15 +1732,16 @@ logical)</li>
 </div>
 <div id="accessing-rows" class="section level3">
 <h3>2. Accessing Rows</h3>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="co"># Single row</span></span>
-<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a>row_1 <span class="ot">&lt;-</span> gene_expression_df[<span class="dv">1</span>, ]</span>
-<span id="cb49-3"><a href="#cb49-3" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;First row:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="co"># Demonstrate row access methods</span></span>
+<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a><span class="co"># Get a single row</span></span>
+<span id="cb49-3"><a href="#cb49-3" tabindex="-1"></a>row_1 <span class="ot">&lt;-</span> gene_expression_df[<span class="dv">1</span>, ]                     <span class="co"># First row</span></span>
+<span id="cb49-4"><a href="#cb49-4" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;First row:&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;First row:&quot;</code></pre>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="fu">print</span>(row_1)</span></code></pre></div>
 <pre><code>##    gene expression significant p_value fold_change
 ## 1 BRCA1     1543.7        TRUE   0.001         2.5</code></pre>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a><span class="co"># Multiple rows</span></span>
-<span id="cb53-2"><a href="#cb53-2" tabindex="-1"></a>rows_2_4 <span class="ot">&lt;-</span> gene_expression_df[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>, ]</span>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a><span class="co"># Get multiple consecutive rows</span></span>
+<span id="cb53-2"><a href="#cb53-2" tabindex="-1"></a>rows_2_4 <span class="ot">&lt;-</span> gene_expression_df[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>, ]               <span class="co"># Rows 2 through 4</span></span>
 <span id="cb53-3"><a href="#cb53-3" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Rows 2-4:&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;\nRows 2-4:&quot;</code></pre>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a><span class="fu">print</span>(rows_2_4)</span></code></pre></div>
@@ -1750,20 +1752,21 @@ logical)</li>
 </div>
 <div id="accessing-specific-elements" class="section level3">
 <h3>3. Accessing Specific Elements</h3>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a><span class="co"># Single element using row and column numbers</span></span>
-<span id="cb57-2"><a href="#cb57-2" tabindex="-1"></a>element <span class="ot">&lt;-</span> gene_expression_df[<span class="dv">1</span>, <span class="dv">2</span>]</span>
-<span id="cb57-3"><a href="#cb57-3" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Element at row 1, column 2:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a><span class="co"># Access individual elements using different methods</span></span>
+<span id="cb57-2"><a href="#cb57-2" tabindex="-1"></a><span class="co"># Using row and column numbers</span></span>
+<span id="cb57-3"><a href="#cb57-3" tabindex="-1"></a>element <span class="ot">&lt;-</span> gene_expression_df[<span class="dv">1</span>, <span class="dv">2</span>]                  <span class="co"># First row, second column</span></span>
+<span id="cb57-4"><a href="#cb57-4" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Element at row 1, column 2:&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Element at row 1, column 2:&quot;</code></pre>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" tabindex="-1"></a><span class="fu">print</span>(element)</span></code></pre></div>
 <pre><code>## [1] 1543.7</code></pre>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" tabindex="-1"></a><span class="co"># Single element using row number and column name</span></span>
-<span id="cb61-2"><a href="#cb61-2" tabindex="-1"></a>p_val <span class="ot">&lt;-</span> gene_expression_df[<span class="dv">2</span>, <span class="st">&quot;p_value&quot;</span>]</span>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" tabindex="-1"></a><span class="co"># Using row number and column name</span></span>
+<span id="cb61-2"><a href="#cb61-2" tabindex="-1"></a>p_val <span class="ot">&lt;-</span> gene_expression_df[<span class="dv">2</span>, <span class="st">&quot;p_value&quot;</span>]           <span class="co"># Second row, p-value column</span></span>
 <span id="cb61-3"><a href="#cb61-3" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">P-value for second gene:&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;\nP-value for second gene:&quot;</code></pre>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" tabindex="-1"></a><span class="fu">print</span>(p_val)</span></code></pre></div>
 <pre><code>## [1] 1e-04</code></pre>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" tabindex="-1"></a><span class="co"># Multiple elements</span></span>
-<span id="cb65-2"><a href="#cb65-2" tabindex="-1"></a>subset <span class="ot">&lt;-</span> gene_expression_df[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="fu">c</span>(<span class="st">&quot;gene&quot;</span>, <span class="st">&quot;expression&quot;</span>)]</span>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" tabindex="-1"></a><span class="co"># Get a subset of rows and columns</span></span>
+<span id="cb65-2"><a href="#cb65-2" tabindex="-1"></a>subset <span class="ot">&lt;-</span> gene_expression_df[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="fu">c</span>(<span class="st">&quot;gene&quot;</span>, <span class="st">&quot;expression&quot;</span>)]  <span class="co"># First 2 rows, selected columns</span></span>
 <span id="cb65-3"><a href="#cb65-3" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Subset of first two genes with names and expression:&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;\nSubset of first two genes with names and expression:&quot;</code></pre>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" tabindex="-1"></a><span class="fu">print</span>(subset)</span></code></pre></div>
@@ -1776,16 +1779,17 @@ logical)</li>
 <h2>Filtering Data Frames</h2>
 <div id="using-logical-conditions" class="section level3">
 <h3>1. Using Logical Conditions</h3>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" tabindex="-1"></a><span class="co"># Find significantly expressed genes</span></span>
-<span id="cb69-2"><a href="#cb69-2" tabindex="-1"></a>significant_genes <span class="ot">&lt;-</span> gene_expression_df[gene_expression_df<span class="sc">$</span>significant <span class="sc">==</span> <span class="cn">TRUE</span>, ]</span>
-<span id="cb69-3"><a href="#cb69-3" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Significantly expressed genes:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" tabindex="-1"></a><span class="co"># Filter data based on various conditions</span></span>
+<span id="cb69-2"><a href="#cb69-2" tabindex="-1"></a><span class="co"># Find genes with statistical significance</span></span>
+<span id="cb69-3"><a href="#cb69-3" tabindex="-1"></a>significant_genes <span class="ot">&lt;-</span> gene_expression_df[gene_expression_df<span class="sc">$</span>significant <span class="sc">==</span> <span class="cn">TRUE</span>, ]</span>
+<span id="cb69-4"><a href="#cb69-4" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Significantly expressed genes:&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Significantly expressed genes:&quot;</code></pre>
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" tabindex="-1"></a><span class="fu">print</span>(significant_genes)</span></code></pre></div>
 <pre><code>##    gene expression significant p_value fold_change
 ## 1 BRCA1     1543.7        TRUE   1e-03         2.5
 ## 2  TP53     2345.2        TRUE   1e-04         3.2
 ## 5  HER2     2345.6        TRUE   1e-03         2.8</code></pre>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" tabindex="-1"></a><span class="co"># Find highly expressed genes</span></span>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" tabindex="-1"></a><span class="co"># Find genes with high expression levels</span></span>
 <span id="cb73-2"><a href="#cb73-2" tabindex="-1"></a>high_expression <span class="ot">&lt;-</span> gene_expression_df[gene_expression_df<span class="sc">$</span>expression <span class="sc">&gt;</span> <span class="dv">2000</span>, ]</span>
 <span id="cb73-3"><a href="#cb73-3" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Highly expressed genes:&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;\nHighly expressed genes:&quot;</code></pre>
@@ -1793,10 +1797,10 @@ logical)</li>
 <pre><code>##   gene expression significant p_value fold_change
 ## 2 TP53     2345.2        TRUE   1e-04         3.2
 ## 5 HER2     2345.6        TRUE   1e-03         2.8</code></pre>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" tabindex="-1"></a><span class="co"># Multiple conditions</span></span>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" tabindex="-1"></a><span class="co"># Combine multiple filtering conditions</span></span>
 <span id="cb77-2"><a href="#cb77-2" tabindex="-1"></a>important_genes <span class="ot">&lt;-</span> gene_expression_df[</span>
-<span id="cb77-3"><a href="#cb77-3" tabindex="-1"></a>  gene_expression_df<span class="sc">$</span>significant <span class="sc">==</span> <span class="cn">TRUE</span> <span class="sc">&amp;</span> </span>
-<span id="cb77-4"><a href="#cb77-4" tabindex="-1"></a>  gene_expression_df<span class="sc">$</span>fold_change <span class="sc">&gt;</span> <span class="fl">2.5</span>, </span>
+<span id="cb77-3"><a href="#cb77-3" tabindex="-1"></a>  gene_expression_df<span class="sc">$</span>significant <span class="sc">==</span> <span class="cn">TRUE</span> <span class="sc">&amp;</span>           <span class="co"># Must be significant</span></span>
+<span id="cb77-4"><a href="#cb77-4" tabindex="-1"></a>  gene_expression_df<span class="sc">$</span>fold_change <span class="sc">&gt;</span> <span class="fl">2.5</span>,             <span class="co"># Must have high fold change</span></span>
 <span id="cb77-5"><a href="#cb77-5" tabindex="-1"></a>]</span>
 <span id="cb77-6"><a href="#cb77-6" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Significant genes with high fold change:&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;\nSignificant genes with high fold change:&quot;</code></pre>
@@ -1807,14 +1811,15 @@ logical)</li>
 </div>
 <div id="using-which-function" class="section level3">
 <h3>2. Using which() Function</h3>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" tabindex="-1"></a><span class="co"># Find indices of significant genes</span></span>
-<span id="cb81-2"><a href="#cb81-2" tabindex="-1"></a>sig_indices <span class="ot">&lt;-</span> <span class="fu">which</span>(gene_expression_df<span class="sc">$</span>significant)</span>
-<span id="cb81-3"><a href="#cb81-3" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Indices of significant genes:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" tabindex="-1"></a><span class="co"># Demonstrate which() function for finding matching elements</span></span>
+<span id="cb81-2"><a href="#cb81-2" tabindex="-1"></a><span class="co"># Get indices of significant genes</span></span>
+<span id="cb81-3"><a href="#cb81-3" tabindex="-1"></a>sig_indices <span class="ot">&lt;-</span> <span class="fu">which</span>(gene_expression_df<span class="sc">$</span>significant)  <span class="co"># Find TRUE values</span></span>
+<span id="cb81-4"><a href="#cb81-4" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Indices of significant genes:&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Indices of significant genes:&quot;</code></pre>
 <div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" tabindex="-1"></a><span class="fu">print</span>(sig_indices)</span></code></pre></div>
 <pre><code>## [1] 1 2 5</code></pre>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" tabindex="-1"></a><span class="co"># Use indices to get rows</span></span>
-<span id="cb85-2"><a href="#cb85-2" tabindex="-1"></a>sig_genes <span class="ot">&lt;-</span> gene_expression_df[sig_indices, ]</span>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" tabindex="-1"></a><span class="co"># Use indices to extract rows</span></span>
+<span id="cb85-2"><a href="#cb85-2" tabindex="-1"></a>sig_genes <span class="ot">&lt;-</span> gene_expression_df[sig_indices, ]       <span class="co"># Get corresponding rows</span></span>
 <span id="cb85-3"><a href="#cb85-3" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">Significant genes (using which):&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;\nSignificant genes (using which):&quot;</code></pre>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" tabindex="-1"></a><span class="fu">print</span>(sig_genes)</span></code></pre></div>
@@ -1828,17 +1833,18 @@ logical)</li>
 <h2>Modifying Data Frames</h2>
 <div id="adding-columns" class="section level3">
 <h3>1. Adding Columns</h3>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" tabindex="-1"></a><span class="co"># Add a single column</span></span>
-<span id="cb89-2"><a href="#cb89-2" tabindex="-1"></a>gene_expression_df<span class="sc">$</span>log2_expression <span class="ot">&lt;-</span> <span class="fu">log2</span>(gene_expression_df<span class="sc">$</span>expression)</span>
-<span id="cb89-3"><a href="#cb89-3" tabindex="-1"></a></span>
-<span id="cb89-4"><a href="#cb89-4" tabindex="-1"></a><span class="co"># Add multiple columns at once</span></span>
-<span id="cb89-5"><a href="#cb89-5" tabindex="-1"></a>gene_expression_df <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
-<span id="cb89-6"><a href="#cb89-6" tabindex="-1"></a>  gene_expression_df,</span>
-<span id="cb89-7"><a href="#cb89-7" tabindex="-1"></a>  <span class="at">neg_log10_pvalue =</span> <span class="sc">-</span><span class="fu">log10</span>(gene_expression_df<span class="sc">$</span>p_value),</span>
-<span id="cb89-8"><a href="#cb89-8" tabindex="-1"></a>  <span class="at">pass_filter =</span> gene_expression_df<span class="sc">$</span>p_value <span class="sc">&lt;</span> <span class="fl">0.05</span></span>
-<span id="cb89-9"><a href="#cb89-9" tabindex="-1"></a>)</span>
-<span id="cb89-10"><a href="#cb89-10" tabindex="-1"></a></span>
-<span id="cb89-11"><a href="#cb89-11" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Data frame with new columns:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" tabindex="-1"></a><span class="co"># Add new calculated columns to the data frame</span></span>
+<span id="cb89-2"><a href="#cb89-2" tabindex="-1"></a><span class="co"># Add log2 transformed expression values</span></span>
+<span id="cb89-3"><a href="#cb89-3" tabindex="-1"></a>gene_expression_df<span class="sc">$</span>log2_expression <span class="ot">&lt;-</span> <span class="fu">log2</span>(gene_expression_df<span class="sc">$</span>expression)  <span class="co"># Log transformation</span></span>
+<span id="cb89-4"><a href="#cb89-4" tabindex="-1"></a></span>
+<span id="cb89-5"><a href="#cb89-5" tabindex="-1"></a><span class="co"># Add multiple columns simultaneously</span></span>
+<span id="cb89-6"><a href="#cb89-6" tabindex="-1"></a>gene_expression_df <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
+<span id="cb89-7"><a href="#cb89-7" tabindex="-1"></a>  gene_expression_df,</span>
+<span id="cb89-8"><a href="#cb89-8" tabindex="-1"></a>  <span class="at">neg_log10_pvalue =</span> <span class="sc">-</span><span class="fu">log10</span>(gene_expression_df<span class="sc">$</span>p_value),  <span class="co"># Transform p-values</span></span>
+<span id="cb89-9"><a href="#cb89-9" tabindex="-1"></a>  <span class="at">pass_filter =</span> gene_expression_df<span class="sc">$</span>p_value <span class="sc">&lt;</span> <span class="fl">0.05</span>         <span class="co"># Add significance filter</span></span>
+<span id="cb89-10"><a href="#cb89-10" tabindex="-1"></a>)</span>
+<span id="cb89-11"><a href="#cb89-11" tabindex="-1"></a></span>
+<span id="cb89-12"><a href="#cb89-12" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Data frame with new columns:&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Data frame with new columns:&quot;</code></pre>
 <div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" tabindex="-1"></a><span class="fu">print</span>(gene_expression_df)</span></code></pre></div>
 <pre><code>##    gene expression significant p_value fold_change log2_expression
@@ -1856,22 +1862,23 @@ logical)</li>
 </div>
 <div id="adding-rows" class="section level3">
 <h3>2. Adding Rows</h3>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" tabindex="-1"></a><span class="co"># Create a new row</span></span>
-<span id="cb93-2"><a href="#cb93-2" tabindex="-1"></a>new_gene <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb93-3"><a href="#cb93-3" tabindex="-1"></a>  <span class="at">gene =</span> <span class="st">&quot;BRAF&quot;</span>,</span>
-<span id="cb93-4"><a href="#cb93-4" tabindex="-1"></a>  <span class="at">expression =</span> <span class="fl">1876.5</span>,</span>
-<span id="cb93-5"><a href="#cb93-5" tabindex="-1"></a>  <span class="at">significant =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb93-6"><a href="#cb93-6" tabindex="-1"></a>  <span class="at">p_value =</span> <span class="fl">0.002</span>,</span>
-<span id="cb93-7"><a href="#cb93-7" tabindex="-1"></a>  <span class="at">fold_change =</span> <span class="fl">2.1</span>,</span>
-<span id="cb93-8"><a href="#cb93-8" tabindex="-1"></a>  <span class="at">log2_expression =</span> <span class="fu">log2</span>(<span class="fl">1876.5</span>),</span>
-<span id="cb93-9"><a href="#cb93-9" tabindex="-1"></a>  <span class="at">neg_log10_pvalue =</span> <span class="sc">-</span><span class="fu">log10</span>(<span class="fl">0.002</span>),</span>
-<span id="cb93-10"><a href="#cb93-10" tabindex="-1"></a>  <span class="at">pass_filter =</span> <span class="cn">TRUE</span></span>
-<span id="cb93-11"><a href="#cb93-11" tabindex="-1"></a>)</span>
-<span id="cb93-12"><a href="#cb93-12" tabindex="-1"></a></span>
-<span id="cb93-13"><a href="#cb93-13" tabindex="-1"></a><span class="co"># Add the row</span></span>
-<span id="cb93-14"><a href="#cb93-14" tabindex="-1"></a>gene_expression_df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(gene_expression_df, new_gene)</span>
-<span id="cb93-15"><a href="#cb93-15" tabindex="-1"></a></span>
-<span id="cb93-16"><a href="#cb93-16" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Data frame with new row:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" tabindex="-1"></a><span class="co"># Create and add a new row of data</span></span>
+<span id="cb93-2"><a href="#cb93-2" tabindex="-1"></a><span class="co"># Create data for new gene</span></span>
+<span id="cb93-3"><a href="#cb93-3" tabindex="-1"></a>new_gene <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb93-4"><a href="#cb93-4" tabindex="-1"></a>  <span class="at">gene =</span> <span class="st">&quot;BRAF&quot;</span>,                        <span class="co"># Gene name</span></span>
+<span id="cb93-5"><a href="#cb93-5" tabindex="-1"></a>  <span class="at">expression =</span> <span class="fl">1876.5</span>,                  <span class="co"># Expression value</span></span>
+<span id="cb93-6"><a href="#cb93-6" tabindex="-1"></a>  <span class="at">significant =</span> <span class="cn">TRUE</span>,                   <span class="co"># Significance flag</span></span>
+<span id="cb93-7"><a href="#cb93-7" tabindex="-1"></a>  <span class="at">p_value =</span> <span class="fl">0.002</span>,                     <span class="co"># P-value</span></span>
+<span id="cb93-8"><a href="#cb93-8" tabindex="-1"></a>  <span class="at">fold_change =</span> <span class="fl">2.1</span>,                   <span class="co"># Fold change</span></span>
+<span id="cb93-9"><a href="#cb93-9" tabindex="-1"></a>  <span class="at">log2_expression =</span> <span class="fu">log2</span>(<span class="fl">1876.5</span>),      <span class="co"># Log2 expression</span></span>
+<span id="cb93-10"><a href="#cb93-10" tabindex="-1"></a>  <span class="at">neg_log10_pvalue =</span> <span class="sc">-</span><span class="fu">log10</span>(<span class="fl">0.002</span>),    <span class="co"># Transformed p-value</span></span>
+<span id="cb93-11"><a href="#cb93-11" tabindex="-1"></a>  <span class="at">pass_filter =</span> <span class="cn">TRUE</span>                    <span class="co"># Filter status</span></span>
+<span id="cb93-12"><a href="#cb93-12" tabindex="-1"></a>)</span>
+<span id="cb93-13"><a href="#cb93-13" tabindex="-1"></a></span>
+<span id="cb93-14"><a href="#cb93-14" tabindex="-1"></a><span class="co"># Add new row to existing data frame</span></span>
+<span id="cb93-15"><a href="#cb93-15" tabindex="-1"></a>gene_expression_df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(gene_expression_df, new_gene)  <span class="co"># Combine rows</span></span>
+<span id="cb93-16"><a href="#cb93-16" tabindex="-1"></a></span>
+<span id="cb93-17"><a href="#cb93-17" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Data frame with new row:&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Data frame with new row:&quot;</code></pre>
 <div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" tabindex="-1"></a><span class="fu">print</span>(gene_expression_df)</span></code></pre></div>
 <pre><code>##    gene expression significant p_value fold_change log2_expression
@@ -1891,13 +1898,14 @@ logical)</li>
 </div>
 <div id="modifying-values" class="section level3">
 <h3>3. Modifying Values</h3>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" tabindex="-1"></a><span class="co"># Change a single value</span></span>
-<span id="cb97-2"><a href="#cb97-2" tabindex="-1"></a>gene_expression_df<span class="sc">$</span>expression[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1600</span></span>
-<span id="cb97-3"><a href="#cb97-3" tabindex="-1"></a></span>
-<span id="cb97-4"><a href="#cb97-4" tabindex="-1"></a><span class="co"># Change multiple values</span></span>
-<span id="cb97-5"><a href="#cb97-5" tabindex="-1"></a>gene_expression_df<span class="sc">$</span>significant[gene_expression_df<span class="sc">$</span>p_value <span class="sc">&gt;</span> <span class="fl">0.05</span>] <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
-<span id="cb97-6"><a href="#cb97-6" tabindex="-1"></a></span>
-<span id="cb97-7"><a href="#cb97-7" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Modified data frame:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" tabindex="-1"></a><span class="co"># Update existing values in the data frame</span></span>
+<span id="cb97-2"><a href="#cb97-2" tabindex="-1"></a><span class="co"># Change a single value</span></span>
+<span id="cb97-3"><a href="#cb97-3" tabindex="-1"></a>gene_expression_df<span class="sc">$</span>expression[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1600</span>    <span class="co"># Update first expression value</span></span>
+<span id="cb97-4"><a href="#cb97-4" tabindex="-1"></a></span>
+<span id="cb97-5"><a href="#cb97-5" tabindex="-1"></a><span class="co"># Update multiple values based on condition</span></span>
+<span id="cb97-6"><a href="#cb97-6" tabindex="-1"></a>gene_expression_df<span class="sc">$</span>significant[gene_expression_df<span class="sc">$</span>p_value <span class="sc">&gt;</span> <span class="fl">0.05</span>] <span class="ot">&lt;-</span> <span class="cn">FALSE</span>  <span class="co"># Update significance</span></span>
+<span id="cb97-7"><a href="#cb97-7" tabindex="-1"></a></span>
+<span id="cb97-8"><a href="#cb97-8" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Modified data frame:&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Modified data frame:&quot;</code></pre>
 <div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" tabindex="-1"></a><span class="fu">print</span>(gene_expression_df)</span></code></pre></div>
 <pre><code>##    gene expression significant p_value fold_change log2_expression

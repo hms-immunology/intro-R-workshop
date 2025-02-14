@@ -421,7 +421,7 @@ Using the gene_data dataset:
 2. Calculate the fold change between treated and control conditions
 3. Select only gene_id and fold change columns
 
-```{r exercise1}
+```{r exercise1_data_manipulation}
 gene_data %>%
   filter(chromosome == "17") %>%
   mutate(
@@ -437,7 +437,7 @@ gene_data %>%
 2. Calculate mean expression per condition
 3. Create a summary of fold changes per pathway
 
-```{r exercise2}
+```{r exercise2_data_reshaping}
 # Convert to long format and summarize
 gene_data %>%
   pivot_longer(
@@ -457,7 +457,7 @@ gene_data %>%
 2. Apply the function to both control and treated samples
 3. Calculate statistics on the normalized values
 
-```{r exercise3}
+```{r exercise3_custom_functions}
 # Create normalization function
 normalize_expression <- function(x) {
   (x - mean(x)) / sd(x)
