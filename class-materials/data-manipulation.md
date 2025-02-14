@@ -1,7 +1,7 @@
 ---
 title: Data Manipulation with dplyr and tidyr
 layout: default
-nav_order: 9
+nav_order: 10
 ---
 
 # Data Manipulation with dplyr and tidyr

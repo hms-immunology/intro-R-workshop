@@ -281,119 +281,51 @@ log_matrix <- log2(expression_matrix)
 ### Accessing Matrix Elements
 
 ```r
-# Access single element
-value <- expression_matrix[1, 2]  # Row 1, Column 2: 200
+# Access individual elements and subsets of the matrix
+value <- expression_matrix[1, 2]           # Expression of Gene1 in Sample2
+gene1_expression <- expression_matrix[1, ]  # All samples for Gene1
+sample1_values <- expression_matrix[, 1]    # All genes in Sample1
+subset_matrix <- expression_matrix[1:2, c(1,3)]  # Expression for 2 genes in 2 samples
 
-# Access entire row
-gene1_expression <- expression_matrix[1, ]  # 100, 200, 150, 300
-
-# Access entire column
-sample1_values <- expression_matrix[, 1]  # 100, 120, 90
-
-# Access multiple rows/columns
-subset_matrix <- expression_matrix[1:2, c(1,3)]
-
-# Results:
-#        Sample1 Sample3
-# Gene1     100     150
-# Gene2     120     160
-```
-
-## RNA-seq Example: Differential Expression Analysis
-
-```r
-# Create an expression matrix with 5 genes and 6 samples (3 control, 3 treated)
-expression_data <- matrix(
-  c(
-    1200, 1300, 1250, 1800, 1900, 1850,  # Gene1
-    800,  750,  780,  1200, 1180, 1220,   # Gene2
-    2000, 2100, 2050, 2080, 2150, 2090,   # Gene3
-    300,  320,  310,  900,  920,  880,    # Gene4
-    1500, 1450, 1480, 1600, 1580, 1620    # Gene5
-  ),
-  nrow = 5,
-  ncol = 6,
-  byrow = TRUE
-)
-
-# Add gene and sample names
-rownames(expression_data) <- c("Gene1", "Gene2", "Gene3", "Gene4", "Gene5")
-colnames(expression_data) <- c("Ctrl1", "Ctrl2", "Ctrl3", "Treat1", "Treat2", "Treat3")
-
-# Calculate mean expression for control and treated groups
-control_means <- rowMeans(expression_data[, 1:3])
-treated_means <- rowMeans(expression_data[, 4:6])
-
-# Calculate fold changes
-fold_changes <- treated_means / control_means
-
-# Identify differentially expressed genes (fold change > 1.5)
-is_differential <- abs(fold_changes) > 1.5
-differential_genes <- rownames(expression_data)[is_differential]
-
-# Results:
-# Control Means: 1250, 776.7, 2050, 310, 1476.7
-# Treated Means: 1850, 1200, 2106.7, 900, 1600
-# Fold Changes: 1.48, 1.54, 1.03, 2.90, 1.08
-# Differentially Expressed Genes: "Gene2", "Gene4"
+# Display different types of matrix access
+print("Value at position [1,2]:")          # Single expression value
+print(value)
+print("\nExpression values for Gene1:")    # Expression profile of one gene
+print(gene1_expression)
+print("\nValues for Sample1:")             # Expression profile of one sample
+print(sample1_values)
+print("\nSubset Matrix:")                  # Selected genes and samples
+print(subset_matrix)
 ```
 
 ## Practice Exercises
 
-### Exercise 1: Vector Operations
-Create two vectors of gene expression values and perform calculations:
+1. Create a vector of p-values and find which genes are significant (p < 0.05)
+2. Calculate the log2 fold change instead of regular fold change
+3. Find genes that are both:
+   - Significantly changed (fold change > 1.5)
+   - Highly expressed (mean expression > 1000)
 
-```r
-# Create vectors
-exp_condition1 <- c(1200, 800, 2000, 300, 1500)
-exp_condition2 <- c(1800, 1200, 2080, 900, 1600)
+## Tips for Working with Vectors and Matrices
 
-# Calculate mean expression
-mean_exp1 <- mean(exp_condition1)  # 1160
-mean_exp2 <- mean(exp_condition2)  # 1516
+1. **Always check dimensions**
+   - Use `dim()` for matrices
+   - Use `length()` for vectors
+   - Ensure your data is structured as expected
 
-# Find highly expressed genes
-high_exp1 <- exp_condition1 > 1000  # TRUE, FALSE, TRUE, FALSE, TRUE
-high_exp2 <- exp_condition2 > 1000  # TRUE, TRUE, TRUE, FALSE, TRUE
+2. **Handle missing values**
+   - Use `is.na()` to find missing values
+   - Consider how to handle them (remove, impute, etc.)
 
-# Calculate fold changes
-fold_changes <- exp_condition2 / exp_condition1  # 1.5, 1.5, 1.04, 3.0, 1.07
-```
+3. **Choose appropriate transformations**
+   - Log transformation for skewed data
+   - Scaling/normalization when comparing samples
+   - Consider the biological meaning of your data
 
-### Exercise 2: Matrix Manipulation
-Using the example RNA-seq matrix:
-
-```r
-# Extract specific genes
-gene1_expression <- expression_data["Gene1", ]  # 1200, 1300, 1250, 1800, 1900, 1850
-
-# Calculate mean expression per sample
-sample_means <- colMeans(expression_data)
-# Results: Ctrl1=1160, Ctrl2=1184, Ctrl3=1174, Treat1=1516, Treat2=1546, Treat3=1532
-
-# Find highest expressed gene in each sample
-max_expression <- apply(expression_data, 2, which.max)
-highest_genes <- rownames(expression_data)[max_expression]
-# Results: "Gene3" for all samples
-```
-
-### Exercise 3: Data Transformation
-Create a matrix of expression values and transform it:
-
-```r
-# Create a sample matrix
-sample_matrix <- matrix(rnorm(20, mean=100, sd=20), nrow=4, ncol=5)
-rownames(sample_matrix) <- paste0("Gene", 1:4)
-colnames(sample_matrix) <- paste0("Sample", 1:5)
-
-# Log transform
-log_data <- log2(sample_matrix)
-
-# Scale rows
-scaled_data <- t(scale(t(log_data)))
-
-# Results will vary due to random data generation
-```
+4. **Document your analysis**
+   - Add clear comments
+   - Use meaningful variable names
+   - Keep track of transformations applied
 
 ## Next Steps
 

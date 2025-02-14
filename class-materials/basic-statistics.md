@@ -1,7 +1,7 @@
 ---
 title: Basic Statistical Analysis
 layout: default
-nav_order: 11
+nav_order: 12
 ---
 
 # Introduction to Statistics with R

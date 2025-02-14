@@ -203,99 +203,134 @@ message <- paste("Sample", sample_id, "shows", expression_value, "counts for gen
 ## Additional Details
 
 ### Basic variable assignment in R
+```r
 x <- 5                     # Assign the value 5 to variable x using the assignment operator '<-'
 y = 10                     # Alternative assignment using '=' (though '<-' is preferred in R)
 z <- x + y                 # Perform arithmetic and store result in new variable
+```
 
 ### Numeric vectors
+```r
 numbers <- c(1, 2, 3, 4, 5)           # Create a numeric vector using c() function
 more_numbers <- 1:10                   # Create a sequence from 1 to 10
 seq_numbers <- seq(0, 10, by = 2)     # Create sequence with custom step size
+```
 
 ### Character vectors
+```r
 names <- c("Alice", "Bob", "Charlie")  # Create a character vector
 fruits <- c("apple", "banana", "orange")  # Another character vector example
+```
 
 ### Logical vectors
+```r
 is_true <- c(TRUE, FALSE, TRUE)        # Create a logical vector
 bigger_than_5 <- numbers > 5           # Create logical vector through comparison
+```
 
 ### Factors (categorical variables)
+```r
 gender <- factor(c("M", "F", "F", "M"))  # Create a factor from character vector
 levels(gender)                           # View the levels of the factor
+```
 
 ### Lists (can contain different types)
+```r
 my_list <- list(
   numbers = 1:5,                      # Numeric vector element
   text = "Hello World",              # Character element
   logical = TRUE                     # Logical element
 )
+```
 
 ### Accessing list elements
+```r
 my_list$numbers                      # Access using $ operator
 my_list[[1]]                        # Access using double brackets
 my_list[["text"]]                   # Access by name using double brackets
+```
 
 ### Data frames
+```r
 df <- data.frame(
   name = c("Alice", "Bob", "Charlie"),     # Character vector for names
   age = c(25, 30, 35),                     # Numeric vector for ages
   student = c(TRUE, FALSE, TRUE)           # Logical vector for student status
 )
+```
 
 ### Accessing data frame elements
+```r
 df$name                             # Access column by name using $
 df[1, ]                            # Access first row
 df[, "age"]                        # Access age column
 df[df$student == TRUE, ]           # Filter rows where student is TRUE
+```
 
 ### Basic data types
+```r
 numeric_var <- 42.5                # Numeric (double)
 integer_var <- 42L                 # Integer (note the L suffix)
 character_var <- "Hello"           # Character string
 logical_var <- TRUE                # Logical (boolean)
 complex_var <- 3 + 2i              # Complex number
+```
 
 ### Type checking functions
+```r
 class(numeric_var)                 # Check the class of an object
 typeof(numeric_var)                # Check the type of an object
 is.numeric(numeric_var)           # Check if object is numeric
 is.character(character_var)       # Check if object is character
+```
 
 ### Type conversion
+```r
 as.character(42)                  # Convert number to character
 as.numeric("42")                 # Convert character to number
 as.logical(1)                    # Convert to logical (0 is FALSE, non-zero is TRUE)
+```
 
 ### Vector operations
+```r
 vec1 <- c(1, 2, 3)              # First vector
 vec2 <- c(4, 5, 6)              # Second vector
 vec_sum <- vec1 + vec2          # Element-wise addition
 vec_prod <- vec1 * vec2         # Element-wise multiplication
 vec_mean <- mean(vec1)          # Calculate mean of vector
 vec_sum <- sum(vec1)            # Calculate sum of vector
+```
 
 ### Matrix creation
+```r
 mat <- matrix(1:9, nrow = 3, ncol = 3)  # Create 3x3 matrix
 rownames(mat) <- c("R1", "R2", "R3")    # Add row names
 colnames(mat) <- c("C1", "C2", "C3")    # Add column names
+```
 
 ### Matrix operations
+```r
 t(mat)                          # Transpose matrix
 mat * 2                         # Multiply all elements by 2
 mat %*% mat                     # Matrix multiplication
+```
 
 ### Working with missing values
+```r
 vec_with_na <- c(1, NA, 3, NA, 5)       # Vector with missing values
 is.na(vec_with_na)                      # Check for NA values
 na.omit(vec_with_na)                    # Remove NA values
 mean(vec_with_na, na.rm = TRUE)         # Calculate mean ignoring NA values
+```
 
 ### Variable naming conventions
+```r
 camelCase <- "follows Java style"        # camelCase naming
 snake_case <- "follows Python style"     # snake_case naming (common in R)
 CONSTANT_VALUE <- 100                    # Constants typically in all caps
+```
 
 ### Environment functions
+```r
 ls()                                    # List all variables in environment
 rm(x)                                  # Remove variable x from environment 

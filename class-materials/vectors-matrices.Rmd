@@ -218,58 +218,6 @@ print("\nSubset Matrix:")                  # Selected genes and samples
 print(subset_matrix)
 ```
 
-## RNA-seq Example: Differential Expression Analysis
-
-Let's work through a complete example using RNA-seq data to find differentially expressed genes:
-
-```{r rna-seq-example}
-# Create example RNA-seq expression matrix
-# This represents counts for:
-# - 5 genes (rows)
-# - 6 samples (3 control, 3 treated)
-expression_data <- matrix(
-  c(
-    1200, 1300, 1250, 1800, 1900, 1850,  # Gene1: Shows upregulation
-    800,  750,  780,  1200, 1180, 1220,   # Gene2: Shows upregulation
-    2000, 2100, 2050, 2080, 2150, 2090,   # Gene3: Stable expression
-    300,  320,  310,  900,  920,  880,    # Gene4: Strong upregulation
-    1500, 1450, 1480, 1600, 1580, 1620    # Gene5: Slight upregulation
-  ),
-  nrow = 5,                               # 5 genes to analyze
-  ncol = 6,                               # 6 total samples
-  byrow = TRUE                            # Each row is one gene
-)
-
-# Add descriptive names for clarity
-rownames(expression_data) <- c("Gene1", "Gene2", "Gene3", "Gene4", "Gene5")  # Gene IDs
-colnames(expression_data) <- c("Ctrl1", "Ctrl2", "Ctrl3", "Treat1", "Treat2", "Treat3")  # Sample IDs
-
-# Calculate mean expression for each condition
-control_means <- rowMeans(expression_data[, 1:3])    # Average expression in controls
-treated_means <- rowMeans(expression_data[, 4:6])    # Average expression in treated
-
-# Calculate fold changes (treated/control)
-# This shows relative change in expression
-fold_changes <- treated_means / control_means        # Fold change calculation
-
-# Identify differentially expressed genes
-# Here we use a 1.5-fold change threshold
-is_differential <- abs(fold_changes) > 1.5           # Find significant changes
-differential_genes <- rownames(expression_data)[is_differential]  # Get gene names
-
-# Display results of our analysis
-print("Expression Data Matrix:")                     # Raw count data
-print(expression_data)
-print("\nControl Means:")                           # Average control expression
-print(control_means)
-print("\nTreated Means:")                           # Average treated expression
-print(treated_means)
-print("\nFold Changes:")                            # Expression changes
-print(fold_changes)
-print("\nDifferentially Expressed Genes:")          # Genes with significant changes
-print(differential_genes)
-```
-
 ## Practice Exercises
 
 1. Create a vector of p-values and find which genes are significant (p < 0.05)

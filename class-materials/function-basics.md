@@ -1,7 +1,7 @@
 ---
 title: Introduction to Functions in R
 layout: default
-nav_order: 12
+nav_order: 8
 ---
 
 # Introduction to Functions in R

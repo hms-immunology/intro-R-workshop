@@ -1,7 +1,7 @@
 ---
 title: Data Visualization with ggplot2
 layout: default
-nav_order: 10
+nav_order: 11
 ---
 
 # Data Visualization with ggplot2
