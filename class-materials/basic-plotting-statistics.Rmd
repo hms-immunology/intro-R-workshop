@@ -1,0 +1,444 @@
+---
+title: "Basic Plotting and Statistics in R"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: flatly
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+# Welcome to Data Visualization and Statistics in R!
+
+In this 2-hour session, we'll learn how to:
+- Create beautiful and informative plots using ggplot2
+- Understand basic statistical concepts
+- Perform data analysis using R
+- Make data-driven decisions
+
+## Required Packages
+
+We'll be using these R packages:
+```{r packages}
+# Load the tidyverse package which includes:
+# - ggplot2 for data visualization
+# - dplyr for data manipulation
+# - tidyr for data tidying
+# - readr for data import
+library(tidyverse)  
+
+# Load the datasets package which contains example datasets
+# like mtcars, iris, etc.
+library(datasets)   
+```
+
+## Part 1: Getting Started with R for Statistics
+
+Let's begin by exploring some built-in datasets in R. We'll use the famous `mtcars` dataset:
+
+```{r mtcars_exploration}
+# Load the mtcars dataset (contains information about various car models)
+data("mtcars")
+
+# Show first few rows to understand data structure
+head(mtcars)
+
+# Calculate key statistics about miles per gallon (mpg):
+# - mean: average fuel efficiency
+# - median: middle value (robust to outliers)
+# - sd: spread of the data (how much variation exists)
+mtcars %>%
+  summarise(across(mpg, 
+                  list(mean = mean, 
+                       median = median, 
+                       sd = sd),
+                  .names = "{.fn}_mpg"))
+```
+
+## Part 2: Creating Beautiful Visualizations
+
+### Basic Histogram
+
+```{r basic_histogram}
+# Create a basic histogram to visualize MPG distribution
+ggplot(mtcars, aes(x = mpg)) +               # Set up plot with MPG on x-axis
+  geom_histogram(
+    fill = "skyblue",                        # Color the bars light blue
+    color = "white",                         # White borders make bars distinct
+    bins = 30                                # Number of bars (more = more detail)
+  ) +
+  labs(
+    title = "Distribution of Car Mileage",   # Main title explains the plot
+    x = "Miles Per Gallon",                  # X-axis shows the unit
+    y = "Count"                              # Y-axis shows frequency
+  ) +
+  theme_minimal()                            # Clean, modern look
+```
+
+### Adding Density Curves
+
+```{r density_plot}
+# Create a histogram with density curve overlay
+ggplot(mtcars, aes(x = mpg)) +
+  # Add histogram scaled to density
+  geom_histogram(
+    aes(y = ..density..),  # Scale y-axis to density instead of count
+    fill = "skyblue",
+    color = "white"
+  ) +
+  # Add a smoothed density curve
+  geom_density(
+    color = "red",        # Color of density line
+    linewidth = 1         # Thickness of density line
+  ) +
+  # Add descriptive labels
+  labs(
+    title = "Distribution of Car Mileage with Density Curve",
+    x = "Miles Per Gallon",
+    y = "Density"
+  ) +
+  theme_minimal()
+```
+
+## Part 3: Understanding Data Distributions
+
+### What is a Distribution?
+
+A distribution shows us the "shape" of our data. Think of it as a way to see:
+- How often different values occur
+- What values are typical or unusual
+- How spread out the data is
+
+Common examples in research:
+- Heights in a population
+- Test scores in a class
+- Gene expression levels
+- Treatment responses
+
+### The Normal Distribution
+
+The "normal" or "bell-shaped" distribution is the most common in nature. Key features:
+1. It's symmetric around the mean
+2. The mean, median, and mode are all equal
+3. About 68% of data falls within 1 standard deviation of the mean
+4. About 95% of data falls within 2 standard deviations
+5. About 99.7% of data falls within 3 standard deviations
+
+Let's visualize this with our data:
+
+```{r normal_distribution}
+# Generate synthetic height data for demonstration
+set.seed(123)                                # Make results reproducible
+heights <- rnorm(1000,                       # Generate 1000 random heights
+                mean = 170,                  # Average height in cm
+                sd = 10)                     # Standard deviation in cm
+
+# Create visualization of height distribution
+ggplot(data.frame(height = heights),         # Convert heights to data frame
+       aes(x = height)) +                    # Map height to x-axis
+  geom_histogram(
+    aes(y = ..density..),                    # Scale to density for comparison
+    fill = "skyblue",
+    color = "white",
+    bins = 30
+  ) +
+  geom_density(color = "red",                # Add smooth density curve
+               linewidth = 1) +
+  labs(
+    title = "Distribution of Heights",
+    subtitle = "With Normal Density Curve",
+    x = "Height (cm)",
+    y = "Density"
+  ) +
+  theme_minimal()
+
+# Create summary statistics table
+tibble(
+  # Define statistics to show
+  Statistic = c("Mean", "Median", "SD", 
+                "Within 1 SD", "Within 2 SD", "Within 3 SD"),
+  # Calculate values
+  Value = c(
+    mean(heights),                           # Average height
+    median(heights),                         # Middle height
+    sd(heights),                            # Spread of heights
+    # Calculate % within each SD range
+    mean(abs(scale(heights)) <= 1) * 100,   # Within 1 SD
+    mean(abs(scale(heights)) <= 2) * 100,   # Within 2 SD
+    mean(abs(scale(heights)) <= 3) * 100    # Within 3 SD
+  ),
+  # Add units for clarity
+  Unit = c("cm", "cm", "cm", "%", "%", "%")
+) %>%
+  mutate(Value = round(Value, 1)) %>%        # Round all values to 1 decimal
+  knitr::kable(caption = "Summary Statistics for Height Distribution")
+```
+
+### Understanding Different Types of Distributions
+
+Let's explore different types of distributions we might encounter:
+
+```{r distribution_types}
+# Generate different types of distributions (1000 points each)
+n <- 1000
+distributions <- tibble(
+  normal = rnorm(n),                         # Symmetric, bell-shaped
+  uniform = runif(n, -3, 3),                # Equal probability across range
+  right_skewed = exp(rnorm(n)),             # Tail extends to the right
+  bimodal = c(rnorm(n/2, -2), rnorm(n/2, 2)) # Two peaks
+)
+
+# Function to create standardized distribution plots
+plot_distribution <- function(data, title) {
+  ggplot(data.frame(x = data), aes(x = x)) +
+    # Show distribution as both histogram and density
+    geom_histogram(aes(y = ..density..),     # Scale to density
+                  fill = "skyblue", 
+                  color = "white",
+                  bins = 30) +
+    geom_density(color = "red",              # Add smooth curve
+                 linewidth = 1) +
+    labs(title = title) +
+    theme_minimal()
+}
+
+# Create and arrange all plots in a grid
+library(gridExtra)
+grid.arrange(
+  # Create each type of distribution plot
+  plot_distribution(distributions$normal, "Normal"),
+  plot_distribution(distributions$uniform, "Uniform"),
+  plot_distribution(distributions$right_skewed, "Right-Skewed"),
+  plot_distribution(distributions$bimodal, "Bimodal"),
+  ncol = 2                                   # Arrange in 2 columns
+)
+```
+
+## Part 4: Statistical Testing
+
+### The t-test: A Detective's Tool
+
+Think of a t-test like being a detective. You start with:
+- A question: "Are these groups different?"
+- A null hypothesis (H₀): "There is no real difference"
+- An alternative hypothesis (H₁): "There is a real difference"
+
+Let's walk through a complete example:
+
+```{r ttest_example}
+# Create two groups to compare
+set.seed(123)  # For reproducibility
+group1 <- rnorm(30, mean = 100, sd = 15)  # Control group
+group2 <- rnorm(30, mean = 115, sd = 15)  # Treatment group
+
+# Perform t-test
+t_result <- t.test(group1, group2)
+
+# Create summary table of results
+data.frame(
+  Measure = c("Mean difference", "t-statistic", "p-value", "95% CI"),
+  Value = c(
+    round(mean(group2) - mean(group1), 2),
+    round(t_result$statistic, 2),
+    format.pval(t_result$p.value, digits = 3),
+    paste(round(t_result$conf.int, 2), collapse = " to ")
+  )
+) %>%
+  knitr::kable(caption = "T-test Results")
+
+# Create data frame for plotting
+test_data <- data.frame(
+  value = c(group1, group2),
+  group = rep(c("Control", "Treatment"), each = 30)
+)
+
+# Create comprehensive visualization
+p1 <- ggplot(test_data, aes(x = value, fill = group)) +
+  geom_density(alpha = 0.5) +
+  labs(
+    title = "Density Plot Comparison",
+    subtitle = paste("p-value =", format.pval(t_result$p.value, digits = 3)),
+    x = "Value",
+    y = "Density"
+  ) +
+  theme_minimal()
+
+p2 <- ggplot(test_data, aes(x = group, y = value, fill = group)) +
+  geom_boxplot(alpha = 0.5) +
+  geom_jitter(width = 0.2, alpha = 0.5) +
+  labs(
+    title = "Box Plot with Data Points",
+    subtitle = paste(
+      "Mean Diff =", round(mean(group2) - mean(group1), 2)
+    ),
+    x = "Group",
+    y = "Value"
+  ) +
+  theme_minimal()
+
+# Display plots side by side
+grid.arrange(p1, p2, ncol = 2)
+```
+
+### Checking t-test Assumptions
+
+Let's verify if our data meets the t-test assumptions:
+
+```{r check_assumptions}
+# 1. Check normality with Q-Q plots
+par(mfrow = c(1, 2))
+qqnorm(group1, main = "Q-Q Plot: Control Group")
+qqline(group1)
+qqnorm(group2, main = "Q-Q Plot: Treatment Group")
+qqline(group2)
+par(mfrow = c(1, 1))
+
+# 2. Check equal variances and create summary table
+var_test <- var.test(group1, group2)
+data.frame(
+  Test = c("F statistic", "p-value"),
+  Value = c(
+    round(var_test$statistic, 3),
+    format.pval(var_test$p.value, digits = 3)
+  )
+) %>%
+  knitr::kable(caption = "Variance Test Results")
+
+# 3. Visual check for independence
+par(mfrow = c(1, 2))
+plot(seq_along(group1), group1, 
+     main = "Independence Check: Control",
+     xlab = "Observation Order", 
+     ylab = "Value")
+plot(seq_along(group2), group2,
+     main = "Independence Check: Treatment",
+     xlab = "Observation Order",
+     ylab = "Value")
+par(mfrow = c(1, 1))
+```
+
+## Part 5: Exploring Relationships
+
+### Scatter Plots and Regression Lines
+
+```{r scatter_plot}
+# Create scatter plot showing relationship between sepal and petal length
+ggplot(iris, aes(x = Sepal.Length, y = Petal.Length, color = Species)) +
+  # Add points for each observation
+  geom_point() +
+  # Add regression lines for each species
+  geom_smooth(
+    method = "lm",    # Use linear regression
+    se = FALSE        # Don't show confidence interval
+  ) +
+  # Add descriptive labels
+  labs(
+    title = "Relationship: Sepal Length vs Petal Length",
+    x = "Sepal Length",
+    y = "Petal Length"
+  ) +
+  theme_minimal()
+```
+
+## Practice Exercises
+
+Here are some exercises to try on your own:
+
+### Exercise 1: Basic Data Exploration
+```{r exercise1, eval=FALSE}
+# Your code here:
+# 1. Calculate summary statistics for mtcars
+# 2. Create a visualization of car weights
+```
+
+### Exercise 2: Group Comparisons
+```{r exercise2, eval=FALSE}
+# Your code here:
+# 1. Compare mileage by number of cylinders
+# 2. Create visualizations
+# 3. Perform statistical test
+```
+
+### Exercise 3: Relationship Analysis
+```{r exercise3, eval=FALSE}
+# Your code here:
+# 1. Investigate weight vs mileage
+# 2. Create scatter plot with regression
+# 3. Calculate correlation
+```
+
+## Solutions to Exercises
+
+### Solution 1
+```{r solution1}
+# Calculate summary statistics for car weights
+mtcars %>%
+  summarise(
+    mean_wt = mean(wt),    # Average weight
+    sd_wt = sd(wt),        # Standard deviation of weight
+    min_wt = min(wt),      # Minimum weight
+    max_wt = max(wt)       # Maximum weight
+  )
+
+# Create histogram of car weights
+ggplot(mtcars, aes(x = wt)) +
+  # Add histogram with custom appearance
+  geom_histogram(
+    fill = "skyblue",
+    color = "white"
+  ) +
+  # Add descriptive labels
+  labs(
+    title = "Distribution of Car Weights",
+    x = "Weight (1000 lbs)",
+    y = "Count"
+  ) +
+  theme_minimal()
+```
+
+### Solution 2
+```{r solution2}
+# Create boxplot comparing mileage across different cylinder counts
+ggplot(mtcars, aes(x = factor(cyl), y = mpg, fill = factor(cyl))) +
+  # Add boxplot for each cylinder group
+  geom_boxplot() +
+  # Add descriptive labels
+  labs(
+    title = "Car Mileage by Number of Cylinders",
+    x = "Number of Cylinders",
+    y = "Miles Per Gallon",
+    fill = "Cylinders"
+  ) +
+  theme_minimal()
+
+# Perform one-way ANOVA to test for differences between cylinder groups
+aov_result <- aov(mpg ~ factor(cyl), data = mtcars)
+# Display ANOVA results
+summary(aov_result)
+```
+
+### Solution 3
+```{r solution3}
+# Create scatter plot showing relationship between weight and mileage
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  # Add points for each car
+  geom_point() +
+  # Add regression line with confidence interval
+  geom_smooth(
+    method = "lm",    # Use linear regression
+    se = TRUE         # Show confidence interval
+  ) +
+  # Add descriptive labels
+  labs(
+    title = "Relationship between Weight and Mileage",
+    x = "Weight (1000 lbs)",
+    y = "Miles Per Gallon"
+  ) +
+  theme_minimal()
+
+# Calculate correlation between weight and mileage
+cor.test(mtcars$wt, mtcars$mpg)
+``` 

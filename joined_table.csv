@@ -1,0 +1,11 @@
+gene,sample,expression,description
+Asl,GSM2545336,1170,argininosuccinate lyase [Source:MGI Symbol;Acc:MGI:88084]
+Apod,GSM2545336,36194,apolipoprotein D [Source:MGI Symbol;Acc:MGI:88056]
+Cyp2d22,GSM2545336,4060,"cytochrome P450, family 2, subfamily d, polypeptide 22 [Source:MGI Symbol;Acc:MGI:1929474]"
+Klk6,GSM2545336,287,kallikrein related-peptidase 6 [Source:MGI Symbol;Acc:MGI:1343166]
+Fcrls,GSM2545336,85,"Fc receptor-like S, scavenger receptor [Source:MGI Symbol;Acc:MGI:1933397]"
+Slc2a4,GSM2545336,782,"solute carrier family 2 (facilitated glucose transporter), member 4 [Source:MGI Symbol;Acc:MGI:95758]"
+Exd2,GSM2545336,1619,exonuclease 3'-5' domain containing 2 [Source:MGI Symbol;Acc:MGI:1922485]
+Gjc2,GSM2545336,288,"gap junction protein, gamma 2 [Source:MGI Symbol;Acc:MGI:2153060]"
+Plp1,GSM2545336,43217,proteolipid protein (myelin) 1 [Source:MGI Symbol;Acc:MGI:97623]
+Gnb4,GSM2545336,1071,"guanine nucleotide binding protein (G protein), beta 4 [Source:MGI Symbol;Acc:MGI:104581]"

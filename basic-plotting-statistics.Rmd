@@ -1,0 +1,321 @@
+```{r ttest_example}
+# Create example data for comparing two groups
+set.seed(123)                                # Ensure reproducibility
+control <- rnorm(30,                         # Generate control group data
+                mean = 100,                  # Set control group mean
+                sd = 15)                     # Set control group variation
+treatment <- rnorm(30,                       # Generate treatment group data
+                  mean = 115,                # Set treatment group mean
+                  sd = 15)                   # Match control group variation
+
+# Perform statistical analysis
+t_results <- t.test(control, treatment)      # Compare groups using t-test
+
+# Create organized results table
+tibble(
+  Measure = c("Mean Difference",             # Key statistical measures
+              "t-statistic", 
+              "p-value", 
+              "95% CI"),
+  Value = c(
+    round(diff(c(mean(control),             # Calculate mean difference
+                 mean(treatment))), 2),
+    round(t_results$statistic, 2),          # Extract t-statistic
+    format.pval(t_results$p.value, 3),      # Format p-value nicely
+    paste(round(t_results$conf.int, 2),     # Format confidence interval
+          collapse = " to ")
+  )
+) %>%
+  knitr::kable(caption = "Statistical Test Results")
+
+# Prepare data for visualization
+test_data <- tibble(
+  value = c(control, treatment),            # Combine all measurements
+  group = rep(c("Control", "Treatment"),    # Label each group
+             each = 30)
+)
+
+# Create informative visualizations
+# 1. Density plot to show distribution shapes
+density_plot <- ggplot(test_data, 
+                      aes(x = value, 
+                          fill = group)) +
+  geom_density(alpha = 0.5) +               # Semi-transparent density curves
+  labs(
+    title = "Group Comparison: Density Plot",
+    subtitle = paste("p-value =",           # Show statistical significance
+                    format.pval(t_results$p.value, 3)),
+    x = "Measurement Value",
+    y = "Density"
+  ) +
+  theme_minimal()
+
+# 2. Box plot with data points for detailed view
+box_plot <- ggplot(test_data, 
+                  aes(x = group, 
+                      y = value, 
+                      fill = group)) +
+  geom_boxplot(alpha = 0.5) +              # Show distribution summary
+  geom_jitter(width = 0.2,                 # Add individual points
+              alpha = 0.5) +               # Semi-transparent points
+  labs(
+    title = "Group Comparison: Box Plot",
+    subtitle = paste("Mean Difference =",   # Show effect size
+                    round(mean(treatment) - mean(control), 2)),
+    x = "Group",
+    y = "Measurement Value"
+  ) +
+  theme_minimal()
+
+# Display both plots side by side
+grid.arrange(density_plot, box_plot, ncol = 2)
+
+# Check statistical assumptions
+# 1. Normality check using Q-Q plots
+qq_plots <- map(list(Control = control,     # Create Q-Q plot for each group
+                    Treatment = treatment),
+                ~{
+                  ggplot(data.frame(x = .x), 
+                         aes(sample = x)) +
+                    stat_qq() +             # Add Q-Q points
+                    stat_qq_line() +        # Add reference line
+                    labs(title = paste("Q-Q Plot:", 
+                                     deparse(substitute(.x)))) +
+                    theme_minimal()
+                })
+
+# Display Q-Q plots side by side
+grid.arrange(grobs = qq_plots, ncol = 2)
+
+# 2. Variance equality check
+var_test <- var.test(control, treatment)    # Test for equal variances
+
+# Create variance test results table
+tibble(
+  Measure = c("F statistic",               # Key measures for variance test
+              "p-value",
+              "Ratio of variances"),
+  Value = c(
+    round(var_test$statistic, 3),          # F-statistic
+    format.pval(var_test$p.value, 3),      # p-value
+    round(var(treatment)/var(control), 3)   # Actual ratio of variances
+  )
+) %>%
+  knitr::kable(caption = "Variance Test Results")
+
+# 3. Independence check
+independence_plot <- tibble(
+  Order = 1:30,                            # Observation order
+  Control = control,                       # Control group values
+  Treatment = treatment                    # Treatment group values
+) %>%
+  pivot_longer(cols = c(Control, Treatment),
+              names_to = "Group",
+              values_to = "Value") %>%
+  ggplot(aes(x = Order, 
+             y = Value, 
+             color = Group)) +
+  geom_point() +                          # Show individual measurements
+  geom_line(alpha = 0.5) +               # Connect points to show patterns
+  facet_wrap(~Group) +                   # Separate plots by group
+  labs(
+    title = "Independence Check",
+    subtitle = "Looking for patterns in measurement order",
+    x = "Observation Order",
+    y = "Measurement Value"
+  ) +
+  theme_minimal()
+
+# Display independence check plot
+independence_plot
+
+```{r scatter_plot}
+# Analyze relationships in iris dataset
+iris_analysis <- iris %>%
+  # Calculate correlation between sepal and petal length
+  summarise(
+    correlation = cor(Sepal.Length, Petal.Length),  # Pearson correlation
+    p_value = cor.test(Sepal.Length,               # Test significance
+                      Petal.Length)$p.value
+  )
+
+# Create comprehensive scatter plot
+ggplot(iris, 
+       aes(x = Sepal.Length,                       # X-axis variable
+           y = Petal.Length,                       # Y-axis variable
+           color = Species)) +                     # Color by species
+  # Add individual data points
+  geom_point(alpha = 0.7) +                       # Semi-transparent points
+  # Add regression lines for each species
+  geom_smooth(method = "lm",                      # Linear regression
+             se = TRUE,                           # Show confidence interval
+             alpha = 0.2) +                       # Transparent confidence bands
+  # Add informative labels
+  labs(
+    title = "Relationship between Sepal and Petal Length",
+    subtitle = paste("Overall correlation =",      # Show correlation
+                    round(iris_analysis$correlation, 3)),
+    x = "Sepal Length (cm)",
+    y = "Petal Length (cm)"
+  ) +
+  # Add regression equations
+  stat_smooth(method = "lm",                      # Add equation for each species
+             geom = "text",
+             aes(label = paste("R² =", 
+                             round(stat(r.squared), 3))),
+             hjust = 0,
+             vjust = -1) +
+  theme_minimal() +
+  theme(legend.position = "bottom")               # Move legend to bottom
+
+## Practice Exercise Solutions
+
+### Solution 1: Basic Data Exploration
+```{r solution1}
+# Comprehensive summary of mtcars dataset
+car_summary <- mtcars %>%
+  summarise(across(
+    everything(),                                 # Apply to all variables
+    list(
+      mean = ~mean(.x),                          # Calculate mean
+      sd = ~sd(.x),                              # Calculate std deviation
+      min = ~min(.x),                            # Find minimum
+      max = ~max(.x)                             # Find maximum
+    ),
+    .names = "{.col}_{.fn}"                      # Name format: var_stat
+  )) %>%
+  pivot_longer(everything(),                      # Convert to long format
+               names_to = c("variable", "stat"),  # Split names
+               names_sep = "_") %>%
+  pivot_wider(names_from = stat,                 # Reshape for presentation
+              values_from = value)
+
+# Display formatted summary table
+knitr::kable(car_summary,
+             caption = "Summary Statistics for Car Features",
+             digits = 2)                          # Round to 2 decimals
+
+# Create distribution visualization
+ggplot(mtcars, aes(x = wt)) +
+  # Add histogram with density scaling
+  geom_histogram(aes(y = after_stat(density)),    # Modern syntax for density
+                fill = "skyblue",
+                color = "white",
+                bins = 30) +
+  # Add density curve
+  geom_density(color = "red",                     # Add smooth curve
+               linewidth = 1) +
+  # Add mean line
+  geom_vline(aes(xintercept = mean(wt)),         # Show average
+             color = "darkred",
+             linetype = "dashed") +
+  # Add informative labels
+  labs(
+    title = "Distribution of Car Weights",
+    subtitle = paste("Mean =", round(mean(mtcars$wt), 2),
+                    "±", round(sd(mtcars$wt), 2), "thousand lbs"),
+    x = "Weight (thousand lbs)",
+    y = "Density"
+  ) +
+  theme_minimal()
+```
+
+### Solution 2: Group Comparisons
+```{r solution2}
+# Prepare data for analysis
+cylinder_stats <- mtcars %>%
+  group_by(cyl) %>%                              # Group by cylinder count
+  summarise(
+    n = n(),                                     # Count cars per group
+    mean_mpg = mean(mpg),                        # Calculate mean MPG
+    sd_mpg = sd(mpg),                           # Calculate std deviation
+    se_mpg = sd_mpg/sqrt(n)                     # Calculate std error
+  )
+
+# Create comprehensive visualization
+ggplot(mtcars, aes(x = factor(cyl),             # Convert cylinders to factor
+                   y = mpg,
+                   fill = factor(cyl))) +
+  # Add violin plot for distribution shape
+  geom_violin(alpha = 0.3) +                     # Show distribution shape
+  # Add box plot for summary statistics
+  geom_boxplot(width = 0.2,                      # Narrow box width
+               alpha = 0.7) +                     # Semi-transparent
+  # Add individual points
+  geom_jitter(width = 0.1,                       # Minimal horizontal jitter
+              alpha = 0.5) +                     # Semi-transparent points
+  # Add mean ± SE
+  geom_pointrange(data = cylinder_stats,         # Add error bars
+                 aes(y = mean_mpg,
+                     ymin = mean_mpg - se_mpg,
+                     ymax = mean_mpg + se_mpg),
+                 color = "darkred") +
+  # Add informative labels
+  labs(
+    title = "Car Mileage by Number of Cylinders",
+    subtitle = "Showing distribution, box plot, and mean ± SE",
+    x = "Number of Cylinders",
+    y = "Miles Per Gallon",
+    fill = "Cylinders"
+  ) +
+  theme_minimal()
+
+# Perform statistical analysis
+# 1. ANOVA test
+anova_result <- aov(mpg ~ factor(cyl), data = mtcars)
+# 2. Tukey's HSD for pairwise comparisons
+tukey_result <- TukeyHSD(anova_result)
+
+# Display ANOVA results
+knitr::kable(broom::tidy(anova_result),
+             caption = "ANOVA Results",
+             digits = 3)
+
+# Display Tukey results
+knitr::kable(broom::tidy(tukey_result),
+             caption = "Tukey's HSD Pairwise Comparisons",
+             digits = 3)
+```
+
+### Solution 3: Relationship Analysis
+```{r solution3}
+# Perform correlation analysis
+cor_result <- cor.test(mtcars$wt, mtcars$mpg)    # Test correlation
+
+# Create comprehensive scatter plot
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  # Add individual points
+  geom_point(aes(size = disp),                    # Size points by displacement
+             alpha = 0.6) +                       # Semi-transparent
+  # Add regression line with confidence interval
+  geom_smooth(method = "lm",                      # Linear regression
+             color = "red",
+             alpha = 0.2) +                       # Transparent confidence band
+  # Add correlation information
+  annotate("text",
+           x = min(mtcars$wt),                    # Position at left
+           y = max(mtcars$mpg),                   # Position at top
+           label = paste("r =",                    # Show correlation
+                        round(cor_result$estimate, 3),
+                        "\np <", format.pval(cor_result$p.value, 3)),
+           hjust = 0,                             # Left-align text
+           vjust = 1) +                           # Top-align text
+  # Add informative labels
+  labs(
+    title = "Relationship between Weight and Mileage",
+    subtitle = "Point size indicates engine displacement",
+    x = "Weight (thousand lbs)",
+    y = "Miles Per Gallon",
+    size = "Displacement"
+  ) +
+  theme_minimal()
+
+# Create summary statistics table
+model <- lm(mpg ~ wt, data = mtcars)             # Fit linear model
+model_summary <- broom::tidy(model)              # Extract model statistics
+
+# Display regression results
+knitr::kable(model_summary,
+             caption = "Linear Regression Results",
+             digits = 3)
+``` 
